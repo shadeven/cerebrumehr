@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New Employee" action="#{departmentAction.addEmployees}" reRender="employees, editDepartmentComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editEmployees')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="employees" var="_employee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editEmployees')}" value="#{departmentAction.listEmployees}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeFacility == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{_employee.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}" disabled="false"> 
+          <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editPrimaryPhone')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_contactDetails_primaryPhoneDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editPrimaryPhone')}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{_employee.contactDetails.primaryPhone}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editSecondaryPhone')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_contactDetails_secondaryPhoneDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editSecondaryPhone')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{_employee.contactDetails.secondaryPhone}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmail')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_contactDetails_emailDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmail')}" label="#{msg.contactDetails_email}" required="false" disabled="false" value="#{_employee.contactDetails.email}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_appUser_userNameDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{_employee.appUser.userName}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.appUser_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editPassword')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_appUser_passwordDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputSecret escape="false" redisplay="true" id="#{prefix}_appUser_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editPassword')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{_employee.appUser.password}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputSecret> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEnabled')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_appUser_enabledDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="#{prefix}_appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{_employee.appUser.enabled}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFirstName')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{_employee.firstName}"> 
+          <p:ajaxValidator event="onsubmit"/>  
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editLastName')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{_employee.lastName}"> 
+          <p:ajaxValidator event="onsubmit"/>  
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDateOfBirth')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_dateOfBirthDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:calendar escape="false" direction="auto" id="#{prefix}_dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDateOfBirth')}" label="#{msg.person_dateOfBirth}" required="false" disabled="false" value="#{_employee.dateOfBirth}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:calendar> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editGender')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_genderDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editGender')}" value="#{_employee.gender}" required="false" label="#{msg.person_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editTitle')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_titleDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editTitle')}" value="#{_employee.title}" required="false" label="#{msg.person_title}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mr" itemLabel="#{msg.Mr}"/>  
+          <f:selectItem itemValue="Mrs" itemLabel="#{msg.Mrs}"/>  
+          <f:selectItem itemValue="Ms" itemLabel="#{msg.Ms}"/>  
+          <f:selectItem itemValue="Dr" itemLabel="#{msg.Dr}"/>  
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New Employee" action="#{departmentAction.addEmployees}" reRender="employees, editDepartmentComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmployees')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{departmentAction.deleteEmployees(rowIndex)}" reRender="employees"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

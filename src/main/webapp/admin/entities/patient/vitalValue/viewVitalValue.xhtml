@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_VitalValue) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabView dynamic="true" cache="true"> 
+        <p:tab title="VitalValue"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/patient/vitalValue/viewVitalValueComponent.xhtml"> 
+              <ui:param name="vitalValue" value="#{vitalValueAction.instance}"/> 
+            </ui:include> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('vitalValue', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{vitalValueAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="TrackedVital" rendered="#{vitalValueAction.instance.trackedVital != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/trackedVital/viewTrackedVitalComponent.xhtml"> 
+              <ui:param name="trackedVital" value="#{vitalValueAction.instance.trackedVital}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Patient" rendered="#{vitalValueAction.instance.patient != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{vitalValueAction.instance.patient}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"></p:tabView>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{vitalValueAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

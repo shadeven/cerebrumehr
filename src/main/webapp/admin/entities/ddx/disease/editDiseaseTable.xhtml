@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New DifferentialDiagnose" action="#{diseaseAction.addDifferentialDiagnoses}" reRender="differentialDiagnoses, editDiseaseComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editDifferentialDiagnoses')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="differentialDiagnoses" var="_disease" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editDifferentialDiagnoses')}" value="#{diseaseAction.listDifferentialDiagnoses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_conditionCategoryIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeConditionCategory == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_conditionCategoryId" label="#{msg.disease_conditionCategory}" value="#{_disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false"> 
+          <s:selectItems value="#{conditionCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_genderDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}" value="#{_disease.gender}" required="false" label="#{msg.disease_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}" label="#{msg.disease_name}" required="true" disabled="false" value="#{_disease.name}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New DifferentialDiagnose" action="#{diseaseAction.addDifferentialDiagnoses}" reRender="differentialDiagnoses, editDiseaseComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editDifferentialDiagnoses')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{diseaseAction.deleteDifferentialDiagnoses(rowIndex)}" reRender="differentialDiagnoses"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

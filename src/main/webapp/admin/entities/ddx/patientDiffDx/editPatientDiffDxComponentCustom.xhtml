@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<h:panelGroup id="editPatientDiffDxComponentPanel">
+		<s:validateAll>
+			<h:panelGrid columns="1"
+				onload="#{patientDiffDxAction.load(patientDiffDxId )  }" />
+			<c:if test="${numColumns == null }">
+				<c:set var="numColumns" value="2" />
+			</c:if>
+			<h:panelGrid columns="${numColumns}" styleClass="editInfo"
+				columnClasses="leftCol, rightCol"
+				rendered="#{ hidePanelPatientDiffDx eq null}">
+				<f:facet name="header">
+					<h:outputText value="#{msg.PatientDiffDx}" />
+				</f:facet>
+				<s:decorate id="notesDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.patientDiffDx_notes}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}" />
+					</ui:define>
+					<p:editor useSeamText="true" id="notes#{entityId}"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}"
+						label="#{msg.patientDiffDx_notes}" required="false"
+						disabled="false"
+						value="#{patientDiffDxAction.patientDiffDx.notes}">
+						<p:ajaxValidator event="onsubmit" />
+					</p:editor>
+				</s:decorate>
+				<s:decorate id="patientDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.patientDiffDx_patient}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}" />
+					</ui:define>
+					<h:selectOneMenu id="patient" label="#{msg.patientDiffDx_patient}"
+						value="#{patientDiffDxAction.patientDiffDx.patient}"
+						required="true"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"
+						disabled="false">
+						<s:selectItems value="#{patientList}" var="itemIter"
+							label="#{itemIter.displayName}"
+							noSelectionLabel="Please Select..." />
+						<p:ajaxValidator event="onsubmit" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+			</h:panelGrid>
+			<br />
+			<a:commandButton value="New PatientFinding"
+				action="#{patientDiffDxAction.addPatientFindings}"
+				reRender="patientFindings"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}">
+				<s:conversationId />
+			</a:commandButton>
+			<p:dataTable id="patientFindings" var="_patientFinding"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}"
+				value="#{patientDiffDxAction.listPatientFindings}"
+				rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo"
+				rules="all">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.patientFinding_finding}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}" />
+					</f:facet>
+					<s:decorate id="findingDecorate" template="/layout/edit.xhtml">
+						<ui:define name="label"></ui:define>
+						<h:panelGroup>
+							<a:region>
+								<h:inputText value="#{_patientFinding.finding.displayName}"
+									label="#{msg.patientFinding_finding}" id="finding"
+									required="true" />
+								<p:suggestionbox for="finding" rules="all"
+									suggestionAction="#{findingList.autocompletedb}"
+									ajaxSingle="true" var="_result"
+									fetchValue="#{_result.displayName}" minChars="2"
+									nothingLabel="No Results found" zindex="99999">
+									<h:column>
+										<h:outputText value="#{_result.name}" />
+									</h:column>
+									<p:ajax event="onselect" reRender="diff">
+										<f:setPropertyActionListener value="#{_result}"
+											target="#{_patientFinding.finding}" />
+										<f:setPropertyActionListener value="#{_result}"
+											target="#{patientDiffDxAction.newFinding}" />
+									</p:ajax>
+								</p:suggestionbox>
+							</a:region>
+						</h:panelGroup>
+					</s:decorate>
+				</h:column>
+				<h:column>
+					<a:commandButton value="New PatientFinding"
+						action="#{patientDiffDxAction.addPatientFindings}"
+						reRender="patientFindings"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientFindings')}">
+						<s:conversationId />
+					</a:commandButton>
+				</h:column>
+				<h:column>
+					<h:commandButton value="Delete" immediate="true"
+						action="#{patientDiffDxAction.deletePatientFindings(rowIndex)}"
+						reRender="patientFindings">
+						<s:conversationId />
+					</h:commandButton>
+				</h:column>
+			</p:dataTable>
+
+			<br/>
+			
+			<p:dataTable id="diff" var="_diff"
+				value="#{patientDiffDxAction.differentials}" rowKeyVar="rowIndex"
+				rowClasses="odd, even" styleClass="viewInfo" rules="all">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Differential Dx" />
+					</f:facet>
+					#{_diff}
+				</h:column>
+			</p:dataTable>
+			<br />
+		</s:validateAll>
+	</h:panelGroup>
+</ui:composition>

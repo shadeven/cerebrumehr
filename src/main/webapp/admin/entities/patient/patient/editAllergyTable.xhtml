@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New Allergy" action="#{patientAction.addAllergys}" reRender="allergys, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editAllergys')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="allergys" var="_allergy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editAllergys')}" value="#{patientAction.listAllergys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_allergenIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeAllergen == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_allergenId" label="#{msg.allergy_allergen}" value="#{_allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}" disabled="false"> 
+          <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_severityDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}" value="#{_allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/>  
+          <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
+          <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/>  
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New Allergy" action="#{patientAction.addAllergys}" reRender="allergys, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergys')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deleteAllergys(rowIndex)}" reRender="allergys"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

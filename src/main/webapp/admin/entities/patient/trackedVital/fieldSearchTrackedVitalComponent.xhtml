@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{trackedVitalList.trackedVital.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinVal')}"/>  
+      <br/>  
+      <h:inputText id="minVal_begin" value="#{trackedVitalList.minValRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="minVal_end" value="#{trackedVitalList.minValRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxVal')}"/>  
+      <br/>  
+      <h:inputText id="maxVal_begin" value="#{trackedVitalList.maxValRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="maxVal_end" value="#{trackedVitalList.maxValRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{trackedVitalList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{trackedVitalList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

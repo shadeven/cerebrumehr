@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.settingName_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'editName')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{settingNameList.settingName.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.settingName_settingGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'editSettingGroup')}"/>  
+      <br/>  
+      <p:selectOneMenu id="settingGroupId" converter="#{settingGroupList.converter}" value="#{ settingNameList.settingName.settingGroup}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{settingGroupList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.settingName_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'editDefaultValue')}"/>  
+      <br/>  
+      <h:inputText id="defaultValue" value="#{settingNameList.settingName.defaultValue}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{settingNameList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{settingNameList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

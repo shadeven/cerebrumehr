@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAdmissionComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Admission}"/> 
+      </f:facet>  
+      <s:decorate id="admissionNoteDecorate" rendered="#{ ! excludeAdmissionNote == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="dischargeNoteDecorate" rendered="#{ ! excludeDischargeNote == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="dischargeCodeDecorate" rendered="#{ ! excludeDischargeCode == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>
+        </ui:define>  
+        <h:selectOneMenu id="dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}" value="#{admissionAction.admission.dischargeCode}" required="false" label="#{msg.admission_dischargeCode}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="REGULAR" itemLabel="#{msg.REGULAR}"/>  
+          <f:selectItem itemValue="DECEASED" itemLabel="#{msg.DECEASED}"/>  
+          <f:selectItem itemValue="REFERRED" itemLabel="#{msg.REFERRED}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="isCurrentDecorate" rendered="#{ ! excludeIsCurrent == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_isCurrent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editIsCurrent')}"/>
+        </ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="isCurrent#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editIsCurrent')}" label="#{msg.admission_isCurrent}" required="false" disabled="false" value="#{admissionAction.admission.isCurrent}"></h:selectBooleanCheckbox> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>
+        </ui:define>  
+        <h:panelGroup> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{patientList.autocomplete}" value="#{admissionAction.admission.patient}" converter="#{patientList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+            <p:column> 
+              <h:outputText value="#{record.firstName}"/> 
+            </p:column>  
+            <p:column> 
+              <h:outputText value="#{record.lastName}"/> 
+            </p:column>  
+            <p:column> 
+              <h:outputText value="#{record.address.phone}"/> 
+            </p:column> 
+          </p:autoComplete> 
+        </h:panelGroup> 
+      </s:decorate>  
+      <s:decorate id="invoiceIdDecorate" rendered="#{ ! excludeInvoice == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editInvoice')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="invoiceId" label="#{msg.admission_invoice}" value="#{admissionAction.admission.invoice}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editInvoice')}" disabled="false" converter="#{invoiceList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{invoiceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeBedStays == true}"> 
+      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowIndexVar="rowIndex"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
+          </f:facet>  
+          <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>
+          </f:facet>  
+          <s:decorate id="fromDateDecorate" rendered="#{ ! excludeFromDate == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:calendar escape="false" navigator="true" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{_bedStay.fromDate}"></p:calendar> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>
+          </f:facet>  
+          <s:decorate id="toDateDecorate" rendered="#{ ! excludeToDate == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:calendar escape="false" navigator="true" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{_bedStay.toDate}"></p:calendar> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="Delete" immediate="true" action="#{admissionAction.deleteBedStays(rowIndex)}" update="bedStays" process="@this"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

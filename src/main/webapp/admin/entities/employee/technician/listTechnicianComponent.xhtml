@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="TechnicianModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Technician Search Results (#{empty records ? 0 : (technicianList.paginated ? technicianList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/employee/technician/modalDlgTechnicianComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="technicianForm"> 
+      <p:dataTable var="_technician" value="#{records}" id="technicianList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{technicianAction.technician}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editTechnicianPanel')}" oncomplete="PF('editTechnicianDialog').show()" listener="#{technicianAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="technician.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/employee/technician/technicianActionTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'view')}" propagation="none"> 
+            <h:outputText value="#{_technician.id}"/>  
+            <f:param name="technicianId" value="#{_technician.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="technician.employeeNumber" rendered="#{ ! excludeEmployeeNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmployeeNumber')) }"> 
+          <h:outputText value="#{_technician.employeeNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_userName}" sortBy="technician.appUser.userName" rendered="#{ ! excludeUserName == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewUserName')) }"> 
+          <h:outputText value="#{_technician.appUser.userName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="technician.appUser.enabled" rendered="#{ ! excludeEnabled == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEnabled')) }"> 
+          <h:outputText value="#{_technician.appUser.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_facility}" sortBy="technician.facility" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFacility')) }"> 
+          <h:panelGroup> 
+            <h:link id="facilityemployee_facility" escape="false" value="#{_technician.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+              <f:param name="facilityId" value="#{_technician.facility.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+                  <ui:param name="facility" value="#{_technician.facility}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="facility"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_department}" sortBy="technician.department" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDepartment')) }"> 
+          <h:panelGroup> 
+            <h:link id="departmentemployee_department" escape="false" value="#{_technician.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+              <f:param name="departmentId" value="#{_technician.department.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+                  <ui:param name="department" value="#{_technician.department}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="departmentEmployees"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="technician.firstName" rendered="#{ ! excludeFirstName == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFirstName')) }"> 
+          <h:outputText value="#{_technician.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="technician.lastName" rendered="#{ ! excludeLastName == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewLastName')) }"> 
+          <h:outputText value="#{_technician.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="technician.dateOfBirth" rendered="#{ ! excludeDateOfBirth == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDateOfBirth')) }"> 
+          <h:outputText value="#{_technician.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="technician.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewGender')) }"> 
+          <h:outputText value="#{_technician.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="technician.contactDetails.primaryPhone" rendered="#{ ! excludePrimaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewPrimaryPhone')) }"> 
+          <h:outputText value="#{_technician.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="technician.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewSecondaryPhone')) }"> 
+          <h:outputText value="#{_technician.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="technician.contactDetails.email" rendered="#{ ! excludeEmail == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmail')) }"> 
+          <h:outputText value="#{_technician.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="technician.age" rendered="#{ ! excludeAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewAge')) }"> 
+          <h:outputText value="#{_technician.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="technician.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewTitle')) }"> 
+          <h:outputText value="#{_technician.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="technician.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_technician.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_technician', 'view') and !_technicianCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/technician/viewTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="technicianId" value="#{_technician.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_technician', 'edit') and !_technicianCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/technician/editTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="technicianId" value="#{_technician.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('technicianAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_technician.archived}" action="#{technicianAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_technician.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_technician.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_technician.archived}" action="#{technicianAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_technician.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_technician.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_technician.archived}" action="#{technicianAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_technician.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_prescription_PrescriptionItem) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabView dynamic="true" cache="true"> 
+        <p:tab title="PrescriptionItem"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/prescription/prescriptionItem/viewPrescriptionItemComponent.xhtml"> 
+              <ui:param name="prescriptionItem" value="#{prescriptionItemAction.instance}"/> 
+            </ui:include> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('prescriptionItem', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{prescriptionItemAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Drug" rendered="#{prescriptionItemAction.instance.drug != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
+              <ui:param name="drug" value="#{prescriptionItemAction.instance.drug}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Prescription" rendered="#{prescriptionItemAction.instance.prescription != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
+              <ui:param name="prescription" value="#{prescriptionItemAction.instance.prescription}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Frequency" rendered="#{prescriptionItemAction.instance.frequency != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
+              <ui:param name="frequency" value="#{prescriptionItemAction.instance.frequency}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"></p:tabView>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{prescriptionItemAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_Patient) ENABLED START-->  
+      <h:commandLink value="View File" action="/admin/entities/patient/patient/viewPatientFile.xhtml"> 
+        <ui:param name="patientId" value="#{patientAction.instance.id}"/>  
+        <s:conversationId/> 
+      </h:commandLink>  
+      <ui:repeat value="#{encounterList.getEncountersByPatient(patientAction.instance)}" var="enc">NOTE - #{enc.patientNote}</ui:repeat>  
+      <!--PROTECTED REGION END-->  
+      <p:tabView dynamic="true" cache="true"> 
+        <p:tab title="Patient"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{patientAction.instance}"/> 
+            </ui:include> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('patient', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{patientAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Bed" rendered="#{patientAction.instance.bed != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+              <ui:param name="bed" value="#{patientAction.instance.bed}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Admissions" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-admissions"/>  
+        <ui:include src="/admin/entities/admission/admission/listAdmissionComponent.xhtml"> 
+          <ui:param name="records" value="#{admissionList.getAdmissionsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/admission/admission/editAdmission.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="admissionId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editAdmissionPanel')}" oncomplete="PF('editAdmissionDialog').show()" actionListener="#{admissionAction.setAdmissionId(0)}"> 
+            <f:setPropertyActionListener target="#{admissionAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="Prescriptions" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-prescriptions"/>  
+        <ui:include src="/admin/entities/prescription/prescription/listPrescriptionComponent.xhtml"> 
+          <ui:param name="records" value="#{prescriptionList.getPrescriptionsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/prescription/prescription/editPrescription.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="prescriptionId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="PF('editPrescriptionDialog').show()" actionListener="#{prescriptionAction.setPrescriptionId(0)}"> 
+            <f:setPropertyActionListener target="#{prescriptionAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="UnusualOccurences" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-unusualOccurences"/>  
+        <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/listUnusualOccurenceComponent.xhtml"> 
+          <ui:param name="records" value="#{unusualOccurenceList.getUnusualOccurencesByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="unusualOccurenceId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="PF('editUnusualOccurenceDialog').show()" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}"> 
+            <f:setPropertyActionListener target="#{unusualOccurenceAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="PatientDocuments" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-patientDocuments"/>  
+        <ui:include src="/admin/entities/patient/patientDocument/listPatientDocumentComponent.xhtml"> 
+          <ui:param name="records" value="#{patientDocumentList.getPatientDocumentsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/patientDocument/editPatientDocument.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="patientDocumentId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="PF('editPatientDocumentDialog').show()" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}"> 
+            <f:setPropertyActionListener target="#{patientDocumentAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="Allergys" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-allergys"/>  
+        <ui:include src="/admin/entities/patient/allergy/listAllergyComponent.xhtml"> 
+          <ui:param name="records" value="#{allergyList.getAllergysByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/allergy/editAllergy.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="allergyId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="PF('editAllergyDialog').show()" actionListener="#{allergyAction.setAllergyId(0)}"> 
+            <f:setPropertyActionListener target="#{allergyAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="Immunizations" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-immunizations"/>  
+        <ui:include src="/admin/entities/patient/immunization/listImmunizationComponent.xhtml"> 
+          <ui:param name="records" value="#{immunizationList.getImmunizationsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/immunization/editImmunization.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="immunizationId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editImmunizationPanel')}" oncomplete="PF('editImmunizationDialog').show()" actionListener="#{immunizationAction.setImmunizationId(0)}"> 
+            <f:setPropertyActionListener target="#{immunizationAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="VitalValues" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-vitalValues"/>  
+        <ui:include src="/admin/entities/patient/vitalValue/listVitalValueComponent.xhtml"> 
+          <ui:param name="records" value="#{vitalValueList.getVitalValuesByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/vitalValue/editVitalValue.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="vitalValueId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="PF('editVitalValueDialog').show()" actionListener="#{vitalValueAction.setVitalValueId(0)}"> 
+            <f:setPropertyActionListener target="#{vitalValueAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="Encounters" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-encounters"/>  
+        <ui:include src="/admin/entities/encounter/encounter/listEncounterComponent.xhtml"> 
+          <ui:param name="records" value="#{encounterList.getEncountersByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/encounter/encounter/editEncounter.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="encounterId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" oncomplete="PF('editEncounterDialog').show()" actionListener="#{encounterAction.setEncounterId(0)}"> 
+            <f:setPropertyActionListener target="#{encounterAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="AppliedCharts" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-appliedCharts"/>  
+        <ui:include src="/admin/entities/charts/appliedChart/listAppliedChartComponent.xhtml"> 
+          <ui:param name="records" value="#{appliedChartList.getAppliedChartsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="appliedChartId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" oncomplete="PF('editAppliedChartDialog').show()" actionListener="#{appliedChartAction.setAppliedChartId(0)}"> 
+            <f:setPropertyActionListener target="#{appliedChartAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="ChartProcedures" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-chartProcedures"/>  
+        <ui:include src="/admin/entities/charts/chartProcedure/listChartProcedureComponent.xhtml"> 
+          <ui:param name="records" value="#{chartProcedureList.getChartProceduresByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludePatient" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <p:commandButton value="Create New" action="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="chartProcedureId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" oncomplete="PF('editChartProcedureDialog').show()" actionListener="#{chartProcedureAction.setChartProcedureId(0)}"> 
+            <f:setPropertyActionListener target="#{chartProcedureAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab> 
+    </p:tabView>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{patientAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

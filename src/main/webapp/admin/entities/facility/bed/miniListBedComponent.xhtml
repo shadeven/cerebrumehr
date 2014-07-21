@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_bed" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="bed.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/facility/bed/bedActionBed.xhtml" rendered="#{s:hasPermission(_bed, 'view')}" propagation="none"> 
+        <h:outputText value="#{_bed.id}"/>  
+        <f:param name="bedId" value="#{_bed.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.bed_room}" sortBy="bed.room" rendered="#{ ! excludeRoom == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')) }"> 
+      <h:panelGroup> 
+        <h:link id="roombed_room" escape="false" value="#{_bed.room.displayName}" outcome="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
+          <f:param name="roomId" value="#{_bed.room.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="roombed_room" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"> 
+              <ui:param name="room" value="#{_bed.room}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="roomBeds"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.bed_name}" sortBy="bed.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')) }"> 
+      <h:outputText value="#{_bed.name}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.bed_patient}" sortBy="bed.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientbed_patient" escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_bed.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientbed_patient"> 
+          <span>#{_bed.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

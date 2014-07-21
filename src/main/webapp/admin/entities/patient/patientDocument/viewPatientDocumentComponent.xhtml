@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewPatientDocumentPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PatientDocument}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')}"/>  
+      <h:outputText value="#{patientDocument.name}" escape="false"/>  
+      <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewFile')}"/>  
+      <s:graphicImage rendered="#{patientDocument.file ne null and  patientDocument.file.contentType.startsWith('image')}" value="#{patientDocument.file.data}"> 
+        <s:transformImageSize height="100" maintainRatio="true"/> 
+      </s:graphicImage>  
+      <h:link value="#{patientDocument.file.name}" action="#{patientDocumentAction.downloadFile(patientDocument.id)}" propagation="none" rendered="#{not patientDocument.file.contentType.startsWith('image')}"> 
+        <f:param name="currentEnt ityId" value="#{patientDocument.id}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')}"/>  
+      <h:outputText value="#{patientDocument.notes}" escape="false"/>  
+      <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')}"/>  
+      <h:panelGroup> 
+        <h:link id="patientpatientDocument_patient" escape="false" value="#{patientDocument.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{patientDocument.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientpatientDocument_patient"> 
+          <span>#{patientDocument.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

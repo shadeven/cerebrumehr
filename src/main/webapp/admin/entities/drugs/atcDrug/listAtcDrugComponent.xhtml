@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AtcDrugModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="AtcDrug Search Results (#{empty records ? 0 : (atcDrugList.paginated ? atcDrugList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/drugs/atcDrug/modalDlgAtcDrugComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="atcDrugForm"> 
+      <p:dataTable var="_atcDrug" value="#{records}" id="atcDrugList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{atcDrugAction.atcDrug}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editAtcDrugPanel')}" oncomplete="PF('editAtcDrugDialog').show()" listener="#{atcDrugAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="atcDrug.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/drugs/atcDrug/atcDrugActionAtcDrug.xhtml" rendered="#{s:hasPermission(_atcDrug, 'view')}" propagation="none"> 
+            <h:outputText value="#{_atcDrug.id}"/>  
+            <f:param name="atcDrugId" value="#{_atcDrug.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/drugs/atcDrug/miniListAtcDrugComponent.xhtml"> 
+            <ui:param name="records" value="#{_atcDrug.listSubcategories}"/>  
+            <ui:param name="excludeParent" value="true"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.atcDrug_code}" sortBy="atcDrug.code" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')) }"> 
+          <h:outputText value="#{_atcDrug.code}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.atcDrug_name}" sortBy="atcDrug.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')) }"> 
+          <h:outputText value="#{_atcDrug.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.atcDrug_drug}" sortBy="atcDrug.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')) }"> 
+          <h:panelGroup> 
+            <h:link id="drugatcDrug_drug" escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+              <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugatcDrug_drug"> 
+              <span>#{_atcDrug.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.atcDrug_parent}" sortBy="atcDrug.parent" rendered="#{ ! excludeParent == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')) }"> 
+          <h:panelGroup> 
+            <h:link id="parentatcDrug_parent" escape="false" value="#{_atcDrug.parent.displayName}" outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+              <f:param name="atcDrugId" value="#{_atcDrug.parent.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="parentatcDrug_parent" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
+                  <ui:param name="atcDrug" value="#{_atcDrug.parent}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="parentSubcategories"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="atcDrug.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_atcDrug.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_atcDrug', 'view') and !_atcDrugCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" rendered="#{s:hasPermission(_atcDrug, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="atcDrugId" value="#{_atcDrug.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_atcDrug', 'edit') and !_atcDrugCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" rendered="#{s:hasPermission(_atcDrug, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="atcDrugId" value="#{_atcDrug.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('atcDrugAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_atcDrug.archived}" action="#{atcDrugAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_atcDrug.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_atcDrug.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_atcDrug.archived}" action="#{atcDrugAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_atcDrug.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_atcDrug.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_atcDrug.archived}" action="#{atcDrugAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_atcDrug.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewChartPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Chart}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')}"/>  
+      <h:outputText value="#{chart.name}" escape="false"/>  
+      <h:outputText value="#{msg.chart_chronicCondition}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChronicCondition')}"/>  
+      <h:panelGroup> 
+        <h:link id="chronicConditionchart_chronicCondition" escape="false" value="#{chart.chronicCondition.displayName}" outcome="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml" propagation="none"> 
+          <f:param name="chronicConditionId" value="#{chart.chronicCondition.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chronicConditionchart_chronicCondition" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/chronicCondition/viewChronicConditionComponent.xhtml"> 
+              <ui:param name="chronicCondition" value="#{chart.chronicCondition}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chronicConditionCharts"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeChartItems == true}"> 
+      <p:dataTable id="chartItems" var="_chartItem" rendered="#{ chartAction.listChartItems.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChartItems') }" value="#{chartAction.listChartItems}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_chartItem.name}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_chartItem.duration}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

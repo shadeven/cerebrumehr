@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AppliedChartModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="AppliedChart Search Results (#{empty records ? 0 : (appliedChartList.paginated ? appliedChartList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="appliedChartForm"> 
+      <p:dataTable var="_appliedChart" value="#{records}" id="appliedChartList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appliedChartAction.appliedChart}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editAppliedChartPanel')}" oncomplete="PF('editAppliedChartDialog').show()" listener="#{appliedChartAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="appliedChart.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/charts/appliedChart/appliedChartActionAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'view')}" propagation="none"> 
+            <h:outputText value="#{_appliedChart.id}"/>  
+            <f:param name="appliedChartId" value="#{_appliedChart.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.appliedChart_patient}" sortBy="appliedChart.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewPatient')) }"> 
+          <h:panelGroup> 
+            <h:link id="patientappliedChart_patient" escape="false" value="#{_appliedChart.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_appliedChart.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="patientappliedChart_patient"> 
+              <span>#{_appliedChart.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.appliedChart_chart}" sortBy="appliedChart.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewChart')) }"> 
+          <h:panelGroup> 
+            <h:link id="chartappliedChart_chart" escape="false" value="#{_appliedChart.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+              <f:param name="chartId" value="#{_appliedChart.chart.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="chartappliedChart_chart" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
+                  <ui:param name="chart" value="#{_appliedChart.chart}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="chart"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="appliedChart.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_appliedChart.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_appliedChart', 'view') and !_appliedChartCategory.archived}"> 
+          <h:link outcome="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="appliedChartId" value="#{_appliedChart.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_appliedChart', 'edit') and !_appliedChartCategory.archived}"> 
+          <h:link outcome="/admin/entities/charts/appliedChart/editAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="appliedChartId" value="#{_appliedChart.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('appliedChartAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_appliedChart.archived}" action="#{appliedChartAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_appliedChart.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_appliedChart.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_appliedChart.archived}" action="#{appliedChartAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_appliedChart.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_appliedChart.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_appliedChart.archived}" action="#{appliedChartAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_appliedChart.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

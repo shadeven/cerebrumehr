@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AllergenModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Allergen Search Results (#{empty records ? 0 : (allergenList.paginated ? allergenList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/patient/allergen/modalDlgAllergenComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="allergenForm"> 
+      <p:dataTable var="_allergen" value="#{records}" id="allergenList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{allergenAction.allergen}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editAllergenPanel')}" oncomplete="editAllergenDialog.show()" listener="#{allergenAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="allergen.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/patient/allergen/allergenActionAllergen.xhtml" rendered="#{s:hasPermission(_allergen, 'view')}" propagation="none"> 
+            <h:outputText value="#{_allergen.id}"/>  
+            <f:param name="allergenId" value="#{_allergen.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.allergen_name}" sortBy="allergen.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergen', 'viewName')) }"> 
+          <h:outputText value="#{_allergen.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="allergen.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_allergen.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_allergen', 'view') and !_allergenCategory.archived}"> 
+          <h:link outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" rendered="#{s:hasPermission(_allergen, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="allergenId" value="#{_allergen.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_allergen', 'edit') and !_allergenCategory.archived}"> 
+          <h:link outcome="/admin/entities/patient/allergen/editAllergen.xhtml" rendered="#{s:hasPermission(_allergen, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="allergenId" value="#{_allergen.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('allergenAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_allergen.archived}" action="#{allergenAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_allergen.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_allergen.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_allergen.archived}" action="#{allergenAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_allergen.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_allergen.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_allergen.archived}" action="#{allergenAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_allergen.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

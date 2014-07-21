@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<h:panelGroup id="editEncounterComponentPanel">
+		<h:panelGrid columns="1" />
+		<c:if test="${numColumns == null }">
+			<c:set var="numColumns" value="2" />
+		</c:if>
+		<h:panelGrid columns="1" styleClass="editInfo"
+			columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="#{msg.Encounter}" />
+			</f:facet>
+
+			<p:autoComplete minQueryLength="2"
+				completeMethod="#{simpleCodeList.searchDataBaseForAutocomplete}"
+				value="#{encounterAction.listSimpleCodes}"
+				converter="#{simpleCodeList.converter}" var="record"
+				itemLabel="#{record.displayName}" itemValue="#{record}"
+				multiple="true">
+				<p:column>#{record.displayName}</p:column>
+			</p:autoComplete>
+
+			<s:decorate id="patientNoteDecorate"
+				rendered="#{ ! excludePatientNote == true}"
+				template="/layout/edit.xhtml">
+				<ui:define name="label">
+					<h:outputText value="#{msg.encounter_patientNote}  "
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}" />
+				</ui:define>
+				<p:editor escape="false" useSeamText="true"
+					id="patientNote#{entityId}"
+					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}"
+					label="#{msg.encounter_patientNote}" required="false"
+					disabled="false" value="#{encounterAction.encounter.patientNote}"></p:editor>
+			</s:decorate>
+
+			<p:panel>
+				<ui:include
+					src="/admin/entities/encounter/encounter/editVitalsComponent.xhtml">
+				</ui:include>
+			</p:panel>
+
+			<p:panel label="Prescription ">
+				<ui:include
+					src="/admin/entities/prescription/prescription/editPrescriptionComponentCustom.xhtml">
+					<ui:param name="excludePatient" value="true" />
+				</ui:include>
+			</p:panel>
+
+		</h:panelGrid>
+
+		<br />
+		<p:panel rendered="#{ ! excludePrescribedTests == true}">
+			<p:commandButton value="New PrescribedTest"
+				action="#{encounterAction.addPrescribedTests}"
+				update="prescribedTests, :#{p:component('editEncounterComponentPanel')}"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}">
+				<s:conversationId />
+			</p:commandButton>
+			<p:dataTable id="prescribedTests" var="_prescribedTest"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"
+				value="#{encounterAction.listPrescribedTests}"
+				rowIndexVar="rowIndex">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.prescribedTest_dxTest}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" />
+					</f:facet>
+					<s:decorate id="dxTestIdDecorate"
+						rendered="#{ ! excludeDxTest == true}"
+						template="/layout/editTableField.xhtml">
+						<ui:define name="label"></ui:define>
+						<p:selectOneMenu id="dxTestId"
+							label="#{msg.prescribedTest_dxTest}"
+							value="#{_prescribedTest.dxTest}" required="true"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"
+							disabled="false" converter="#{dxTestList.converter}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{dxTestList.all}" var="itemIter"
+								itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
+						</p:selectOneMenu>
+					</s:decorate>
+				</p:column>
+			
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.prescribedTest_remarks}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}" />
+					</f:facet>
+					<s:decorate id="remarksDecorate" 
+						rendered="#{ ! excludeRemarks == true}"
+						template="/layout/editTableField.xhtml">
+						<ui:define name="label"></ui:define>
+						<h:inputText escape="false" id="remarks#{entityId}"  size="60" 
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"
+							label="#{msg.prescribedTest_remarks}" required="false"
+							disabled="false" value="#{_prescribedTest.remarks}"></h:inputText>
+					</s:decorate>
+				</p:column>
+				<p:column>
+					<p:commandButton value="New"
+						action="#{encounterAction.addPrescribedTests}"
+						update="prescribedTests, :#{p:component('editEncounterComponentPanel')}"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}">
+						<s:conversationId />
+					</p:commandButton>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Delete" immediate="true"
+						action="#{encounterAction.deletePrescribedTests(rowIndex)}"
+						update="prescribedTests" process="@this">
+						<s:conversationId />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	
+		<br />
+		<br />
+
+	</h:panelGroup>
+</ui:composition>

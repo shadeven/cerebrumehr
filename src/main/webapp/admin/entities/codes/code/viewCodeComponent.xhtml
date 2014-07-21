@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewCodePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Code}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewName')}"/>  
+      <h:outputText value="#{code.name}" escape="false"/>  
+      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewDescription')}"/>  
+      <h:outputText value="#{code.description}" escape="false"/>  
+      <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewIncludes')}"/>  
+      <h:outputText value="#{code.includes}" escape="false"/>  
+      <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotIncludedHere')}"/>  
+      <h:outputText value="#{code.notIncludedHere}" escape="false"/>  
+      <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeFirst')}"/>  
+      <h:outputText value="#{code.codeFirst}" escape="false"/>  
+      <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotCodedHere')}"/>  
+      <h:outputText value="#{code.notCodedHere}" escape="false"/>  
+      <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeAlso')}"/>  
+      <h:outputText value="#{code.codeAlso}" escape="false"/>  
+      <h:outputText value="#{msg.code_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewSection')}"/>  
+      <h:panelGroup> 
+        <h:link id="sectioncode_section" escape="false" value="#{code.section.displayName}" outcome="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
+          <f:param name="sectionId" value="#{code.section.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="sectioncode_section" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/codes/section/viewSectionComponent.xhtml"> 
+              <ui:param name="section" value="#{code.section}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="sectionCodes"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

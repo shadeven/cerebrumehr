@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<h:form>
+		<p:menubar>
+			<p:menuitem outcome="/admin/entities/summary.xhtml" value="Entities"
+				icon="ui-icon-contact" />
+			<p:menuitem outcome="/admin/reports/reports.xhtml" value="Reports" />
+			<p:menuitem
+				outcome="/admin/entities/patient/patient/listPatient.xhtml"
+				value="Patients" />
+			<p:menuitem
+				action="/admin/entities/appointment/appointment/createAppt.xhtml"
+				value="Appointments">
+				<s:conversationPropagation type="join" />
+			</p:menuitem>
+			
+			<p:menuitem
+					action="/admin/entities/patient/admission/editAdmission.xhtml"
+					value="Admissions">
+					<s:conversationPropagation type="join" />
+				</p:menuitem>
+			
+			<p:menuitem
+					action="/admin/entities/encounter/encounter/editEncounter.xhtml"
+					value="Encounter">
+					<s:conversationPropagation type="join" />
+			</p:menuitem>
+			
+			<f:facet name="options">
+				<ui:include
+					src="/admin/entities/patient/patient/freeTypeSearchPatientComponentCustom.xhtml" />
+
+				<s:button  action="#{identity.logout}" view="/login.xhtml"
+					value="Logout #{identity.credentials.username}" icon="ui-icon-extlink" />
+
+			</f:facet>
+		</p:menubar>
+
+		
+
+	</h:form>
+
+</ui:composition>

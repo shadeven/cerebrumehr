@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="SettingModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Setting Search Results (#{empty records ? 0 : (settingList.paginated ? settingList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/settings/setting/modalDlgSettingComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="settingForm"> 
+      <p:dataTable var="_setting" value="#{records}" id="settingList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{settingAction.setting}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editSettingPanel')}" oncomplete="PF('editSettingDialog').show()" listener="#{settingAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="setting.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/settings/setting/settingActionSetting.xhtml" rendered="#{s:hasPermission(_setting, 'view')}" propagation="none"> 
+            <h:outputText value="#{_setting.id}"/>  
+            <f:param name="settingId" value="#{_setting.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.setting_value}" sortBy="setting.value" rendered="#{ ! excludeValue == true and ( skipPermissionCheck == 'true' || s:hasPermission('setting', 'viewValue')) }"> 
+          <h:outputText value="#{_setting.value}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.setting_settingName}" sortBy="setting.settingName" rendered="#{ ! excludeSettingName == true and ( skipPermissionCheck == 'true' || s:hasPermission('setting', 'viewSettingName')) }"> 
+          <h:panelGroup> 
+            <h:link id="settingNamesetting_settingName" escape="false" value="#{_setting.settingName.displayName}" outcome="/admin/entities/settings/settingName/viewSettingName.xhtml" propagation="none"> 
+              <f:param name="settingNameId" value="#{_setting.settingName.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="settingNamesetting_settingName" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/settings/settingName/viewSettingNameComponent.xhtml"> 
+                  <ui:param name="settingName" value="#{_setting.settingName}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="settingName"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="setting.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_setting.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_setting', 'view') and !_settingCategory.archived}"> 
+          <h:link outcome="/admin/entities/settings/setting/viewSetting.xhtml" rendered="#{s:hasPermission(_setting, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="settingId" value="#{_setting.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_setting', 'edit') and !_settingCategory.archived}"> 
+          <h:link outcome="/admin/entities/settings/setting/editSetting.xhtml" rendered="#{s:hasPermission(_setting, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="settingId" value="#{_setting.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('settingAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_setting.archived}" action="#{settingAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_setting.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_setting.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_setting.archived}" action="#{settingAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_setting.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_setting.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_setting.archived}" action="#{settingAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_setting.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

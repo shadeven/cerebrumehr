@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewPrescribedTestPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescribedTest}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/>  
+      <h:outputText value="#{prescribedTest.remarks}" escape="false"/>  
+      <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/>  
+      <h:panelGroup> 
+        <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+          <f:param name="dxTestId" value="#{prescribedTest.dxTest.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
+              <ui:param name="dxTest" value="#{prescribedTest.dxTest}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="dxTest"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')}"/>  
+      <h:panelGroup> 
+        <h:link id="encounterprescribedTest_encounter" escape="false" value="#{prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <f:param name="encounterId" value="#{prescribedTest.encounter.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="encounterprescribedTest_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+              <ui:param name="encounter" value="#{prescribedTest.encounter}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="encounterPrescribedTests"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.TestResults}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}"/>  
+      <h:outputText value="#{prescribedTest.testResults.results}" escape="false"/>  
+      <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')}"/>  
+      <s:graphicImage rendered="#{prescribedTest.testResults.document ne null and  prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{prescribedTest.testResults.document.data}"> 
+        <s:transformImageSize height="100" maintainRatio="true"/> 
+      </s:graphicImage>  
+      <h:link value="#{prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(testResults.id)}" propagation="none" rendered="#{not prescribedTest.testResults.document.contentType.startsWith('image')}"> 
+        <f:param name="currentEnt ityId" value="#{testResults.id}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

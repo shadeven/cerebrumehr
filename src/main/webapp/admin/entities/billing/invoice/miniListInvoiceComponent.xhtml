@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_invoice" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="invoice.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/billing/invoice/invoiceActionInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'view')}" propagation="none"> 
+        <h:outputText value="#{_invoice.id}"/>  
+        <f:param name="invoiceId" value="#{_invoice.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/billing/invoiceItem/miniListInvoiceItemComponent.xhtml"> 
+        <ui:param name="records" value="#{_invoice.listInvoiceItems}"/>  
+        <ui:param name="excludeInvoice" value="true"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.invoice_patient}" sortBy="invoice.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientinvoice_patient" escape="false" value="#{_invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_invoice.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientinvoice_patient"> 
+          <span>#{_invoice.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.invoice_notes}" sortBy="invoice.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')) }"> 
+      <h:outputText value="#{_invoice.notes}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.invoice_totalAmount}" sortBy="invoice.totalAmount" rendered="#{ ! excludeTotalAmount == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')) }"> 
+      <h:outputText value="#{_invoice.totalAmount}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.invoice_paidAmount}" sortBy="invoice.paidAmount" rendered="#{ ! excludePaidAmount == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPaidAmount')) }"> 
+      <h:outputText value="#{_invoice.paidAmount}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

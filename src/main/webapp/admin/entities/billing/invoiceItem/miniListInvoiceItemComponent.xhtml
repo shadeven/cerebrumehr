@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_invoiceItem" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="invoiceItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/billing/invoiceItem/invoiceItemActionInvoiceItem.xhtml" rendered="#{s:hasPermission(_invoiceItem, 'view')}" propagation="none"> 
+        <h:outputText value="#{_invoiceItem.id}"/>  
+        <f:param name="invoiceItemId" value="#{_invoiceItem.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.invoiceItem_units}" sortBy="invoiceItem.units" rendered="#{ ! excludeUnits == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')) }"> 
+      <h:outputText value="#{_invoiceItem.units}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.invoiceItem_service}" sortBy="invoiceItem.service" rendered="#{ ! excludeService == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')) }"> 
+      <h:panelGroup> 
+        <h:link id="serviceinvoiceItem_service" escape="false" value="#{_invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+          <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="serviceinvoiceItem_service" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
+              <ui:param name="service" value="#{_invoiceItem.service}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="service"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.invoiceItem_invoice}" sortBy="invoiceItem.invoice" rendered="#{ ! excludeInvoice == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewInvoice')) }"> 
+      <h:panelGroup> 
+        <h:link id="invoiceinvoiceItem_invoice" escape="false" value="#{_invoiceItem.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+          <f:param name="invoiceId" value="#{_invoiceItem.invoice.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="invoiceinvoiceItem_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{_invoiceItem.invoice}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="invoiceInvoiceItems"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.invoiceItem_appliedPrice}" sortBy="invoiceItem.appliedPrice" rendered="#{ ! excludeAppliedPrice == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewAppliedPrice')) }"> 
+      <h:outputText value="#{_invoiceItem.appliedPrice}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.invoiceItem_total}" sortBy="invoiceItem.total" rendered="#{ ! excludeTotal == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')) }"> 
+      <h:outputText value="#{_invoiceItem.total}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

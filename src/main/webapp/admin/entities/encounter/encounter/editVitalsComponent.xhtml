@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+ 
+  <h:panelGrid columns="5" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelVitals eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Vitals}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_vitals_SysBPDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="BP" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/>
+          </ui:define>
+          <h:panelGroup>  
+	          <h:inputText escape="false" maxlength="3" size="2" id="#{prefix}_vitals_SysBP#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}" label="#{msg.vitals_SysBP}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.sysBP}"> 
+	            <p:ajaxValidator event="onsubmit"/> 
+	          </h:inputText>
+	           <h:inputText escape="false"  maxlength="3" size="2" id="#{prefix}_vitals_DiasBP#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}" label="#{msg.vitals_DiasBP}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.diasBP}"> 
+	            <p:ajaxValidator event="onsubmit"/> 
+	          </h:inputText>  
+          </h:panelGroup>
+        </s:decorate>  
+        
+        <s:decorate id="#{prefix}_vitals_TemperatureDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_vitals_Temperature#{entityId}"  maxlength="6" size="3" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}" label="#{msg.vitals_Temperature}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.temperature}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_vitals_PulseDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_vitals_Pulse#{entityId}"  maxlength="3" size="3" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}" label="#{msg.vitals_Pulse}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.pulse}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_vitals_RespirationRateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/>
+          </ui:define>  
+          <h:inputText escape="false"    maxlength="3" size="2" id="#{prefix}_vitals_RespirationRate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}" label="#{msg.vitals_RespirationRate}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.respirationRate}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+</ui:composition>

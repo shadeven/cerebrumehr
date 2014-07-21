@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New Admission" action="#{patientAction.addAdmissions}" reRender="admissions, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAdmissions')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="admissions" var="_admission" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAdmissions')}" value="#{patientAction.listAdmissions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_bedIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeBed == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_bedId" label="#{msg.admission_bed}" value="#{_admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false"> 
+          <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_admissionNoteDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:editor escape="false" useSeamText="true" id="#{prefix}_admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{_admission.admissionNote}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:editor> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_dischargeNoteDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:editor escape="false" useSeamText="true" id="#{prefix}_dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{_admission.dischargeNote}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:editor> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_dischargeCodeDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}" value="#{_admission.dischargeCode}" required="false" label="#{msg.admission_dischargeCode}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="REGULAR" itemLabel="#{msg.REGULAR}"/>  
+          <f:selectItem itemValue="DECEASED" itemLabel="#{msg.DECEASED}"/>  
+          <f:selectItem itemValue="REFERRED" itemLabel="#{msg.REFERRED}"/>  
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New Admission" action="#{patientAction.addAdmissions}" reRender="admissions, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissions')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deleteAdmissions(rowIndex)}" reRender="admissions"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

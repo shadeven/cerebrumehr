@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_billing_InvoiceItem) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabView dynamic="true" cache="true"> 
+        <p:tab title="InvoiceItem"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/billing/invoiceItem/viewInvoiceItemComponent.xhtml"> 
+              <ui:param name="invoiceItem" value="#{invoiceItemAction.instance}"/> 
+            </ui:include> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('invoiceItem', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{invoiceItemAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Service" rendered="#{invoiceItemAction.instance.service != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
+              <ui:param name="service" value="#{invoiceItemAction.instance.service}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Invoice" rendered="#{invoiceItemAction.instance.invoice != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{invoiceItemAction.instance.invoice}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"></p:tabView>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{invoiceItemAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

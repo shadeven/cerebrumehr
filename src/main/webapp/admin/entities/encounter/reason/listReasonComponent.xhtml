@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ReasonModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Reason Search Results (#{empty records ? 0 : (reasonList.paginated ? reasonList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/encounter/reason/modalDlgReasonComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="reasonForm"> 
+      <p:dataTable var="_reason" value="#{records}" id="reasonList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{reasonAction.reason}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editReasonPanel')}" oncomplete="PF('editReasonDialog').show()" listener="#{reasonAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="reason.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/encounter/reason/reasonActionReason.xhtml" rendered="#{s:hasPermission(_reason, 'view')}" propagation="none"> 
+            <h:outputText value="#{_reason.id}"/>  
+            <f:param name="reasonId" value="#{_reason.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.reason_code}" sortBy="reason.code" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')) }"> 
+          <h:panelGroup> 
+            <h:link id="codereason_code" escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+              <f:param name="codeId" value="#{_reason.code.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
+                  <ui:param name="code" value="#{_reason.code}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="code"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.reason_remarks}" sortBy="reason.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')) }"> 
+          <h:outputText value="#{_reason.remarks}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="reason.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_reason.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_reason', 'view') and !_reasonCategory.archived}"> 
+          <h:link outcome="/admin/entities/encounter/reason/viewReason.xhtml" rendered="#{s:hasPermission(_reason, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="reasonId" value="#{_reason.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_reason', 'edit') and !_reasonCategory.archived}"> 
+          <h:link outcome="/admin/entities/encounter/reason/editReason.xhtml" rendered="#{s:hasPermission(_reason, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="reasonId" value="#{_reason.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('reasonAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_reason.archived}" action="#{reasonAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_reason.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_reason.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_reason.archived}" action="#{reasonAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_reason.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_reason.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_reason.archived}" action="#{reasonAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_reason.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

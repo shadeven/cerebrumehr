@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ChronicConditionModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="ChronicCondition Search Results (#{empty records ? 0 : (chronicConditionList.paginated ? chronicConditionList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/chronicCondition/modalDlgChronicConditionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="chronicConditionForm"> 
+      <p:dataTable var="_chronicCondition" value="#{records}" id="chronicConditionList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chronicConditionAction.chronicCondition}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editChronicConditionPanel')}" oncomplete="PF('editChronicConditionDialog').show()" listener="#{chronicConditionAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="chronicCondition.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/ddx/chronicCondition/chronicConditionActionChronicCondition.xhtml" rendered="#{s:hasPermission(_chronicCondition, 'view')}" propagation="none"> 
+            <h:outputText value="#{_chronicCondition.id}"/>  
+            <f:param name="chronicConditionId" value="#{_chronicCondition.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.chronicCondition_name}" sortBy="chronicCondition.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chronicCondition', 'viewName')) }"> 
+          <h:outputText value="#{_chronicCondition.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="chronicCondition.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_chronicCondition.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_chronicCondition', 'view') and !_chronicConditionCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml" rendered="#{s:hasPermission(_chronicCondition, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="chronicConditionId" value="#{_chronicCondition.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_chronicCondition', 'edit') and !_chronicConditionCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/chronicCondition/editChronicCondition.xhtml" rendered="#{s:hasPermission(_chronicCondition, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="chronicConditionId" value="#{_chronicCondition.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('chronicConditionAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_chronicCondition.archived}" action="#{chronicConditionAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chronicCondition.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_chronicCondition.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_chronicCondition.archived}" action="#{chronicConditionAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chronicCondition.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_chronicCondition.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_chronicCondition.archived}" action="#{chronicConditionAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_chronicCondition.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

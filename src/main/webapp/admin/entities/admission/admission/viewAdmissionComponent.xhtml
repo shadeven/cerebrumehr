@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewAdmissionPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Admission}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewAdmissionNote')}"/>  
+      <h:outputText value="#{admission.admissionNote}" escape="false"/>  
+      <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')}"/>  
+      <h:outputText value="#{admission.dischargeDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeNote')}"/>  
+      <h:outputText value="#{admission.dischargeNote}" escape="false"/>  
+      <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeCode')}"/>  
+      <h:outputText value="#{admission.dischargeCode}" escape="false"/>  
+      <h:outputText value="#{msg.admission_currentBed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewCurrentBed')}"/>  
+      <h:outputText value="#{admission.currentBed}" escape="false"/>  
+      <h:outputText value="#{msg.admission_isCurrent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewIsCurrent')}"/>  
+      <h:outputText value="#{admission.isCurrent? msg.yes : msg.no }"/>  
+      <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewPatient')}"/>  
+      <h:panelGroup> 
+        <h:link id="patientadmission_patient" escape="false" value="#{admission.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{admission.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientadmission_patient"> 
+          <span>#{admission.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.admission_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewInvoice')}"/>  
+      <h:panelGroup> 
+        <h:link id="invoiceadmission_invoice" escape="false" value="#{admission.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+          <f:param name="invoiceId" value="#{admission.invoice.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="invoiceadmission_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{admission.invoice}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="invoice"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeBedStays == true}"> 
+      <p:dataTable id="bedStays" var="_bedStay" rendered="#{ admissionAction.listBedStays.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewBedStays') }" value="#{admissionAction.listBedStays}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="bedbedStay_bed" escape="false" value="#{_bedStay.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+              <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="bedbedStay_bed" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+                  <ui:param name="bed" value="#{_bedStay.bed}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="bed"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.fromDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.toDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

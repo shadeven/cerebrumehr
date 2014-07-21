@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <p:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <p:dataTable id="dataAudit" var="_log" value="#{patientAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_firstName}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.firstName}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_lastName}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.lastName}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_dateOfBirth}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.dateOfBirth}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_gender}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.gender}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.contactDetails_primaryPhone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.primaryPhone}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.contactDetails_secondaryPhone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.secondaryPhone}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.contactDetails_email}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.email}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_age}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.age}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_title}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.title}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_streetAddress}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.streetAddress}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_city}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.city}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_State}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.state}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_phone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.phone}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.patient_healthNumber}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.healthNumber}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.history_medicalHistory}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.history.medicalHistory}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.history_socialHistory}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.history.socialHistory}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.history_familyHistory}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.history.familyHistory}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.history_medications}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.history.medications}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.history_allergies}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.history.allergies}"/> 
+      </p:column> 
+    </p:dataTable> 
+  </h:form> 
+</html>

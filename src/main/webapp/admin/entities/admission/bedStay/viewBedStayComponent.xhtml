@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewBedStayPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.BedStay}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"/>  
+      <h:outputText value="#{bedStay.fromDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"/>  
+      <h:outputText value="#{bedStay.toDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')}"/>  
+      <h:panelGroup> 
+        <h:link id="admissionbedStay_admission" escape="false" value="#{bedStay.admission.displayName}" outcome="/admin/entities/admission/admission/viewAdmission.xhtml" propagation="none"> 
+          <f:param name="admissionId" value="#{bedStay.admission.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="admissionbedStay_admission" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/admission/admission/viewAdmissionComponent.xhtml"> 
+              <ui:param name="admission" value="#{bedStay.admission}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="admissionBedStays"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"/>  
+      <h:panelGroup> 
+        <h:link id="bedbedStay_bed" escape="false" value="#{bedStay.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+          <f:param name="bedId" value="#{bedStay.bed.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="bedbedStay_bed" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+              <ui:param name="bed" value="#{bedStay.bed}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="bed"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

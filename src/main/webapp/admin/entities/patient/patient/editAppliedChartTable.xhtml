@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New AppliedChart" action="#{patientAction.addAppliedCharts}" reRender="appliedCharts, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editAppliedCharts')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="appliedCharts" var="_appliedChart" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editAppliedCharts')}" value="#{patientAction.listAppliedCharts}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_chartIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeChart == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_chartId" label="#{msg.appliedChart_chart}" value="#{_appliedChart.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}" disabled="false"> 
+          <s:selectItems value="#{chartList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New AppliedChart" action="#{patientAction.addAppliedCharts}" reRender="appliedCharts, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editAppliedCharts')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deleteAppliedCharts(rowIndex)}" reRender="appliedCharts"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewEncounterPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Encounter}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.encounter_patientNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatientNote')}"/>  
+      <h:outputText value="#{encounter.patientNote}" escape="false"/>  
+      <h:outputText value="#{msg.encounter_tests}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTests')}"/>  
+      <h:outputText value="#{encounter.tests}" escape="false"/>  
+      <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescription')}"/>  
+      <h:panelGroup> 
+        <h:link id="prescriptionencounter_prescription" escape="false" value="#{encounter.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+          <f:param name="prescriptionId" value="#{encounter.prescription.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="prescriptionencounter_prescription" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
+              <ui:param name="prescription" value="#{encounter.prescription}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="prescription"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')}"/>  
+      <h:panelGroup> 
+        <h:link id="patientencounter_patient" escape="false" value="#{encounter.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{encounter.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientencounter_patient"> 
+          <span>#{encounter.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')}"/>  
+      <h:panelGroup> 
+        <h:link id="creatorencounter_creator" escape="false" value="#{encounter.creator.displayName}" outcome="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="employeeId" value="#{encounter.creator.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="creatorencounter_creator" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+              <ui:param name="employee" value="#{encounter.creator}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="creator"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Vitals}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewSysBP')}"/>  
+      <h:outputText value="#{encounter.vitals.sysBP}" escape="false"/>  
+      <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewDiasBP')}"/>  
+      <h:outputText value="#{encounter.vitals.diasBP}" escape="false"/>  
+      <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTemperature')}"/>  
+      <h:outputText value="#{encounter.vitals.temperature}"> 
+        <f:convertNumber pattern="000.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPulse')}"/>  
+      <h:outputText value="#{encounter.vitals.pulse}" escape="false"/>  
+      <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewRespirationRate')}"/>  
+      <h:outputText value="#{encounter.vitals.respirationRate}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludePrescribedTests == true}"> 
+      <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{ encounterAction.listPrescribedTests.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }" value="#{encounterAction.listPrescribedTests}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{_prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+              <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
+                  <ui:param name="dxTest" value="#{_prescribedTest.dxTest}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="dxTest"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescribedTest.testResults.results}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')}"/> 
+          </f:facet>  
+          <s:graphicImage rendered="#{_prescribedTest.testResults.document ne null and  _prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{_prescribedTest.testResults.document.data}"> 
+            <s:transformImageSize height="100" maintainRatio="true"/> 
+          </s:graphicImage>  
+          <h:link value="#{_prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(_testResults.id)}" propagation="none" rendered="#{not _prescribedTest.testResults.document.contentType.startsWith('image')}"> 
+            <f:param name="currentEnt ityId" value="#{_testResults.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/>  
+    <br/>  
+    <p:panel toggleable="true" header="#{msg.encounter_simpleCodes}" switchType="client"> 
+      <p:dataTable value="#{encounterAction.listSimpleCodes}" var="item"> 
+        <p:column>#{item.displayName}</p:column> 
+      </p:dataTable> 
+    </p:panel> 
+  </h:panelGroup> 
+</ui:composition>

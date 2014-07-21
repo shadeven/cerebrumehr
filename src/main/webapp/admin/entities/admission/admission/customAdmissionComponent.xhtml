@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{admissionAction.admission.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_admissionNote" value="#{admissionAction.admission.admissionNote}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_admissionNote" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeDate')}"/>  
+        <br/>  
+        <p:calendar id="#{prefix}_dischargeDate" value="#{admissionAction.admission.dischargeDate}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_dischargeDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeDate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_bedId" value="#{admissionAction.admission.bed}"> 
+          <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_bedId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_dischargeNote" value="#{admissionAction.admission.dischargeNote}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_dischargeNote" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_dischargeCode" value="#{admissionAction.admission.dischargeCode}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="REGULAR" itemLabel="Regular"/>  
+          <f:selectItem itemValue="DECEASED" itemLabel="Deceased"/>  
+          <f:selectItem itemValue="REFERRED" itemLabel="Referred"/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

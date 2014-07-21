@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+ 
+      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_dxTestdxTestDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDxTest == true}"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_dxTestdxTest" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
+              <s:selectItems value="#{dxTestList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <p:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}" label="#{msg.prescribedTest_remarks}" required="false" disabled="false" value="#{_prescribedTest.remarks}"> 
+              <p:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deletePrescribedTests(rowIndex)}" reRender="prescribedTests"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </p:dataTable>  
+ 
+</ui:composition>

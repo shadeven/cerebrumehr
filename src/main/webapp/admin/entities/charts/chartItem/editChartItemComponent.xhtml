@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editChartItemComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ChartItem}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{chartItemAction.chartItem.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{chartItemAction.chartItem.duration}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editFrequencyPeriod')}"/>
+        </ui:define>  
+        <h:selectOneMenu id="frequencyPeriod" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editFrequencyPeriod')}" value="#{chartItemAction.chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="HOUR" itemLabel="#{msg.HOUR}"/>  
+          <f:selectItem itemValue="DAY" itemLabel="#{msg.DAY}"/>  
+          <f:selectItem itemValue="WEEK" itemLabel="#{msg.WEEK}"/>  
+          <f:selectItem itemValue="MONTH" itemLabel="#{msg.MONTH}"/>  
+          <f:selectItem itemValue="YEAR" itemLabel="#{msg.YEAR}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="chartIdDecorate" rendered="#{ ! excludeChart == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartItem_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="chartId" label="#{msg.chartItem_chart}" value="#{chartItemAction.chartItem.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}" disabled="false" converter="#{chartList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{chartList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPrescribedTestComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescribedTest}"/> 
+      </f:facet>  
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}" label="#{msg.prescribedTest_remarks}" required="false" disabled="false" value="#{prescribedTestAction.prescribedTest.remarks}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="dxTestIdDecorate" rendered="#{ ! excludeDxTest == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false" converter="#{dxTestList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{dxTestList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="encounterId" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}" disabled="false" converter="#{encounterList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.TestResults}"/> 
+      </f:facet>  
+      <s:decorate id="testResults_resultsDecorate" rendered="#{ ! excludeResults == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="testResults_results#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}" label="#{msg.testResults_results}" required="false" disabled="false" value="#{prescribedTestAction.prescribedTest.testResults.results}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="testResults_documentDecorate" rendered="#{ ! excludeDocument == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"/>
+        </ui:define>  
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"> 
+          <h:outputText value="Current File:"/>  
+          <h:link value="#{prescribedTestAction.testResults.document.name}" id="document_file" action="#{prescribedTestAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{prescribedTestAction.instance.id}"/> 
+          </h:link>  
+          <p:fileUpload fileUploadListener="#{prescribedTestAction.documentUploadListener}" value="#{productAction.product.image}" auto="true"/> 
+        </h:panelGroup> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

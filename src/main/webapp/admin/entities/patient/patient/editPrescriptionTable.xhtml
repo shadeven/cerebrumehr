@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New Prescription" action="#{patientAction.addPrescriptions}" reRender="prescriptions, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPrescriptions')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="prescriptions" var="_prescription" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPrescriptions')}" value="#{patientAction.listPrescriptions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_directivesForPatientDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:editor escape="false" useSeamText="true" id="#{prefix}_directivesForPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}" label="#{msg.prescription_directivesForPatient}" required="false" disabled="false" value="#{_prescription.directivesForPatient}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:editor> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_activeDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="#{prefix}_active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}" label="#{msg.prescription_active}" required="false" disabled="false" value="#{_prescription.active}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New Prescription" action="#{patientAction.addPrescriptions}" reRender="prescriptions, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptions')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deletePrescriptions(rowIndex)}" reRender="prescriptions"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

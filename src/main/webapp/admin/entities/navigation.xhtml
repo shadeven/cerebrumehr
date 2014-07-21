@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <p:accordionPanel activeIndex="#{panelMenuStateBean.activeIndex}"> 
+      <p:tab title="Encounter" expanded="#{panelMenuStateBean.state['Encounter']}"> 
+        <h:commandLink value="Encounter" action="encounter"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editEncounter"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="encounterId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PrescribedTest" action="prescribedTest"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPrescribedTest"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="prescribedTestId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Differential" action="differential"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDifferential"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="differentialId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Reason" action="reason"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editReason"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="reasonId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Billing" expanded="#{panelMenuStateBean.state['Billing']}"> 
+        <h:commandLink value="Invoice" action="invoice"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editInvoice"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="invoiceId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Service" action="service"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editService"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="serviceId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Unusualoccurences" expanded="#{panelMenuStateBean.state['Unusualoccurences']}"> 
+        <h:commandLink value="UnusualOccurence" action="unusualOccurence"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editUnusualOccurence"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="unusualOccurenceId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="OccurenceType" action="occurenceType"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editOccurenceType"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="occurenceTypeId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Patient" expanded="#{panelMenuStateBean.state['Patient']}"> 
+        <h:commandLink value="Patient" action="patient"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPatient"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="patientId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PatientDocument" action="patientDocument"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPatientDocument"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="patientDocumentId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Allergy" action="allergy"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAllergy"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="allergyId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Immunization" action="immunization"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editImmunization"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="immunizationId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Vaccine" action="vaccine"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editVaccine"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="vaccineId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="TrackedVital" action="trackedVital"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editTrackedVital"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="trackedVitalId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="VitalValue" action="vitalValue"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editVitalValue"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="vitalValueId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Facility" expanded="#{panelMenuStateBean.state['Facility']}"> 
+        <h:commandLink value="Facility" action="facility"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editFacility"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="facilityId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Room" action="room"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editRoom"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="roomId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Bed" action="bed"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editBed"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="bedId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Ward" action="ward"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editWard"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="wardId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="RoomType" action="roomType"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editRoomType"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="roomTypeId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Ddx" expanded="#{panelMenuStateBean.state['Ddx']}"> 
+        <h:commandLink value="Finding" action="finding"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editFinding"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="findingId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PhysicalFinding" action="physicalFinding"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPhysicalFinding"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="physicalFindingId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="LabFinding" action="labFinding"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editLabFinding"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="labFindingId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Disease" action="disease"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDisease"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="diseaseId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="ConditionFinding" action="conditionFinding"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editConditionFinding"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="conditionFindingId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="ConditionCategory" action="conditionCategory"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editConditionCategory"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="conditionCategoryId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="DifferentialDx" action="differentialDx"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDifferentialDx"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="differentialDxId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="DxCategory" action="dxCategory"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDxCategory"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="dxCategoryId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PatientFinding" action="patientFinding"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPatientFinding"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="patientFindingId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PatientDiffDx" action="patientDiffDx"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPatientDiffDx"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="patientDiffDxId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="DxTest" action="dxTest"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDxTest"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="dxTestId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="ChronicCondition" action="chronicCondition"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editChronicCondition"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="chronicConditionId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Prescription" expanded="#{panelMenuStateBean.state['Prescription']}"> 
+        <h:commandLink value="PrescriptionTemplate" action="prescriptionTemplate"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPrescriptionTemplate"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="prescriptionTemplateId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Prescription" action="prescription"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPrescription"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="prescriptionId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PrescriptionItem" action="prescriptionItem"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPrescriptionItem"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="prescriptionItemId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="PrescriptionItemTemplate" action="prescriptionItemTemplate"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPrescriptionItemTemplate"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="prescriptionItemTemplateId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Frequency" action="frequency"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editFrequency"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="frequencyId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Appointment" expanded="#{panelMenuStateBean.state['Appointment']}"> 
+        <h:commandLink value="Appointment" action="appointment"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAppointment"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="appointmentId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Employee" expanded="#{panelMenuStateBean.state['Employee']}"> 
+        <h:commandLink value="Employee" action="employee"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editEmployee"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="employeeId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Physician" action="physician"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editPhysician"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="physicianId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Nurse" action="nurse"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editNurse"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="nurseId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Technician" action="technician"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editTechnician"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="technicianId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Clerk" action="clerk"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editClerk"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="clerkId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Specialization" action="specialization"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSpecialization"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="specializationId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="NurseSpecialty" action="nurseSpecialty"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editNurseSpecialty"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="nurseSpecialtyId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Department" action="department"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDepartment"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="departmentId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Drugs" expanded="#{panelMenuStateBean.state['Drugs']}"> 
+        <h:commandLink value="AtcDrug" action="atcDrug"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAtcDrug"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="atcDrugId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Drug" action="drug"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDrug"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="drugId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="DrugInteraction" action="drugInteraction"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDrugInteraction"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="drugInteractionId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="DrugCategory" action="drugCategory"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editDrugCategory"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="drugCategoryId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Users" expanded="#{panelMenuStateBean.state['Users']}"> 
+        <h:commandLink value="AppUser" action="appUser"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAppUser"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="appUserId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="AppRole" action="appRole"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAppRole"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="appRoleId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Codes" expanded="#{panelMenuStateBean.state['Codes']}"> 
+        <h:commandLink value="Code" action="code"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editCode"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="codeId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Chapter" action="chapter"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editChapter"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="chapterId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Section" action="section"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSection"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="sectionId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="SimpleCode" action="simpleCode"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSimpleCode"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="simpleCodeId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Charts" expanded="#{panelMenuStateBean.state['Charts']}"> 
+        <h:commandLink value="AppliedChart" action="appliedChart"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAppliedChart"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="appliedChartId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Chart" action="chart"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editChart"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="chartId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="ChartItem" action="chartItem"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editChartItem"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="chartItemId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="ChartProcedure" action="chartProcedure"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editChartProcedure"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="chartProcedureId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Settings" expanded="#{panelMenuStateBean.state['Settings']}"> 
+        <h:commandLink value="Settings" action="settings"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSettings"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="settingsId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="Setting" action="setting"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSetting"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="settingId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="SettingName" action="settingName"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSettingName"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="settingNameId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="SettingGroup" action="settingGroup"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editSettingGroup"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="settingGroupId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab>  
+      <p:tab title="Admission" expanded="#{panelMenuStateBean.state['Admission']}"> 
+        <h:commandLink value="Admission" action="admission"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editAdmission"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="admissionId" value="0"/> 
+        </h:commandLink>  
+        <br/>  
+        <h:commandLink value="BedStay" action="bedStay"> 
+          <s:conversationPropagation type="none"/> 
+        </h:commandLink>  
+        <h:commandLink action="editBedStay"> 
+          <h:graphicImage value="/images/icons/add.png" style="border: 0px" alt="create"/>  
+          <s:conversationPropagation type="end"/>  
+          <f:param name="bedStayId" value="0"/> 
+        </h:commandLink>  
+        <br/> 
+      </p:tab> 
+    </p:accordionPanel> 
+  </h:form> 
+</ui:composition>

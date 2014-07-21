@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <ul> 
+        <li>
+          <h:commandLink value="Encounter" action="encounter"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PrescribedTest" action="prescribedTest"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Differential" action="differential"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Reason" action="reason"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Invoice" action="invoice"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Service" action="service"/> 
+        </li>  
+        <li>
+          <h:commandLink value="InvoiceItem" action="invoiceItem"/> 
+        </li>  
+        <li>
+          <h:commandLink value="UnusualOccurence" action="unusualOccurence"/> 
+        </li>  
+        <li>
+          <h:commandLink value="OccurenceType" action="occurenceType"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Patient" action="patient"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PatientDocument" action="patientDocument"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Allergy" action="allergy"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Immunization" action="immunization"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Vaccine" action="vaccine"/> 
+        </li>  
+        <li>
+          <h:commandLink value="TrackedVital" action="trackedVital"/> 
+        </li>  
+        <li>
+          <h:commandLink value="VitalValue" action="vitalValue"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Facility" action="facility"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Room" action="room"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Bed" action="bed"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Ward" action="ward"/> 
+        </li>  
+        <li>
+          <h:commandLink value="RoomType" action="roomType"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Finding" action="finding"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PhysicalFinding" action="physicalFinding"/> 
+        </li>  
+        <li>
+          <h:commandLink value="LabFinding" action="labFinding"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Disease" action="disease"/> 
+        </li>  
+        <li>
+          <h:commandLink value="ConditionFinding" action="conditionFinding"/> 
+        </li>  
+        <li>
+          <h:commandLink value="ConditionCategory" action="conditionCategory"/> 
+        </li>  
+        <li>
+          <h:commandLink value="DifferentialDx" action="differentialDx"/> 
+        </li>  
+        <li>
+          <h:commandLink value="DxCategory" action="dxCategory"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PatientFinding" action="patientFinding"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PatientDiffDx" action="patientDiffDx"/> 
+        </li>  
+        <li>
+          <h:commandLink value="DxTest" action="dxTest"/> 
+        </li>  
+        <li>
+          <h:commandLink value="ChronicCondition" action="chronicCondition"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PrescriptionTemplate" action="prescriptionTemplate"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Prescription" action="prescription"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PrescriptionItem" action="prescriptionItem"/> 
+        </li>  
+        <li>
+          <h:commandLink value="PrescriptionItemTemplate" action="prescriptionItemTemplate"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Frequency" action="frequency"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Appointment" action="appointment"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Employee" action="employee"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Physician" action="physician"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Nurse" action="nurse"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Technician" action="technician"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Clerk" action="clerk"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Specialization" action="specialization"/> 
+        </li>  
+        <li>
+          <h:commandLink value="NurseSpecialty" action="nurseSpecialty"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Department" action="department"/> 
+        </li>  
+        <li>
+          <h:commandLink value="AtcDrug" action="atcDrug"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Drug" action="drug"/> 
+        </li>  
+        <li>
+          <h:commandLink value="DrugInteraction" action="drugInteraction"/> 
+        </li>  
+        <li>
+          <h:commandLink value="DrugCategory" action="drugCategory"/> 
+        </li>  
+        <li>
+          <h:commandLink value="AppUser" action="appUser"/> 
+        </li>  
+        <li>
+          <h:commandLink value="AppRole" action="appRole"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Code" action="code"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Chapter" action="chapter"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Section" action="section"/> 
+        </li>  
+        <li>
+          <h:commandLink value="SimpleCode" action="simpleCode"/> 
+        </li>  
+        <li>
+          <h:commandLink value="AppliedChart" action="appliedChart"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Chart" action="chart"/> 
+        </li>  
+        <li>
+          <h:commandLink value="ChartItem" action="chartItem"/> 
+        </li>  
+        <li>
+          <h:commandLink value="ChartProcedure" action="chartProcedure"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Settings" action="settings"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Setting" action="setting"/> 
+        </li>  
+        <li>
+          <h:commandLink value="SettingName" action="settingName"/> 
+        </li>  
+        <li>
+          <h:commandLink value="SettingGroup" action="settingGroup"/> 
+        </li>  
+        <li>
+          <h:commandLink value="Admission" action="admission"/> 
+        </li>  
+        <li>
+          <h:commandLink value="BedStay" action="bedStay"/> 
+        </li> 
+      </ul> 
+    </h:form> 
+  </ui:define> 
+</ui:composition>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewAtcDrugPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.AtcDrug}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}"/>  
+      <h:outputText value="#{atcDrug.code}" escape="false"/>  
+      <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}"/>  
+      <h:outputText value="#{atcDrug.name}" escape="false"/>  
+      <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"/>  
+      <h:panelGroup> 
+        <h:link id="drugatcDrug_drug" escape="false" value="#{atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{atcDrug.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="drugatcDrug_drug"> 
+          <span>#{atcDrug.drug.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')}"/>  
+      <h:panelGroup> 
+        <h:link id="parentatcDrug_parent" escape="false" value="#{atcDrug.parent.displayName}" outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+          <f:param name="atcDrugId" value="#{atcDrug.parent.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="parentatcDrug_parent" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
+              <ui:param name="atcDrug" value="#{atcDrug.parent}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="parentSubcategories"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeSubcategories == true}"> 
+      <p:dataTable id="subcategories" var="_atcDrug" rendered="#{ atcDrugAction.listSubcategories.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewSubcategories') }" value="#{atcDrugAction.listSubcategories}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="drugatcDrug_drug" escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+              <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugatcDrug_drug"> 
+              <span>#{_atcDrug.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_atcDrug.code}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_atcDrug.name}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

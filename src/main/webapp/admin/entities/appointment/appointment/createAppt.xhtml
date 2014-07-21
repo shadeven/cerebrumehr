@@ -1,0 +1,70 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+
+		<h:form id="appointmentForm">
+
+			<p:selectOneMenu id="physicianId"
+				label="#{msg.appointment_physician}"
+				value="#{appointmentAction.currentPhysician}" required="true"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"
+				disabled="false" converter="#{physicianList.converter}">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItems value="#{physicianList.all}" var="itemIter"
+					itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
+				<p:ajax update="schedule" event="change" listener="#{appointmentAction.updateEvents}" />
+			</p:selectOneMenu>
+
+			<br/>
+			<br/>
+			
+			<p:growl id="messages" showDetail="true" />
+
+			
+			<p:schedule id="schedule" value="#{appointmentAction.eventModel}"  slotMinutes="#{settingsAction.slotLength}"
+				widgetVar="myschedule" view="agendaWeek"  firstHour="#{settingsAction.startHour}" >
+
+				<p:ajax event="dateSelect"
+					listener="#{appointmentAction.onDateSelect}"
+					update=":#{p:component('editAppointmentPanel')}"
+					oncomplete="editAppointmentDialog.show()">
+					<s:conversationId />
+				</p:ajax>
+
+				<p:ajax event="eventSelect"
+					listener="#{appointmentAction.onEventSelect}"
+					update=":#{p:component('editAppointmentPanel')}"
+					oncomplete="PF('editAppointmentDialog').show()">
+					<s:conversationId />
+				</p:ajax>
+
+				<p:ajax event="eventMove"
+					listener="#{appointmentAction.onEventMove}" update="messages" />
+
+
+				<p:ajax event="eventResize"
+					listener="#{appointmentAction.onEventResize}" update="messages" />
+
+			</p:schedule>
+
+			<ui:include
+				src="/admin/entities/appointment/appointment/modalDlgAppointmentComponentCustom.xhtml">
+				<ui:param name="modalId" value="${modalId}" />
+				<ui:param name="excludeStart" value="true" />
+				<ui:param name="excludePhysician" value="true" />
+				<ui:param name="excludePatient" value="true" />
+			</ui:include>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

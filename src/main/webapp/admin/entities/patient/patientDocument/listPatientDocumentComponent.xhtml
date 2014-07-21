@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PatientDocumentModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="PatientDocument Search Results (#{empty records ? 0 : (patientDocumentList.paginated ? patientDocumentList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/patient/patientDocument/modalDlgPatientDocumentComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="patientDocumentForm"> 
+      <p:dataTable var="_patientDocument" value="#{records}" id="patientDocumentList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{patientDocumentAction.patientDocument}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="PF('editPatientDocumentDialog').show()" listener="#{patientDocumentAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="patientDocument.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/patient/patientDocument/patientDocumentActionPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'view')}" propagation="none"> 
+            <h:outputText value="#{_patientDocument.id}"/>  
+            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.patientDocument_name}" sortBy="patientDocument.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')) }"> 
+          <h:outputText value="#{_patientDocument.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.patientDocument_file}" sortBy="patientDocument.file" rendered="#{ ! excludeFile == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewFile')) }"> 
+          <s:graphicImage rendered="#{_patientDocument.file ne null and  _patientDocument.file.contentType.startsWith('image')}" value="#{_patientDocument.file.data}"> 
+            <s:transformImageSize height="100" maintainRatio="true"/> 
+          </s:graphicImage>  
+          <h:link value="#{_patientDocument.file.name}" action="#{patientDocumentAction.downloadFile(_patientDocument.id)}" propagation="none" rendered="#{not _patientDocument.file.contentType.startsWith('image')}"> 
+            <f:param name="currentEnt ityId" value="#{_patientDocument.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.patientDocument_notes}" sortBy="patientDocument.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}notesAbbr" value="#{_patientDocument.notesAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.patientDocument_patient}" sortBy="patientDocument.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')) }"> 
+          <h:panelGroup> 
+            <h:link id="patientpatientDocument_patient" escape="false" value="#{_patientDocument.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_patientDocument.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="patientpatientDocument_patient"> 
+              <span>#{_patientDocument.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="patientDocument.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_patientDocument.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_patientDocument', 'view') and !_patientDocumentCategory.archived}"> 
+          <h:link outcome="/admin/entities/patient/patientDocument/viewPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_patientDocument', 'edit') and !_patientDocumentCategory.archived}"> 
+          <h:link outcome="/admin/entities/patient/patientDocument/editPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('patientDocumentAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_patientDocument.archived}" action="#{patientDocumentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_patientDocument.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_patientDocument.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_patientDocument.archived}" action="#{patientDocumentAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_patientDocument.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_patientDocument.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_patientDocument.archived}" action="#{patientDocumentAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_patientDocument.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

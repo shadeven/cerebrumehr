@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFrequecyComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{frequecyAction.load(frequecyId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFrequecy eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Frequecy}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.frequecy_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'viewName')}"/>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'viewName')}" value="#{frequecyAction.frequecy.name}"></h:outputText>  
+        <h:outputText value="#{msg.frequecy_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'viewQtyPerDay')}"/>  
+        <h:outputText id="#{prefix}_qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'viewQtyPerDay')}" value="#{frequecyAction.frequecy.qtyPerDay}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

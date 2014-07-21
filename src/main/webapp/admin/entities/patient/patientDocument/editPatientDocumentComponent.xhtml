@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPatientDocumentComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PatientDocument}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}" label="#{msg.patientDocument_name}" required="true" disabled="false" value="#{patientDocumentAction.patientDocument.name}"> 
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate>  
+      <s:decorate id="fileDecorate" rendered="#{ ! excludeFile == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"/>
+        </ui:define>  
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"> 
+          <h:outputText value="Current File:"/>  
+          <h:link value="#{patientDocumentAction.patientDocument.file.name}" id="file_file" action="#{patientDocumentAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{patientDocumentAction.instance.id}"/> 
+          </h:link>  
+          <p:fileUpload fileUploadListener="#{patientDocumentAction.fileUploadListener}" value="#{productAction.product.image}" auto="true"/> 
+        </h:panelGroup> 
+      </s:decorate>  
+      <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="patientId" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <c:set var="modalId" value="AbstractCodeModalPanel-AbstractCode"/>  
+    <ui:include src="searchAbstractCode.xhtml"/>  
+    <br/>  
+    <br/>  
+    <div id="printable"> 
+      <ui:include src="listAbstractCodeComponent.xhtml"> 
+        <ui:param name="records" value="#{abstractCodeList.resultListArchived}"/> 
+      </ui:include> 
+    </div> 
+  </ui:define> 
+</ui:composition>

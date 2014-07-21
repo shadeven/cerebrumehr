@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <c:set var="modalId" value="SettingsModalPanel-Settings"/>  
+    <ui:include src="/admin/entities/facility/settings/searchSettingsComponent.xhtml"/>  
+    <br/>  
+    <br/>  
+    <h:form> 
+      <p:button value="Create New" outcome="/admin/entities/facility/settings/editSettings.xhtml" propagation="none"> 
+        <f:param name="settingsId" value="0"/> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editSettingsPanel')}" actionListener="#{settingsAction.setSettingsId(0)}" oncomplete="editSettingsDialog.show()"></p:commandButton> 
+    </h:form>  
+    <div id="printable"> 
+      <ui:include src="/admin/entities/facility/settings/listSettingsComponent.xhtml"> 
+        <ui:param name="records" value="#{settingsList.lazyModel}"/> 
+      </ui:include> 
+    </div>  
+    <h:form> 
+      <p:button value="Create New" outcome="/admin/entities/facility/settings/editSettings.xhtml" propagation="none"> 
+        <f:param name="settingsId" value="0"/> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editSettingsPanel')}" actionListener="#{settingsAction.setSettingsId(0)}" oncomplete="editSettingsDialog.show()"></p:commandButton> 
+    </h:form> 
+  </ui:define> 
+</ui:composition>

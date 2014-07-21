@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewPrescriptionTemplatePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescriptionTemplate}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewName')}"/>  
+      <h:outputText value="#{prescriptionTemplate.name}" escape="false"/>  
+      <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewDirectivesForPatient')}"/>  
+      <h:outputText value="#{prescriptionTemplate.directivesForPatient}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludePrescriptionItemTemplates == true}"> 
+      <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{ prescriptionTemplateAction.listPrescriptionItemTemplates.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewPrescriptionItemTemplates') }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="drugprescriptionItemTemplate_drug" escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+              <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugprescriptionItemTemplate_drug"> 
+              <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="frequencyprescriptionItemTemplate_frequency" escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+              <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="frequencyprescriptionItemTemplate_frequency" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
+                  <ui:param name="frequency" value="#{_prescriptionItemTemplate.frequency}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="frequency"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewQty')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewStrength')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRoute')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDuration')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRemarks')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewBrandName')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

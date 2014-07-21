@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewFindingPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Finding}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')}"/>  
+      <h:outputText value="#{finding.name}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
+      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{ findingAction.listDifferentialDxs.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="dxCategorydifferentialDx_dxCategory" escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+              <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="dxCategorydifferentialDx_dxCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/dxCategory/viewDxCategoryComponent.xhtml"> 
+                  <ui:param name="dxCategory" value="#{_differentialDx.dxCategory}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="dxCategory"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_differentialDx.name}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmployeeNumber')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_employeeNumber" value="#{clerkAction.clerk.employeeNumber}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_employeeNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmployeeNumber')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editUserName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_appUser_userName" value="#{clerkAction.clerk.appUser.userName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_appUser_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editUserName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEnabled')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="#{prefix}_appUser_enabled" value="#{clerkAction.clerk.appUser.enabled}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_appUser_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEnabled')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{clerkAction.clerk.facility}"> 
+          <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_departmentId" value="#{clerkAction.clerk.department}"> 
+          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_departmentId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_firstName" value="#{clerkAction.clerk.firstName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editLastName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_lastName" value="#{clerkAction.clerk.lastName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editLastName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDateOfBirth')}"/>  
+        <br/>  
+        <p:calendar id="#{prefix}_dateOfBirth" value="#{clerkAction.clerk.dateOfBirth}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDateOfBirth')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editGender')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_gender" value="#{clerkAction.clerk.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editGender')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPrimaryPhone')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_contactDetails_primaryPhone" value="#{clerkAction.clerk.contactDetails.primaryPhone}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPrimaryPhone')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editSecondaryPhone')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_contactDetails_secondaryPhone" value="#{clerkAction.clerk.contactDetails.secondaryPhone}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editSecondaryPhone')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_contactDetails_email" value="#{clerkAction.clerk.contactDetails.email}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editAge')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_age" value="#{clerkAction.clerk.age}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editAge')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editTitle')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_title" value="#{clerkAction.clerk.title}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mr" itemLabel="Mr"/>  
+          <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>  
+          <f:selectItem itemValue="Ms" itemLabel="Ms"/>  
+          <f:selectItem itemValue="Dr" itemLabel="Dr"/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editTitle')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

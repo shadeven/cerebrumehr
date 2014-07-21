@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="BedModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Bed Search Results (#{empty records ? 0 : (bedList.paginated ? bedList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/facility/bed/modalDlgBedComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="bedForm"> 
+      <p:dataTable var="_bed" value="#{records}" id="bedList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{bedAction.bed}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editBedPanel')}" oncomplete="PF('editBedDialog').show()" listener="#{bedAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="bed.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/facility/bed/bedActionBed.xhtml" rendered="#{s:hasPermission(_bed, 'view')}" propagation="none"> 
+            <h:outputText value="#{_bed.id}"/>  
+            <f:param name="bedId" value="#{_bed.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.bed_room}" sortBy="bed.room" rendered="#{ ! excludeRoom == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')) }"> 
+          <h:panelGroup> 
+            <h:link id="roombed_room" escape="false" value="#{_bed.room.displayName}" outcome="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
+              <f:param name="roomId" value="#{_bed.room.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="roombed_room" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"> 
+                  <ui:param name="room" value="#{_bed.room}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="roomBeds"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.bed_name}" sortBy="bed.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')) }"> 
+          <h:outputText value="#{_bed.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.bed_patient}" sortBy="bed.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')) }"> 
+          <h:panelGroup> 
+            <h:link id="patientbed_patient" escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_bed.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="patientbed_patient"> 
+              <span>#{_bed.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="bed.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_bed.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_bed', 'view') and !_bedCategory.archived}"> 
+          <h:link outcome="/admin/entities/facility/bed/viewBed.xhtml" rendered="#{s:hasPermission(_bed, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="bedId" value="#{_bed.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_bed', 'edit') and !_bedCategory.archived}"> 
+          <h:link outcome="/admin/entities/facility/bed/editBed.xhtml" rendered="#{s:hasPermission(_bed, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="bedId" value="#{_bed.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('bedAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_bed.archived}" action="#{bedAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_bed.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_bed.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_bed.archived}" action="#{bedAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_bed.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_bed.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_bed.archived}" action="#{bedAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_bed.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

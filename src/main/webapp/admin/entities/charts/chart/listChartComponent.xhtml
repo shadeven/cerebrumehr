@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ChartModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Chart Search Results (#{empty records ? 0 : (chartList.paginated ? chartList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/charts/chart/modalDlgChartComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="chartForm"> 
+      <p:dataTable var="_chart" value="#{records}" id="chartList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chartAction.chart}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editChartPanel')}" oncomplete="PF('editChartDialog').show()" listener="#{chartAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="chart.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/charts/chart/chartActionChart.xhtml" rendered="#{s:hasPermission(_chart, 'view')}" propagation="none"> 
+            <h:outputText value="#{_chart.id}"/>  
+            <f:param name="chartId" value="#{_chart.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/charts/chartItem/miniListChartItemComponent.xhtml"> 
+            <ui:param name="records" value="#{_chart.listChartItems}"/>  
+            <ui:param name="excludeChart" value="true"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.chart_name}" sortBy="chart.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')) }"> 
+          <h:outputText value="#{_chart.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.chart_chronicCondition}" sortBy="chart.chronicCondition" rendered="#{ ! excludeChronicCondition == true and ( skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChronicCondition')) }"> 
+          <h:panelGroup> 
+            <h:link id="chronicConditionchart_chronicCondition" escape="false" value="#{_chart.chronicCondition.displayName}" outcome="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml" propagation="none"> 
+              <f:param name="chronicConditionId" value="#{_chart.chronicCondition.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="chronicConditionchart_chronicCondition" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/chronicCondition/viewChronicConditionComponent.xhtml"> 
+                  <ui:param name="chronicCondition" value="#{_chart.chronicCondition}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="chronicConditionCharts"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="chart.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_chart.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_chart', 'view') and !_chartCategory.archived}"> 
+          <h:link outcome="/admin/entities/charts/chart/viewChart.xhtml" rendered="#{s:hasPermission(_chart, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="chartId" value="#{_chart.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_chart', 'edit') and !_chartCategory.archived}"> 
+          <h:link outcome="/admin/entities/charts/chart/editChart.xhtml" rendered="#{s:hasPermission(_chart, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="chartId" value="#{_chart.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('chartAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_chart.archived}" action="#{chartAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chart.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_chart.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_chart.archived}" action="#{chartAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chart.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_chart.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_chart.archived}" action="#{chartAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_chart.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

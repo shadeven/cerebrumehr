@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editClerkComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Clerk}"/> 
+      </f:facet>  
+      <s:decorate id="firstNameDecorate" rendered="#{ ! excludeFirstName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{clerkAction.clerk.firstName}"> 
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate>  
+      <s:decorate id="lastNameDecorate" rendered="#{ ! excludeLastName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editLastName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{clerkAction.clerk.lastName}"> 
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate>  
+      <s:decorate id="dateOfBirthDecorate" rendered="#{ ! excludeDateOfBirth == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDateOfBirth')}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDateOfBirth')}" label="#{msg.person_dateOfBirth}" required="false" disabled="false" value="#{clerkAction.clerk.dateOfBirth}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editGender')}"/>
+        </ui:define>  
+        <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editGender')}" value="#{clerkAction.clerk.gender}" required="false" label="#{msg.person_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editTitle')}"/>
+        </ui:define>  
+        <h:selectOneMenu id="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editTitle')}" value="#{clerkAction.clerk.title}" required="false" label="#{msg.person_title}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mr" itemLabel="#{msg.Mr}"/>  
+          <f:selectItem itemValue="Mrs" itemLabel="#{msg.Mrs}"/>  
+          <f:selectItem itemValue="Ms" itemLabel="#{msg.Ms}"/>  
+          <f:selectItem itemValue="Dr" itemLabel="#{msg.Dr}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="facilityIdDecorate" rendered="#{ ! excludeFacility == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="facilityId" label="#{msg.employee_facility}" value="#{clerkAction.clerk.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}" disabled="false" converter="#{facilityList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{facilityList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="departmentIdDecorate" rendered="#{ ! excludeDepartment == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="departmentId" label="#{msg.employee_department}" value="#{clerkAction.clerk.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}" disabled="false" converter="#{departmentList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{departmentList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.AppUser}"/> 
+      </f:facet>  
+      <s:decorate id="appUser_userNameDecorate" rendered="#{ ! excludeUserName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editUserName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{clerkAction.clerk.appUser.userName}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="appUser_passwordDecorate" rendered="#{ ! excludePassword == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appUser_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPassword')}"/>
+        </ui:define>  
+        <h:inputSecret escape="false" redisplay="true" id="appUser_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPassword')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{clerkAction.clerk.appUser.password}"></h:inputSecret> 
+      </s:decorate>  
+      <s:decorate id="appUser_enabledDecorate" rendered="#{ ! excludeEnabled == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEnabled')}"/>
+        </ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{clerkAction.clerk.appUser.enabled}"></h:selectBooleanCheckbox> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <s:decorate id="contactDetails_primaryPhoneDecorate" rendered="#{ ! excludePrimaryPhone == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPrimaryPhone')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPrimaryPhone')}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{clerkAction.clerk.contactDetails.primaryPhone}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="contactDetails_secondaryPhoneDecorate" rendered="#{ ! excludeSecondaryPhone == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editSecondaryPhone')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editSecondaryPhone')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{clerkAction.clerk.contactDetails.secondaryPhone}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="contactDetails_emailDecorate" rendered="#{ ! excludeEmail == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}" label="#{msg.contactDetails_email}" required="false" disabled="false" value="#{clerkAction.clerk.contactDetails.email}"></h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

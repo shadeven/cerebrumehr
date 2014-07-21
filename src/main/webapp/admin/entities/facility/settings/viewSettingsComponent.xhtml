@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewSettingsPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Settings}"/> 
+      </f:facet> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeSettings == true}"> 
+      <p:dataTable id="settings" var="_setting" rendered="#{ settingsAction.listSettings.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('settings', 'viewSettings') }" value="#{settingsAction.listSettings}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.setting_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('setting', 'viewName')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_setting.name}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.setting_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('setting', 'viewValue')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_setting.value}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

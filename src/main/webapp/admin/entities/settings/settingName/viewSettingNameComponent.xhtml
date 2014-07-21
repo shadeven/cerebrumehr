@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewSettingNamePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.SettingName}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.settingName_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'viewName')}"/>  
+      <h:outputText value="#{settingName.name}" escape="false"/>  
+      <h:outputText value="#{msg.settingName_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'viewDefaultValue')}"/>  
+      <h:outputText value="#{settingName.defaultValue}" escape="false"/>  
+      <h:outputText value="#{msg.settingName_settingGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'viewSettingGroup')}"/>  
+      <h:panelGroup> 
+        <h:link id="settingGroupsettingName_settingGroup" escape="false" value="#{settingName.settingGroup.displayName}" outcome="/admin/entities/settings/settingGroup/viewSettingGroup.xhtml" propagation="none"> 
+          <f:param name="settingGroupId" value="#{settingName.settingGroup.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="settingGroupsettingName_settingGroup" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/settings/settingGroup/viewSettingGroupComponent.xhtml"> 
+              <ui:param name="settingGroup" value="#{settingName.settingGroup}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="settingGroupSettingNames"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

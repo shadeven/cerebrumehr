@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_unusualOccurence" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="unusualOccurence.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/unusualoccurences/unusualOccurence/unusualOccurenceActionUnusualOccurence.xhtml" rendered="#{s:hasPermission(_unusualOccurence, 'view')}" propagation="none"> 
+        <h:outputText value="#{_unusualOccurence.id}"/>  
+        <f:param name="unusualOccurenceId" value="#{_unusualOccurence.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.unusualOccurence_occurenceType}" sortBy="unusualOccurence.occurenceType" rendered="#{ ! excludeOccurenceType == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')) }"> 
+      <h:panelGroup> 
+        <h:link id="occurenceTypeunusualOccurence_occurenceType" escape="false" value="#{_unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+          <f:param name="occurenceTypeId" value="#{_unusualOccurence.occurenceType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="occurenceTypeunusualOccurence_occurenceType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/unusualoccurences/occurenceType/viewOccurenceTypeComponent.xhtml"> 
+              <ui:param name="occurenceType" value="#{_unusualOccurence.occurenceType}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="occurenceType"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.unusualOccurence_category}" sortBy="unusualOccurence.category" rendered="#{ ! excludeCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')) }"> 
+      <h:outputText value="#{_unusualOccurence.category}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.unusualOccurence_severity}" sortBy="unusualOccurence.severity" rendered="#{ ! excludeSeverity == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')) }"> 
+      <h:outputText value="#{_unusualOccurence.severity}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.unusualOccurence_description}" sortBy="unusualOccurence.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{_unusualOccurence.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.unusualOccurence_patient}" sortBy="unusualOccurence.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientunusualOccurence_patient" escape="false" value="#{_unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_unusualOccurence.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientunusualOccurence_patient"> 
+          <span>#{_unusualOccurence.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

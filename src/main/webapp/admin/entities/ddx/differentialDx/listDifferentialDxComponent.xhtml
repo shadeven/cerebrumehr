@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DifferentialDxModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="DifferentialDx Search Results (#{empty records ? 0 : (differentialDxList.paginated ? differentialDxList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/differentialDx/modalDlgDifferentialDxComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="differentialDxForm"> 
+      <p:dataTable var="_differentialDx" value="#{records}" id="differentialDxList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{differentialDxAction.differentialDx}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editDifferentialDxPanel')}" oncomplete="PF('editDifferentialDxDialog').show()" listener="#{differentialDxAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="differentialDx.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/ddx/differentialDx/differentialDxActionDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'view')}" propagation="none"> 
+            <h:outputText value="#{_differentialDx.id}"/>  
+            <f:param name="differentialDxId" value="#{_differentialDx.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.differentialDx_name}" sortBy="differentialDx.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')) }"> 
+          <h:outputText value="#{_differentialDx.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.differentialDx_dxCategory}" sortBy="differentialDx.dxCategory" rendered="#{ ! excludeDxCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')) }"> 
+          <h:panelGroup> 
+            <h:link id="dxCategorydifferentialDx_dxCategory" escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+              <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="dxCategorydifferentialDx_dxCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/dxCategory/viewDxCategoryComponent.xhtml"> 
+                  <ui:param name="dxCategory" value="#{_differentialDx.dxCategory}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="dxCategory"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.differentialDx_finding}" sortBy="differentialDx.finding" rendered="#{ ! excludeFinding == true and ( skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewFinding')) }"> 
+          <h:panelGroup> 
+            <h:link id="findingdifferentialDx_finding" escape="false" value="#{_differentialDx.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+              <f:param name="findingId" value="#{_differentialDx.finding.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="findingdifferentialDx_finding" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
+                  <ui:param name="finding" value="#{_differentialDx.finding}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="findingDifferentialDxs"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="differentialDx.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_differentialDx.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_differentialDx', 'view') and !_differentialDxCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="differentialDxId" value="#{_differentialDx.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_differentialDx', 'edit') and !_differentialDxCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="differentialDxId" value="#{_differentialDx.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('differentialDxAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_differentialDx.archived}" action="#{differentialDxAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_differentialDx.archived}" action="#{differentialDxAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_differentialDx.archived}" action="#{differentialDxAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

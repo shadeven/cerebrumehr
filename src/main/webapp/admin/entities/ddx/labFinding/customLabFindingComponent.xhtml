@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_name" value="#{labFindingAction.labFinding.name}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.labFinding_testName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editTestName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_testName" value="#{labFindingAction.labFinding.testName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_testName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editTestName')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

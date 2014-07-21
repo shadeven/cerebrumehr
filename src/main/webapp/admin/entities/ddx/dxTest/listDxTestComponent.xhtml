@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DxTestModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="DxTest Search Results (#{empty records ? 0 : (dxTestList.paginated ? dxTestList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/dxTest/modalDlgDxTestComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="dxTestForm"> 
+      <p:dataTable var="_dxTest" value="#{records}" id="dxTestList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{dxTestAction.dxTest}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editDxTestPanel')}" oncomplete="PF('editDxTestDialog').show()" listener="#{dxTestAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="dxTest.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/ddx/dxTest/dxTestActionDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}" propagation="none"> 
+            <h:outputText value="#{_dxTest.id}"/>  
+            <f:param name="dxTestId" value="#{_dxTest.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.dxTest_name}" sortBy="dxTest.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewName')) }"> 
+          <h:outputText value="#{_dxTest.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dxTest_description}" sortBy="dxTest.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="dxTest.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_dxTest.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_dxTest', 'view') and !_dxTestCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="dxTestId" value="#{_dxTest.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_dxTest', 'edit') and !_dxTestCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/dxTest/editDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="dxTestId" value="#{_dxTest.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('dxTestAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_dxTest.archived}" action="#{dxTestAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_dxTest.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_dxTest.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_dxTest.archived}" action="#{dxTestAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_dxTest.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_dxTest.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_dxTest.archived}" action="#{dxTestAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_dxTest.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

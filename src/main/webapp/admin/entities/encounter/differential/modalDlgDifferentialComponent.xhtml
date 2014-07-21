@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dialog header="Edit #{msg.differential} " widgetVar="editDifferentialDialog" resizable="true" width="60%" height="20%"> 
+    <p:scrollPanel style="width:auto;height:350px" autoRefresh="true" mode="native"> 
+      <c:set var="opId" value="outputPanel-${modalId}"/>  
+      <h:panelGrid id="editDifferentialPanel" columns="2" cellpadding="4"> 
+        <p:messages autoUpdate="true"/>  
+        <ui:include src="/admin/entities/encounter/differential/editDifferentialComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton action="#{differentialAction.save(false)}" styleClass="button" update=":#{p:component('editDifferentialPanel')}  :#{p:component('differentialForm')}" value="Save" oncomplete="handleDialogSubmit(xhr, status, args, PF('editDifferentialDialog'))" rendered="#{s:hasPermission('differential', 'edit')}"/> 
+    </p:scrollPanel> 
+  </p:dialog> 
+</ui:composition>

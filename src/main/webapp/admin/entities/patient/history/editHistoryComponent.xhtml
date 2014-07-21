@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editHistoryComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{historyAction.load(historyId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelHistory eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.History}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_medicalHistoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedicalHistory')}"/>
+          </ui:define>  
+          <p:editor useSeamText="true" id="#{prefix}_medicalHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedicalHistory')}" label="#{msg.history_medicalHistory}" required="false" disabled="false" value="#{historyAction.history.medicalHistory}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </p:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_socialHistoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editSocialHistory')}"/>
+          </ui:define>  
+          <p:editor useSeamText="true" id="#{prefix}_socialHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editSocialHistory')}" label="#{msg.history_socialHistory}" required="false" disabled="false" value="#{historyAction.history.socialHistory}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </p:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_familyHistoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editFamilyHistory')}"/>
+          </ui:define>  
+          <p:editor useSeamText="true" id="#{prefix}_familyHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editFamilyHistory')}" label="#{msg.history_familyHistory}" required="false" disabled="false" value="#{historyAction.history.familyHistory}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </p:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_medicationsDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedications')}"/>
+          </ui:define>  
+          <p:editor useSeamText="true" id="#{prefix}_medications#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedications')}" label="#{msg.history_medications}" required="false" disabled="false" value="#{historyAction.history.medications}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </p:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_allergiesDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editAllergies')}"/>
+          </ui:define>  
+          <p:editor useSeamText="true" id="#{prefix}_allergies#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editAllergies')}" label="#{msg.history_allergies}" required="false" disabled="false" value="#{historyAction.history.allergies}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </p:editor> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

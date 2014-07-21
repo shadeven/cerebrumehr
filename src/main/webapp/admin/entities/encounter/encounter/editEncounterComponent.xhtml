@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEncounterComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Encounter}"/> 
+      </f:facet>  
+      <s:decorate id="patientNoteDecorate" rendered="#{ ! excludePatientNote == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.encounter_patientNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="patientNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}" label="#{msg.encounter_patientNote}" required="false" disabled="false" value="#{encounterAction.encounter.patientNote}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="prescriptionIdDecorate" rendered="#{ ! excludePrescription == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="prescriptionId" label="#{msg.encounter_prescription}" value="#{encounterAction.encounter.prescription}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}" disabled="false" converter="#{prescriptionList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{prescriptionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="patientId" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Vitals}"/> 
+      </f:facet>  
+      <s:decorate id="vitals_SysBPDecorate" rendered="#{ ! excludeSysBP == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="vitals_SysBP#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}" label="#{msg.vitals_SysBP}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.sysBP}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="vitals_DiasBPDecorate" rendered="#{ ! excludeDiasBP == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="vitals_DiasBP#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}" label="#{msg.vitals_DiasBP}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.diasBP}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="vitals_TemperatureDecorate" rendered="#{ ! excludeTemperature == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="vitals_Temperature#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}" label="#{msg.vitals_Temperature}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.temperature}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="vitals_PulseDecorate" rendered="#{ ! excludePulse == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="vitals_Pulse#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}" label="#{msg.vitals_Pulse}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.pulse}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="vitals_RespirationRateDecorate" rendered="#{ ! excludeRespirationRate == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="vitals_RespirationRate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}" label="#{msg.vitals_RespirationRate}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.respirationRate}"></h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludePrescribedTests == true}"> 
+      <p:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" update="prescribedTests, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}" value="#{encounterAction.listPrescribedTests}" rowIndexVar="rowIndex"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
+          </f:facet>  
+          <s:decorate id="dxTestIdDecorate" rendered="#{ ! excludeDxTest == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:selectOneMenu id="dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false" converter="#{dxTestList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{dxTestList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}"/>
+          </f:facet>  
+          <s:decorate id="testResults_resultsDecorate" rendered="#{ ! excludeResults == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="testResults_results#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}" label="#{msg.testResults_results}" required="false" disabled="false" value="#{_prescribedTest.testResults.results}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"/>
+          </f:facet>  
+          <s:decorate id="testResults_documentDecorate" rendered="#{ ! excludeDocument == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"> 
+              <h:outputText value="Current File:"/>  
+              <h:link value="#{prescribedTestAction.testResults.document.name}" id="document_file" action="#{prescribedTestAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{prescribedTestAction.instance.id}"/> 
+              </h:link>  
+              <p:fileUpload fileUploadListener="#{prescribedTestAction.documentUploadListener}" value="#{productAction.product.image}" auto="true"/> 
+            </h:panelGroup> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}" label="#{msg.prescribedTest_remarks}" required="false" disabled="false" value="#{_prescribedTest.remarks}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" update="prescribedTests, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="Delete" immediate="true" action="#{encounterAction.deletePrescribedTests(rowIndex)}" update="prescribedTests" process="@this"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/>  
+    <br/>  
+    <p:autoComplete minQueryLength="2" completeMethod="#{simpleCodeList.autocompletedb}" value="#{encounterAction.listSimpleCodes}" converter="#{simpleCodeList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}" multiple="true"> 
+      <p:column>#{record.displayName}</p:column> 
+    </p:autoComplete> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_drugId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug}"> 
+          <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_drugId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_qty" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.qty}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_qty" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequency')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_frequencyId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency}"> 
+          <s:selectItems value="#{frequencyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_frequencyId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequency')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_strength" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.strength}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_strength" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_route" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.route}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="PO" itemLabel="Po"/>  
+          <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+          <f:selectItem itemValue="IM" itemLabel="Im"/>  
+          <f:selectItem itemValue="SC" itemLabel="Sc"/>  
+          <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_duration" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.duration}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_duration" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_remarks" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.remarks}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_brandName" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.brandName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_brandName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_prescriptionTemplateId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate}"> 
+          <s:selectItems value="#{prescriptionTemplateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_prescriptionTemplateId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

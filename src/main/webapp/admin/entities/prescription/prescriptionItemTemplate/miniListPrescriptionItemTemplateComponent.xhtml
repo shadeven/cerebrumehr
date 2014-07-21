@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_prescriptionItemTemplate" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="prescriptionItemTemplate.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/prescription/prescriptionItemTemplate/prescriptionItemTemplateActionPrescriptionItemTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionItemTemplate, 'view')}" propagation="none"> 
+        <h:outputText value="#{_prescriptionItemTemplate.id}"/>  
+        <f:param name="prescriptionItemTemplateId" value="#{_prescriptionItemTemplate.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_drug}" sortBy="prescriptionItemTemplate.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')) }"> 
+      <h:panelGroup> 
+        <h:link id="drugprescriptionItemTemplate_drug" escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="drugprescriptionItemTemplate_drug"> 
+          <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_qty}" sortBy="prescriptionItemTemplate.qty" rendered="#{ ! excludeQty == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewQty')) }"> 
+      <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
+        <f:convertNumber pattern="000.00"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_frequency}" sortBy="prescriptionItemTemplate.frequency" rendered="#{ ! excludeFrequency == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')) }"> 
+      <h:panelGroup> 
+        <h:link id="frequencyprescriptionItemTemplate_frequency" escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+          <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="frequencyprescriptionItemTemplate_frequency" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
+              <ui:param name="frequency" value="#{_prescriptionItemTemplate.frequency}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="frequency"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_strength}" sortBy="prescriptionItemTemplate.strength" rendered="#{ ! excludeStrength == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewStrength')) }"> 
+      <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_route}" sortBy="prescriptionItemTemplate.route" rendered="#{ ! excludeRoute == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRoute')) }"> 
+      <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_duration}" sortBy="prescriptionItemTemplate.duration" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDuration')) }"> 
+      <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_remarks}" sortBy="prescriptionItemTemplate.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRemarks')) }"> 
+      <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_brandName}" sortBy="prescriptionItemTemplate.brandName" rendered="#{ ! excludeBrandName == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewBrandName')) }"> 
+      <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.prescriptionItemTemplate_prescriptionTemplate}" sortBy="prescriptionItemTemplate.prescriptionTemplate" rendered="#{ ! excludePrescriptionTemplate == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewPrescriptionTemplate')) }"> 
+      <h:panelGroup> 
+        <h:link id="prescriptionTemplateprescriptionItemTemplate_prescriptionTemplate" escape="false" value="#{_prescriptionItemTemplate.prescriptionTemplate.displayName}" outcome="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
+          <f:param name="prescriptionTemplateId" value="#{_prescriptionItemTemplate.prescriptionTemplate.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="prescriptionTemplateprescriptionItemTemplate_prescriptionTemplate" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplateComponent.xhtml"> 
+              <ui:param name="prescriptionTemplate" value="#{_prescriptionItemTemplate.prescriptionTemplate}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="prescriptionTemplatePrescriptionItemTemplates"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

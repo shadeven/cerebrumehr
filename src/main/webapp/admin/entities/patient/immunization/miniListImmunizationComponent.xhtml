@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_immunization" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="immunization.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/patient/immunization/immunizationActionImmunization.xhtml" rendered="#{s:hasPermission(_immunization, 'view')}" propagation="none"> 
+        <h:outputText value="#{_immunization.id}"/>  
+        <f:param name="immunizationId" value="#{_immunization.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.immunization_date}" sortBy="immunization.date" rendered="#{ ! excludeDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewDate')) }"> 
+      <h:outputText value="#{_immunization.date}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.immunization_patient}" sortBy="immunization.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientimmunization_patient" escape="false" value="#{_immunization.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_immunization.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientimmunization_patient"> 
+          <span>#{_immunization.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.immunization_vaccine}" sortBy="immunization.vaccine" rendered="#{ ! excludeVaccine == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewVaccine')) }"> 
+      <h:panelGroup> 
+        <h:link id="vaccineimmunization_vaccine" escape="false" value="#{_immunization.vaccine.displayName}" outcome="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
+          <f:param name="vaccineId" value="#{_immunization.vaccine.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="vaccineimmunization_vaccine" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/vaccine/viewVaccineComponent.xhtml"> 
+              <ui:param name="vaccine" value="#{_immunization.vaccine}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="vaccine"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

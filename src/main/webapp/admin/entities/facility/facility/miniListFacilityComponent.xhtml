@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_facility" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="facility.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/facility/facility/facilityActionFacility.xhtml" rendered="#{s:hasPermission(_facility, 'view')}" propagation="none"> 
+        <h:outputText value="#{_facility.id}"/>  
+        <f:param name="facilityId" value="#{_facility.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/facility/ward/miniListWardComponent.xhtml"> 
+        <ui:param name="records" value="#{_facility.listWards}"/>  
+        <ui:param name="excludeFacility" value="true"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.facility_name}" sortBy="facility.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewName')) }"> 
+      <h:outputText value="#{_facility.name}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.facility_isResidential}" sortBy="facility.isResidential" rendered="#{ ! excludeIsResidential == true and ( skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewIsResidential')) }"> 
+      <h:outputText value="#{_facility.isResidential? msg.yes : msg.no }"/> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

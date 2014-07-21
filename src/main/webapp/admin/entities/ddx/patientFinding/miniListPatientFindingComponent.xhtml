@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_patientFinding" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="patientFinding.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/ddx/patientFinding/patientFindingActionPatientFinding.xhtml" rendered="#{s:hasPermission(_patientFinding, 'view')}" propagation="none"> 
+        <h:outputText value="#{_patientFinding.id}"/>  
+        <f:param name="patientFindingId" value="#{_patientFinding.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.patientFinding_finding}" sortBy="patientFinding.finding" rendered="#{ ! excludeFinding == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')) }"> 
+      <h:panelGroup> 
+        <h:link id="findingpatientFinding_finding" escape="false" value="#{_patientFinding.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+          <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="findingpatientFinding_finding" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
+              <ui:param name="finding" value="#{_patientFinding.finding}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="finding"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.patientFinding_patientDiffDx}" sortBy="patientFinding.patientDiffDx" rendered="#{ ! excludePatientDiffDx == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewPatientDiffDx')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientDiffDxpatientFinding_patientDiffDx" escape="false" value="#{_patientFinding.patientDiffDx.displayName}" outcome="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" propagation="none"> 
+          <f:param name="patientDiffDxId" value="#{_patientFinding.patientDiffDx.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="patientDiffDxpatientFinding_patientDiffDx" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/patientDiffDx/viewPatientDiffDxComponent.xhtml"> 
+              <ui:param name="patientDiffDx" value="#{_patientFinding.patientDiffDx}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patientDiffDxPatientFindings"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

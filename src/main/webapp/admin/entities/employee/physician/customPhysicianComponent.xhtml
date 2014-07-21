@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEmployeeNumber')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_employeeNumber" value="#{physicianAction.physician.employeeNumber}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_employeeNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEmployeeNumber')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editUserName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_appUser_userName" value="#{physicianAction.physician.appUser.userName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_appUser_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editUserName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEnabled')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="#{prefix}_appUser_enabled" value="#{physicianAction.physician.appUser.enabled}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_appUser_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEnabled')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{physicianAction.physician.facility}"> 
+          <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_departmentId" value="#{physicianAction.physician.department}"> 
+          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_departmentId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFirstName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_firstName" value="#{physicianAction.physician.firstName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFirstName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editLastName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_lastName" value="#{physicianAction.physician.lastName}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editLastName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDateOfBirth')}"/>  
+        <br/>  
+        <p:calendar id="#{prefix}_dateOfBirth" value="#{physicianAction.physician.dateOfBirth}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDateOfBirth')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editGender')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_gender" value="#{physicianAction.physician.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editGender')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editPrimaryPhone')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_contactDetails_primaryPhone" value="#{physicianAction.physician.contactDetails.primaryPhone}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editPrimaryPhone')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSecondaryPhone')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_contactDetails_secondaryPhone" value="#{physicianAction.physician.contactDetails.secondaryPhone}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSecondaryPhone')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEmail')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_contactDetails_email" value="#{physicianAction.physician.contactDetails.email}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEmail')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editAge')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_age" value="#{physicianAction.physician.age}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editAge')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editTitle')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_title" value="#{physicianAction.physician.title}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mr" itemLabel="Mr"/>  
+          <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>  
+          <f:selectItem itemValue="Ms" itemLabel="Ms"/>  
+          <f:selectItem itemValue="Dr" itemLabel="Dr"/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editTitle')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.physician_specialization}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_specializationId" value="#{physicianAction.physician.specialization}"> 
+          <s:selectItems value="#{specializationList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_specializationId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_admission_BedStay) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabView dynamic="true" cache="true"> 
+        <p:tab title="BedStay"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/admission/bedStay/viewBedStayComponent.xhtml"> 
+              <ui:param name="bedStay" value="#{bedStayAction.instance}"/> 
+            </ui:include> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('bedStay', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{bedStayAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Admission" rendered="#{bedStayAction.instance.admission != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/admission/admission/viewAdmissionComponent.xhtml"> 
+              <ui:param name="admission" value="#{bedStayAction.instance.admission}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Bed" rendered="#{bedStayAction.instance.bed != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+              <ui:param name="bed" value="#{bedStayAction.instance.bed}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"></p:tabView>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{bedStayAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

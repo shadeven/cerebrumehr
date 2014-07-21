@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_admission_Admission) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabView dynamic="true" cache="true"> 
+        <p:tab title="Admission"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/admission/admission/viewAdmissionComponent.xhtml"> 
+              <ui:param name="admission" value="#{admissionAction.instance}"/> 
+            </ui:include> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('admission', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{admissionAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Patient" rendered="#{admissionAction.instance.patient != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{admissionAction.instance.patient}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Invoice" rendered="#{admissionAction.instance.invoice != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{admissionAction.instance.invoice}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"> 
+        <p:commandButton value="transfer" rendered="#{s:hasPermission('admission', 'transfer', admissionAction.instance)  and  admissionAction.transferAllowed }" oncomplete="transferAdmissionDialog.show()"/>  
+        <p:commandButton value="discharge" rendered="#{s:hasPermission('admission', 'discharge', admissionAction.instance)  and  admissionAction.dischargeAllowed }" oncomplete="dischargeAdmissionDialog.show()"/> 
+      </div> 
+    </h:form>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"></p:tabView>  
+    <br/>  
+    <p:tabView dynamic="true" cache="true"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{admissionAction}"/> 
+      </p:tab> 
+    </p:tabView>  
+    <ui:include src="/admin/entities/admission/admission/modalDlgTransferAdmissionComponent.xhtml"> 
+      <ui:param name="modalId" value="transferAdmissionMdl"/> 
+    </ui:include>  
+    <ui:include src="/admin/entities/admission/admission/modalDlgDischargeAdmissionComponent.xhtml"> 
+      <ui:param name="modalId" value="dischargeAdmissionMdl"/> 
+    </ui:include> 
+  </ui:define> 
+</ui:composition>

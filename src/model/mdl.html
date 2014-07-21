@@ -1,0 +1,402 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <link rel ="stylesheet" type="text/css" href="stylesheet.css" title="style">
+   <title>Web Sample</title>
+   <style>
+      body {font-family: Arial, sans-serif; font-size: 90%; }
+      h1, h2, h3, h4, h5, h6 { margin: 1em .1em .1em .1em; }
+      h1 { font-size: 220%; font-style: normal;  border-bottom: .05em solid #000000; }
+      h2 { font-size: 200%; }
+      h3 { font-size: 180%; }
+      h4 { font-size: 144%; }
+      h5 { font-size: 114%; }
+      h6 { font-size: 100%; }
+      .comment { margin: .1em; padding: .1em; font-size: 80%; font-style: italic; color: #999999;}
+      #toc { padding: 1em; } 
+      div.section { margin: .1em; }
+      div.content { margin: .1em; padding: .2em; }
+      ol { margin-top: .1em; margin-bottom: .1em; }
+      ul { margin: .1em 0 .1em 0; padding: 0; }
+      ul li { list-style: none; }
+      table { border: 1px solid #000000; }
+      tr.header { background-color: #555555; color: #FFFFFF; }
+      td { font-size: 80%; border: 1px solid #000000; padding: .2em; vertical-align: top; }
+   </style>
+</head>
+<body>
+<h1>Web Template</h1>
+<div class="section">
+   <h3>Table of Contents</h3>
+</div>
+<div id="toc" class="section">
+<ul>
+   <li><a href="#toc_1">Overview</a></li>
+   <li><a href="#toc_2">Query Sample</a></li>
+   <li><a href="#toc_3">Loop Sample</a></li>
+   <li><a href="#toc_4">Table Sample</a></li>
+   <li><a href="#toc_5">Conditionals Sample</a></li>
+   <li><a href="#toc_6">Open Bookmark Sample</a></li>
+   <li><a href="#toc_7">Create Bookmark Sample</a></li>
+   <li><a href="#toc_8">Open URL Sample</a></li>
+   <li><a href="#toc_9">Sorter Sample</a></li>
+   <li><a href="#toc_10">Escape Characters Sample</a></li>
+   <li><a href="#toc_11">International Sample</a></li>
+   <li><a href="#toc_12">Image Sample</a></li>
+</ul>   
+</div>
+<div id="toc_1" class="section">
+   <h4>Overview</h4>
+   <div class="comment">An example of Web Report<br> - To see the complete syntax and template usage, please use Magic Report manual</div>
+</div>
+<div id="toc_2" class="section">
+   <h4>Query Sample</h4>
+   <div class="comment">
+      The query consists of a leading $ character followed context name, and or followed by a dot character (dot character is optional) and another identifier. These are examples of valid property references in the Magic Report
+   </div>
+   <div class="content">
+      <b>Author:</b> NA<br>
+      <b>Company Name:</b> No Magic<br>
+      <b>Project Name:</b> model<br>
+      <b>Blank Value:</b> NA<br>
+      <b>Total Package:</b> 16<br>
+      <b>Use Case Owner:</b><br>
+      <ol>
+            </ol>
+   </div>
+   <div class="comment">
+      There are three type of defined context, which is able to query by Magic Report<br>
+      <ol>
+         <li>Open API contexts – This context consists model elements that available on Open API or OMG meta-model. Ex. UseCase, Class, Package, and Diagram</li>
+         <li>Domain Specific contexts – This context consists of domain specific model elements. The domain specific element is an extension of OMG meta-model (combining between element and stereotype). Ex. requirementUseCase</li>
+         <li>User defined contexts – Use defined this context from graphical user interface. Ex. Author, CompanyName</li>
+         <li>Helper contexts – This context consists of tools that provide additional features or convenience functions for create template. Ex. sorter, bookmark, report</li>
+      </ol>
+      Note: Any non-value in query will be replace with output on blank field options during generating report.
+   </div>
+</div>
+<div id="toc_3" class="section">
+   <h4>Loop Sample</h4>
+   <div class="comment">
+      The #foreach loop causes the $Package list to be looped over for all of the packages (targets) in the list. Each time through the loop, the value from $Package is placed into the \$p variable.
+   </div>
+   <div class="content">
+         <b>Package com.oreon.cerebrum</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package users</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package codes</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package patient</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package domain</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package billing</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package facility</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package reports</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package unusualoccurences</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package employee</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package prescription</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package charts</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package drugs</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package encounter</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package appointment</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+         <b>Package ddx</b>
+      <div style="padding-left: 1em;"><b>Comment</b>
+         NA
+      </div>
+      </div>
+</div>
+<div id="toc_4" class="section">
+   <h4>Table Sample 1</h4>
+   <div class="comment">
+      The \#forrow loop causes the \$UseCase list to be looped over for all of the use cases (targets) in the list. The logical concept of of \#forrow and  #foreach are similar except \#forrow is designed for table structure to allow template to duplicate current row to \#forrow statement.
+   </div>
+   <div class="content">
+   <table border="1" cellspacing="0">
+      <tr class="header">
+         <td>Name</td>
+         <td>Owner</td>
+         <td>Extend</td>
+      </tr>
+      </table>
+   </div>
+   <h4>Table Sample 2</h4>
+   <div class="comment">
+      Use #foreach loop for looped over for all of the use cases (targets) in the list.
+   </div>
+   <div class="content">
+   <table border="1" cellspacing="0">
+      <tr class="header">
+         <td>Name</td>
+         <td>Owner</td>
+         <td>Extend</td>
+      </tr>
+         </table>
+   </div>   
+</div>
+<div id="toc_5" class="section">
+   <h4>Conditionals Sample</h4>
+   <div class="comment">
+      The #if directive allows content to be included when report is generated, on the conditional that the #if statement is true. For example:
+   </div>
+   <div class="content">
+                  <div>[if] Person</div>
+                        <div>[if] AtcDrug</div>
+                        <div>[if] Section</div>
+                        <div>[if] PrescriptionItem</div>
+                        <div>[if] Invoice</div>
+                        <div>[if] PrescribedTest</div>
+                        <div>[if] PatientDocument</div>
+                        <div>[if] Chapter</div>
+                        <div>[if] Chart</div>
+                        <div>[if] DifferentialDx</div>
+                        <div>[if] Appointment</div>
+                        <div>[if] Physician</div>
+                        <div>[if] Vaccine</div>
+                        <div>[if] DxCategory</div>
+                        <div>[if] Ward</div>
+                        <div>[if] History</div>
+                        <div>[if] Technician</div>
+                        <div>[if] Allergen</div>
+                        <div>[if] BedStay</div>
+                        <div>[if] Facility</div>
+                        <div>[if] NurseSpecialty</div>
+                        <div>[if] ChartItem</div>
+                        <div>[if] Prescription</div>
+                        <div>[if] Clerk</div>
+                        <div>[if] Drug</div>
+                        <div>[if] InvoiceItem</div>
+                        <div>[if] PatientFinding</div>
+                        <div>[if] Immunization</div>
+                        <div>[if] ContactDetails</div>
+                        <div>[if] Allergy</div>
+                        <div>[if] AppRole</div>
+                        <div>[if] LabFinding</div>
+                        <div>[if] ConditionCategory</div>
+                        <div>[if] PrescriptionItemTemplate</div>
+                        <div>[if] ConditionFinding</div>
+                        <div>[if] Bed</div>
+                        <div>[if] OccurenceType</div>
+                        <div>[if] AppUser</div>
+                        <div>[if] Differential</div>
+                        <div>[if] PhysicalFinding</div>
+                        <div>[if] Disease</div>
+                        <div>[if] Frequency</div>
+                        <div>[if] TBed</div>
+                        <div>[if] Department</div>
+                        <div>[if] Patient</div>
+                        <div>[if] Service</div>
+                        <div>[if] EmployeesByDepartment</div>
+                        <div>[if] Specialization</div>
+                        <div>[if] Employee</div>
+                        <div>[if] TestResults</div>
+                        <div>[if] DxTest</div>
+                        <div>[if] DrugInteraction</div>
+                        <div>[if] Nurse</div>
+                        <div>[if] TrackedVital</div>
+                        <div>[if] Reason</div>
+                        <div>[if] VitalValue</div>
+                        <div>[if] ChartProcedure</div>
+                        <div>[if] Admission</div>
+                        <div>[if] Code</div>
+                        <div>[if] AbstractCode</div>
+                        <div>[if] PrescriptionTemplate</div>
+                        <div>[if] UnusualOccurence</div>
+                        <div>[if] Vitals</div>
+                        <div>[if] DrugCategory</div>
+                        <div>[if] Room</div>
+                        <div>[if] Finding</div>
+                        <div>[if] Address</div>
+                        <div>[if] RoomType</div>
+                        <div>[if] AppliedChart</div>
+                        <div>[if] PatientDiffDx</div>
+                        <div>[if] Encounter</div>
+            </div>
+</div>
+<div id="toc_6" class="section">
+   <h4>Open Bookmark Sample</h4>
+   <div class="comment">
+      The bookmark is a helper context which is allow template to create and open all kind of bookmark (include external URL)
+   </div>
+   <div class="content">
+      <h5>Index of Package</h5> 
+      <div class="comment">Open function uses to open a bookmark that creates by \$bookmark.create() function.</div>
+      <ul>
+               <li>Open bookmark <a href="#_0b8f02c136ac3ed56b1aef9af818940a">com.oreon.cerebrum</a></li>
+               <li>Open bookmark <a href="#_128050b8f1d9f013d65d191086d7a7d4">users</a></li>
+               <li>Open bookmark <a href="#_02892496cbed1ada5ec78a7f3019c412">codes</a></li>
+               <li>Open bookmark <a href="#_65466170511b4c8f6b0ff5e539f4998d">patient</a></li>
+               <li>Open bookmark <a href="#_b243b1f04d003947824d339150843cdd">domain</a></li>
+               <li>Open bookmark <a href="#_d6a974863970724440bc3ccf00aaacfa">billing</a></li>
+               <li>Open bookmark <a href="#_e9615084ead3f30a8e74d20b33754ad7">facility</a></li>
+               <li>Open bookmark <a href="#_8847b4ca175eaeb8605e54eb274f34ca">reports</a></li>
+               <li>Open bookmark <a href="#_25ec8de9c38bdaa4aa76391a6f465c87">unusualoccurences</a></li>
+               <li>Open bookmark <a href="#_b214881887685fd23abf34f2a37cbe88">employee</a></li>
+               <li>Open bookmark <a href="#_cd3d5e02967f51bf9a10cf84acf348ad">prescription</a></li>
+               <li>Open bookmark <a href="#_13939281fb0d464f6b1aa550bf88acec">charts</a></li>
+               <li>Open bookmark <a href="#_66e5de5176e49d666baf424efe19fdda">drugs</a></li>
+               <li>Open bookmark <a href="#_85cfcef49a8babc43536e1d62e14db74">encounter</a></li>
+               <li>Open bookmark <a href="#_f872a4d62510564f0575a77fe89ba3ee">appointment</a></li>
+               <li>Open bookmark <a href="#_6c6480c21321799db7fdffed18485fb2">ddx</a></li>
+            </ul>
+   </div> 
+</div>
+<div id="toc_7" class="section">
+   <h4>Create Bookmark Sample</h4>
+   <div class="comment">
+      Create function uses to create a bookmark which is allowed to open by by \$bookmark.open() function.
+   </div>
+   <div class="content">
+      <div class="comment">Create function uses to create a bookmark which is allowed to open by by \$bookmark.open() function.</div>
+      <ul>
+               <li>Bookmark <b><label id="_0b8f02c136ac3ed56b1aef9af818940a">com.oreon.cerebrum</label></b></li>
+               <li>Bookmark <b><label id="_128050b8f1d9f013d65d191086d7a7d4">users</label></b></li>
+               <li>Bookmark <b><label id="_02892496cbed1ada5ec78a7f3019c412">codes</label></b></li>
+               <li>Bookmark <b><label id="_65466170511b4c8f6b0ff5e539f4998d">patient</label></b></li>
+               <li>Bookmark <b><label id="_b243b1f04d003947824d339150843cdd">domain</label></b></li>
+               <li>Bookmark <b><label id="_d6a974863970724440bc3ccf00aaacfa">billing</label></b></li>
+               <li>Bookmark <b><label id="_e9615084ead3f30a8e74d20b33754ad7">facility</label></b></li>
+               <li>Bookmark <b><label id="_8847b4ca175eaeb8605e54eb274f34ca">reports</label></b></li>
+               <li>Bookmark <b><label id="_25ec8de9c38bdaa4aa76391a6f465c87">unusualoccurences</label></b></li>
+               <li>Bookmark <b><label id="_b214881887685fd23abf34f2a37cbe88">employee</label></b></li>
+               <li>Bookmark <b><label id="_cd3d5e02967f51bf9a10cf84acf348ad">prescription</label></b></li>
+               <li>Bookmark <b><label id="_13939281fb0d464f6b1aa550bf88acec">charts</label></b></li>
+               <li>Bookmark <b><label id="_66e5de5176e49d666baf424efe19fdda">drugs</label></b></li>
+               <li>Bookmark <b><label id="_85cfcef49a8babc43536e1d62e14db74">encounter</label></b></li>
+               <li>Bookmark <b><label id="_f872a4d62510564f0575a77fe89ba3ee">appointment</label></b></li>
+               <li>Bookmark <b><label id="_6c6480c21321799db7fdffed18485fb2">ddx</label></b></li>
+            </ul>
+   </div> 
+</div>
+<div id="toc_8" class="section">
+   <h4>Open URL Sample</h4>
+   <div class="comment">
+      OpenURL function provide an external link open function.
+   </div>
+   <div class="content">
+      Click to open URL <a href="http://www.google.com">Google</a><br>
+      Click to open URL <a href="http://www.google.com" target="_blank">Google</a><br>
+   </div> 
+</div>
+<div id="toc_9" class="section">
+   <h4>Sorter Sample</h4>
+   <div class="comment">
+      The sorter is a helper context that allows a user to sort a collection by the property contained with in the collection. 
+      By default, sorter sorts by ascending you can override this by adding a sort type suffix to any property name. The supported suffixes are: "asc" for ascending and "desc" for descending.
+   </div>
+   <div class="content">
+   <table border="1" cellspacing="0">
+      <tr class="header">
+         <td>Original</td>
+         <td>Ascending Sort</td>
+         <td>Descending Sort</td>
+      </tr>
+      <tr>
+         <td>com.oreon.cerebrum<br>users<br>codes<br>patient<br>domain<br>billing<br>facility<br>reports<br>unusualoccurences<br>employee<br>prescription<br>charts<br>drugs<br>encounter<br>appointment<br>ddx<br></td>
+         <td>appointment<br>billing<br>charts<br>codes<br>com.oreon.cerebrum<br>ddx<br>domain<br>drugs<br>employee<br>encounter<br>facility<br>patient<br>prescription<br>reports<br>unusualoccurences<br>users<br></td>
+         <td>users<br>unusualoccurences<br>reports<br>prescription<br>patient<br>facility<br>encounter<br>employee<br>drugs<br>domain<br>ddx<br>com.oreon.cerebrum<br>codes<br>charts<br>billing<br>appointment<br></td>
+      </tr>
+   </table>
+   </div> 
+</div>
+<div id="toc_10" class="section">
+   <h4>Escape Characters Sample</h4>
+   <div class="comment">
+      The query syntax of template is begin with $ (dollar sign) and followed by letter. But sometime you may need to use dollar sign as character in report. Magic Report provides escape character for this condition.
+   </div>
+   <div class="content">
+      <h5>Example of dollar escape character:</h5>
+      <ul class="dot">
+         <li>Dollar Sign \$value</li>
+         <li>Dollar Sign \$5000</li>
+         <li>Dollar Sign $5000</li>
+      </ul>
+      <h5>Example of shape sign escape character:</h5>
+      <ul class="dot">
+         <li>Shape Sign \#</li>
+         <li>Shape Sign \#value</li>
+      </ul>
+   </div>
+   <div class="comment">
+      Note: Magic Report automatically removes paragraph and row at line or row of command statement
+   </div>
+</div>
+<div id="toc_11" class="section">
+   <h4>International Sample</h4>
+   <div class="comment">
+      Magic Draw and Magic Report are build-in supported international language such as Thai, Germany, or Japanese etc.
+   </div>
+   <table border="1" cellspacing="0">
+      <tr class="header">
+         <td>Language</td>
+         <td>Field Name</td>
+         <td>Field Value</td>
+      </tr>
+      <tr>
+         <td>English</td>
+         <td>$MagicDrawEnglish</td>
+         <td>MagicDraw</td>
+      </tr>
+      <tr>
+         <td>ไทย</td>
+         <td>$MagicDrawThai</td>
+         <td>เมจิกดรอว์</td>
+      </tr>
+      <tr>
+         <td>??</td>
+         <td>$MagicDrawJapanese</td>
+         <td>マジックドアー</td>
+      </tr>
+   </table>
+</div>
+<div id="toc_12" class="section">
+   <h4>Image Sample</h4>
+   <div class="comment">
+      Images in Magic Report are represented with image property of Diagram context.
+   </div>
+                                                                                                                   </div>
+</body>
+</html>

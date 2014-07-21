@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<c:set var="opId" value="outputPanel-${modalId}" />
+	<h:panelGrid>
+		<s:decorate id="bedDecorate" template="/layout/edit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="#{msg.room_ward}  "
+					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" />
+			</ui:define>
+			<h:selectOneMenu id="ward" label="#{msg.room_ward}"
+				converter="#{wardList.converter}" value="#{admissionAction.ward}"
+				required="true"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"
+				disabled="false">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItems value="#{admissionAction.wardList}" var="itemIter"
+					itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
+				<p:ajax update=":#{p:component('roombeds')}" event="change"
+					process="@this, :#{p:component('roomType')}" />
+			</h:selectOneMenu>
+		</s:decorate>
+		
+		<s:decorate id="roomTypeDecorate" template="/layout/edit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="#{msg.room_roomType}  "
+					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" />
+			</ui:define>
+			<h:selectOneMenu id="roomType" label="#{msg.room_roomType}"
+				value="#{admissionAction.roomType}"
+				converter="#{roomTypeList.converter}"
+				required="true"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"
+				disabled="false">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItems value="#{roomTypeList.all}" var="itemIter"
+					itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
+				<p:ajax update=":#{p:component('roombeds')}" event="change"
+					process="@this, :#{p:component('ward')}" />
+			</h:selectOneMenu>
+		</s:decorate>
+		<p:panel id="roombeds">
+			<h:selectOneRadio>
+				<h4> <h:outputText value="Preferred"  /> </h4>
+					<h:panelGroup>
+						<b> <h:outputText
+							value="Found #{admissionAction.preferredBedsCount} Beds" /> </b>
+						<br />
+						<h:selectOneMenu label="#{msg.bedStay_bed}" id="pref"
+							value="#{admissionAction.preferredBed}" required="false"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+							disabled="false" converter="#{bedList.converter}">
+
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{admissionAction.prefferedBeds}"
+								var="itemIter" itemLabel="#{itemIter.displayName}"
+								itemValue="#{itemIter}" />
+
+
+						</h:selectOneMenu>
+						<hr />
+					</h:panelGroup>
+				
+				<br />
+				<h4> <h:outputText value="Non Preferred"  /> </h4>
+					<h:outputText
+						value="Found #{admissionAction.nonPreferredBedsCount} Beds" />
+					<br />
+					<h:panelGroup>
+						<h:selectOneMenu label="#{msg.bedStay_bed}" id="nonpref"
+							value="#{admissionAction.nonPreferredBed}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+							disabled="false" converter="#{bedList.converter}">
+
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{admissionAction.nonPreferredBedsList}"
+								var="itemIter" itemLabel="#{itemIter.displayName}"
+								itemValue="#{itemIter}" />
+
+						</h:selectOneMenu>
+						<hr />
+					</h:panelGroup>
+				
+			</h:selectOneRadio>
+		</p:panel>
+
+	</h:panelGrid>
+</ui:composition>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DrugCategoryModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="DrugCategory Search Results (#{empty records ? 0 : (drugCategoryList.paginated ? drugCategoryList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/drugs/drugCategory/modalDlgDrugCategoryComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="drugCategoryForm"> 
+      <p:dataTable var="_drugCategory" value="#{records}" id="drugCategoryList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{drugCategoryAction.drugCategory}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editDrugCategoryPanel')}" oncomplete="PF('editDrugCategoryDialog').show()" listener="#{drugCategoryAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="drugCategory.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/drugs/drugCategory/drugCategoryActionDrugCategory.xhtml" rendered="#{s:hasPermission(_drugCategory, 'view')}" propagation="none"> 
+            <h:outputText value="#{_drugCategory.id}"/>  
+            <f:param name="drugCategoryId" value="#{_drugCategory.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.drugCategory_name}" sortBy="drugCategory.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'viewName')) }"> 
+          <h:outputText value="#{_drugCategory.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="drugCategory.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_drugCategory.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_drugCategory', 'view') and !_drugCategoryCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/drugCategory/viewDrugCategory.xhtml" rendered="#{s:hasPermission(_drugCategory, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="drugCategoryId" value="#{_drugCategory.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_drugCategory', 'edit') and !_drugCategoryCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/drugCategory/editDrugCategory.xhtml" rendered="#{s:hasPermission(_drugCategory, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="drugCategoryId" value="#{_drugCategory.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('drugCategoryAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_drugCategory.archived}" action="#{drugCategoryAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_drugCategory.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_drugCategory.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_drugCategory.archived}" action="#{drugCategoryAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_drugCategory.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_drugCategory.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_drugCategory.archived}" action="#{drugCategoryAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_drugCategory.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

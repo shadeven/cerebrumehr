@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+
+
+		<!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_PatientFile) ENABLED START-->
+		<!--PROTECTED REGION END-->
+
+		<div id="printable"><ui:repeat
+			value="#{encounterList.getAllEncountersByPatient(patientAction.instance)}"
+			var="enc">
+			<h:form>
+				<div style="background-color: #fafafa">
+				<h3>Encounter with #{enc.creator.displayName} on
+				#{enc.dateCreated}</h3>
+				</div>
+				<h4>Reasons For Visit</h4>
+				<ui:repeat value="#{enc.listSimpleCodes}" var="item">   #{item.displayName}</ui:repeat>
+
+				<h4>NOTE</h4>
+				<h:outputText value="#{enc.patientNote}" escape="false" />
+
+				<h4>Drugs</h4>
+				<h:outputText value="#{enc.prescription.drugs}" escape="false" />
+
+				<s:div rendered="#{enc.listPrescribedTests.size() > 0 }">
+				
+				<h4>Tests</h4>
+				<p:dataTable id="prescribedTests" var="_prescribedTest"
+					rendered="#{not empty enc.listPrescribedTests and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }"
+					value="#{enc.listPrescribedTests}" rowIndexVar="rowIndex">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.prescribedTest_dxTest}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}" />
+						</f:facet>
+						<h:panelGroup>
+							<h:link id="dxTestprescribedTest_dxTest" escape="false"
+								value="#{_prescribedTest.dxTest.displayName}"
+								outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml"
+								propagation="none">
+								<f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}" />
+								<f:param name="from" value="#{request.servletPath}" />
+							</h:link>
+						</h:panelGroup>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.testResults_results}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}" />
+						</f:facet>
+						<h:outputText value="#{_prescribedTest.testResults.results}"
+							escape="false" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.testResults_document}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')}" />
+						</f:facet>
+						<s:graphicImage
+							rendered="#{_prescribedTest.testResults.document ne null and  _prescribedTest.testResults.document.contentType.startsWith('image')}"
+							value="#{_prescribedTest.testResults.document.data}">
+							<s:transformImageSize height="100" maintainRatio="true" />
+						</s:graphicImage>
+						<h:link value="#{_prescribedTest.testResults.document.name}"
+							action="#{testResultsAction.downloadDocument(_testResults.id)}"
+							propagation="none"
+							rendered="#{not _prescribedTest.testResults.document.contentType.startsWith('image')}">
+							<f:param name="currentEnt ityId" value="#{_testResults.id}" />
+						</h:link>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.prescribedTest_remarks}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}" />
+						</f:facet>
+						<h:outputText value="#{_prescribedTest.remarks}" escape="false" />
+					</p:column>
+				</p:dataTable>
+				</s:div>
+				<hr/>
+				<!--  
+				
+				
+				<ui:include
+					src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml">
+					<ui:param name="prescription"
+						value="#{enc.prescription}" />
+					<ui:param name="excludePatient" value="true" />
+					<ui:param name="excludePrescriptionItems" value="true" />
+					
+				</ui:include>
+				<ui:include
+					src="/admin/entities/encounter/encounter/viewEncounterComponentCustom.xhtml">
+					<ui:param name="excludePatient" value="true" />
+					<ui:param name="encounter" value="#{enc}" />
+				</ui:include>
+			    -->
+			</h:form>
+		</ui:repeat></div>
+
+	</ui:define>
+</ui:composition>

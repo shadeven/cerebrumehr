@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:panel id="dynamicTreePanel" header="Dynamic Tree User Interface"> 
+    <h:form> 
+      <h:panelGrid columns="2"> 
+        <p:tree icon="/image/node.gif" iconLeaf="/image/node.gif" nodeSelectListener="#{atcDrugAction.processSelection}" reRender="selectedNode, detailsView" ajaxSubmitSelection="true"> 
+          <p:recursiveTreeNodesAdaptor roots="#{atcDrugAction.topLevelparent}" var="_AtcDrug"> 
+            <p:treeNode> 
+              <h:outputText value="#{_AtcDrug.displayName}"/> 
+            </p:treeNode>  
+            <p:recursiveTreeNodesAdaptor roots="#{_AtcDrug.subcategories}" var="_child" nodes="#{_child.subcategories}"> 
+              <p:treeNode> 
+                <h:outputText value="#{_child.displayName}"/> 
+              </p:treeNode> 
+            </p:recursiveTreeNodesAdaptor> 
+          </p:recursiveTreeNodesAdaptor> 
+        </p:tree>  
+        <p:panel id="detailsView"> 
+          <ui:include src="/admin/entities/drugs/drug/viewDrug.xhtml"> 
+            <ui:param name="drugId" value="#{drugAction.drugId}"/> 
+          </ui:include> 
+        </p:panel> 
+      </h:panelGrid> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

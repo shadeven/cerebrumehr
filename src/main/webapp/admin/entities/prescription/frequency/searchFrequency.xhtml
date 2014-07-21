@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <s:div rendered="false"> 
+      <ui:include src="freeTypeSearchFrequencyComponent.xhtml"/> 
+    </s:div>  
+    <br/>  
+    <p:simpleTogglePanel switchType="client" label="Advanced Search" opened="false"> 
+      <p:tabPanel> 
+        <p:tab label="Search"> 
+          <ui:include src="fieldSearchFrequencyComponent.xhtml"/> 
+        </p:tab>  
+        <p:tab label="Text Search"> 
+          <ui:include src="textSearchFrequencyComponent.xhtml"/> 
+        </p:tab> 
+      </p:tabPanel>  
+      <div class="actionButtons"> 
+        <h:commandButton id="search" value="Search" view="/admin/entities/prescription/frequency/listFrequency.xhtml"> 
+          <s:conversationPropagation type="join"/> 
+        </h:commandButton>  
+        <s:button propagation="none" id="reset" value="Reset" includePageParams="false"/> 
+      </div> 
+    </p:simpleTogglePanel> 
+  </h:form> 
+</ui:composition>

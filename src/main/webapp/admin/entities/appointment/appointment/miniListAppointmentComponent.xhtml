@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_appointment" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="appointment.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/appointment/appointment/appointmentActionAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'view')}" propagation="none"> 
+        <h:outputText value="#{_appointment.id}"/>  
+        <f:param name="appointmentId" value="#{_appointment.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.appointment_start}" sortBy="appointment.start" rendered="#{ ! excludeStart == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewStart')) }"> 
+      <h:outputText value="#{_appointment.start}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.appointment_end}" sortBy="appointment.end" rendered="#{ ! excludeEnd == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewEnd')) }"> 
+      <h:outputText value="#{_appointment.end}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.appointment_physician}" sortBy="appointment.physician" rendered="#{ ! excludePhysician == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPhysician')) }"> 
+      <h:panelGroup> 
+        <h:link id="physicianappointment_physician" escape="false" value="#{_appointment.physician.displayName}" outcome="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+          <f:param name="physicianId" value="#{_appointment.physician.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="physicianappointment_physician" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"> 
+              <ui:param name="physician" value="#{_appointment.physician}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="physician"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.appointment_patient}" sortBy="appointment.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientappointment_patient" escape="false" value="#{_appointment.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_appointment.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientappointment_patient"> 
+          <span>#{_appointment.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.appointment_remarks}" sortBy="appointment.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewRemarks')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}remarksAbbr" value="#{_appointment.remarksAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.appointment_units}" sortBy="appointment.units" rendered="#{ ! excludeUnits == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewUnits')) }"> 
+      <h:outputText value="#{_appointment.units}" escape="false"/> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

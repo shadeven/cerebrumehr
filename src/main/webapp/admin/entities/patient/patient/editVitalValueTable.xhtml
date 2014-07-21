@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New VitalValue" action="#{patientAction.addVitalValues}" reRender="vitalValues, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVitalValues')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="vitalValues" var="_vitalValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVitalValues')}" value="#{patientAction.listVitalValues}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_trackedVitalIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeTrackedVital == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_trackedVitalId" label="#{msg.vitalValue_trackedVital}" value="#{_vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false"> 
+          <s:selectItems value="#{trackedVitalList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_valueDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{_vitalValue.value}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{_vitalValue.remarks}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New VitalValue" action="#{patientAction.addVitalValues}" reRender="vitalValues, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editVitalValues')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deleteVitalValues(rowIndex)}" reRender="vitalValues"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

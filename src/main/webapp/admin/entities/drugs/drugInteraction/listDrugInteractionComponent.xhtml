@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DrugInteractionModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="DrugInteraction Search Results (#{empty records ? 0 : (drugInteractionList.paginated ? drugInteractionList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/drugs/drugInteraction/modalDlgDrugInteractionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="drugInteractionForm"> 
+      <p:dataTable var="_drugInteraction" value="#{records}" id="drugInteractionList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{drugInteractionAction.drugInteraction}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editDrugInteractionPanel')}" oncomplete="PF('editDrugInteractionDialog').show()" listener="#{drugInteractionAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="drugInteraction.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/drugs/drugInteraction/drugInteractionActionDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'view')}" propagation="none"> 
+            <h:outputText value="#{_drugInteraction.id}"/>  
+            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.drugInteraction_description}" sortBy="drugInteraction.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drugInteraction_drug}" sortBy="drugInteraction.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDrug')) }"> 
+          <h:panelGroup> 
+            <h:link id="drugdrugInteraction_drug" escape="false" value="#{_drugInteraction.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+              <f:param name="drugId" value="#{_drugInteraction.drug.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugdrugInteraction_drug"> 
+              <span>#{_drugInteraction.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drugInteraction_interactingDrug}" sortBy="drugInteraction.interactingDrug" rendered="#{ ! excludeInteractingDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewInteractingDrug')) }"> 
+          <h:panelGroup> 
+            <h:link id="interactingDrugdrugInteraction_interactingDrug" escape="false" value="#{_drugInteraction.interactingDrug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+              <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="interactingDrugdrugInteraction_interactingDrug"> 
+              <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drugInteraction_severity}" sortBy="drugInteraction.severity" rendered="#{ ! excludeSeverity == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewSeverity')) }"> 
+          <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="drugInteraction.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_drugInteraction.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_drugInteraction', 'view') and !_drugInteractionCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/drugInteraction/viewDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_drugInteraction', 'edit') and !_drugInteractionCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/drugInteraction/editDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('drugInteractionAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_drugInteraction.archived}" action="#{drugInteractionAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_drugInteraction.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_drugInteraction.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_drugInteraction.archived}" action="#{drugInteractionAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_drugInteraction.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_drugInteraction.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_drugInteraction.archived}" action="#{drugInteractionAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_drugInteraction.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

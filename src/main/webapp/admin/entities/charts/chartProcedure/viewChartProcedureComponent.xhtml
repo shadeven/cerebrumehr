@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewChartProcedurePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ChartProcedure}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDueDate')}"/>  
+      <h:outputText value="#{chartProcedure.dueDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDatePerformed')}"/>  
+      <h:outputText value="#{chartProcedure.datePerformed}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')}"/>  
+      <h:outputText value="#{chartProcedure.remarks}" escape="false"/>  
+      <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')}"/>  
+      <h:panelGroup> 
+        <h:link id="patientchartProcedure_patient" escape="false" value="#{chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{chartProcedure.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientchartProcedure_patient"> 
+          <span>#{chartProcedure.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')}"/>  
+      <h:panelGroup> 
+        <h:link id="chartItemchartProcedure_chartItem" escape="false" value="#{chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
+          <f:param name="chartItemId" value="#{chartProcedure.chartItem.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chartItemchartProcedure_chartItem" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
+              <ui:param name="chartItem" value="#{chartProcedure.chartItem}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chartItem"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

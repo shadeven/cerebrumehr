@@ -1,0 +1,143 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:form id="encounterForm">
+
+
+			<p:dataTable id="reasons" var="_reason"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}"
+				value="#{encounterAction.listReasons}" rowKeyVar="rowIndex"
+				rowClasses="odd, even" styleClass="viewInfo" rules="all">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.reason_code}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" />
+					</f:facet>
+					<s:decorate id="#{prefix}_codecodeDecorate"
+						template="/layout/editTableField.xhtml"
+						rendered="#{ ! excludeCode == true}">
+						<ui:define name="label"></ui:define>
+						<h:selectOneMenu id="#{prefix}_codecode"
+							label="#{msg.reason_code}" value="#{_reason.code}"
+							required="true"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"
+							disabled="false">
+							<s:selectItems value="#{codeList.all}" var="itemIter"
+								label="#{itemIter.displayName}"
+								noSelectionLabel="Please Select..." />
+							
+							<s:convertEntity />
+						</h:selectOneMenu>
+					</s:decorate>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.reason_remarks}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}" />
+					</f:facet>
+					<s:decorate id="#{prefix}_remarksDecorate"
+						template="/layout/editTableField.xhtml">
+						<ui:define name="label"></ui:define>
+						<h:inputText escape="false" id="#{prefix}_remarks#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"
+							label="#{msg.reason_remarks}" required="false" disabled="false"
+							value="#{_reason.remarks}">
+							
+						</h:inputText>
+					</s:decorate>
+				</h:column>
+				<h:column>
+					<p:commandButton value="New Reason"
+						action="#{encounterAction.addReasons}"
+						reRender="reasons, editEncounterComponentPanel"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editReasons')}">
+						<s:conversationId />
+					</p:commandButton>
+				</h:column>
+				<h:column>
+					<h:commandButton value="Delete" immediate="true"
+						action="#{encounterAction.deleteReasons(rowIndex)}"
+						reRender="reasons">
+						<s:conversationId />
+					</h:commandButton>
+				</h:column>
+			</p:dataTable>
+
+			<br />
+			<p:accordionPanel> 
+				<p:tab label="History">
+
+					<s:decorate id="#{prefix}_chiefComplaintDecorate"
+						template="/layout/edit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="#{msg.encounter_patientNote}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editpatientNote')}" />
+						</ui:define>
+						<br />
+						<p:editor useSeamText="true" width="650"
+							id="#{prefix}_patientNote#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editpatientNote')}"
+							label="#{msg.encounter_patientNote}" required="true"
+							disabled="false" value="#{encounterAction.encounter.patientNote}">
+							
+						</p:editor>
+					</s:decorate>
+
+				</p:tab>
+
+
+				<p:tab label="Dx Tests">
+
+					<ui:include
+						src="/admin/entities/encounter/encounter/editEncounterDxTests.xhtml">
+					</ui:include>
+
+				</p:tab>
+
+
+				<p:tab label="Vitals">
+
+					<ui:include
+						src="/admin/entities/encounter/encounter/editVitalsComponent.xhtml">
+					</ui:include>
+					<br />
+
+					<ui:include
+						src="/admin/entities/patient/patient/editVitalValueTable.xhtml">
+						<ui:param name="excludePatient" value="true" />
+						<ui:param name="prefix" value="vitals" />
+					</ui:include>
+
+				</p:tab>
+
+
+
+				<p:tab label="Prescription ">
+					<ui:include
+						src="/admin/entities/prescription/prescription/editPrescriptionComponentCustom.xhtml">
+						<ui:param name="excludePatient" value="true" />
+					</ui:include>
+				</p:tab>
+
+			</p:accordionPanel>
+			
+
+
+
+			<div class="buttonBox"><h:commandButton value="Save"
+				action="#{encounterAction.save}">
+			</h:commandButton> <h:outputText value=" " /> <h:commandButton value="Cancel"
+				immediate="true" action="#{encounterAction.cancel}">
+			</h:commandButton></div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PatientModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Patient Search Results (#{empty records ? 0 : (patientList.paginated ? patientList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/patient/patient/modalDlgPatientComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="patientForm"> 
+      <p:dataTable var="_patient" value="#{records}" id="patientList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{patientAction.patient}"> 
+        <p:ajax event="rowSelect" listener="#{patientAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="patient.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/patient/patient/patientActionPatient.xhtml" rendered="#{s:hasPermission(_patient, 'view')}" propagation="none"> 
+            <h:outputText value="#{_patient.id}"/>  
+            <f:param name="patientId" value="#{_patient.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="patient.firstName" rendered="#{ ! excludeFirstName == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFirstName')) }"> 
+          <h:outputText value="#{_patient.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="patient.lastName" rendered="#{ ! excludeLastName == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewLastName')) }"> 
+          <h:outputText value="#{_patient.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="patient.dateOfBirth" rendered="#{ ! excludeDateOfBirth == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewDateOfBirth')) }"> 
+          <h:outputText value="#{_patient.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="patient.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewGender')) }"> 
+          <h:outputText value="#{_patient.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="patient.contactDetails.primaryPhone" rendered="#{ ! excludePrimaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewPrimaryPhone')) }"> 
+          <h:outputText value="#{_patient.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="patient.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewSecondaryPhone')) }"> 
+          <h:outputText value="#{_patient.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="patient.contactDetails.email" rendered="#{ ! excludeEmail == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewEmail')) }"> 
+          <h:outputText value="#{_patient.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="patient.age" rendered="#{ ! excludeAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewAge')) }"> 
+          <h:outputText value="#{_patient.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="patient.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewTitle')) }"> 
+          <h:outputText value="#{_patient.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.address_streetAddress}" sortBy="patient.address.streetAddress" rendered="#{ ! excludeStreetAddress == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewStreetAddress')) }"> 
+          <h:outputText value="#{_patient.address.streetAddress}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.address_city}" sortBy="patient.address.city" rendered="#{ ! excludeCity == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewCity')) }"> 
+          <h:outputText value="#{_patient.address.city}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.address_State}" sortBy="patient.address.state" rendered="#{ ! excludeState == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewState')) }"> 
+          <h:outputText value="#{_patient.address.state}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.address_phone}" sortBy="patient.address.phone" rendered="#{ ! excludePhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewPhone')) }"> 
+          <h:outputText value="#{_patient.address.phone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.patient_healthNumber}" sortBy="patient.healthNumber" rendered="#{ ! excludeHealthNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewHealthNumber')) }"> 
+          <h:outputText value="#{_patient.healthNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.history_medicalHistory}" sortBy="patient.history.medicalHistory" rendered="#{ ! excludeMedicalHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedicalHistory')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}medicalHistoryAbbr" value="#{_patient.history.medicalHistoryAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.history_socialHistory}" sortBy="patient.history.socialHistory" rendered="#{ ! excludeSocialHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewSocialHistory')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}socialHistoryAbbr" value="#{_patient.history.socialHistoryAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.history_familyHistory}" sortBy="patient.history.familyHistory" rendered="#{ ! excludeFamilyHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFamilyHistory')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}familyHistoryAbbr" value="#{_patient.history.familyHistoryAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.history_medications}" sortBy="patient.history.medications" rendered="#{ ! excludeMedications == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedications')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}medicationsAbbr" value="#{_patient.history.medicationsAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.history_allergies}" sortBy="patient.history.allergies" rendered="#{ ! excludeAllergies == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewAllergies')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}allergiesAbbr" value="#{_patient.history.allergiesAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.patient_bed}" sortBy="patient.bed" rendered="#{ ! excludeBed == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewBed')) }"> 
+          <h:panelGroup> 
+            <h:link id="bedpatient_bed" escape="false" value="#{_patient.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+              <f:param name="bedId" value="#{_patient.bed.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="bedpatient_bed" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+                  <ui:param name="bed" value="#{_patient.bed}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="bedPatient"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="patient.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_patient.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_patient', 'view') and !_patientCategory.archived}"> 
+          <h:link outcome="/admin/entities/patient/patient/viewPatient.xhtml" rendered="#{s:hasPermission(_patient, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="patientId" value="#{_patient.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_patient', 'edit') and !_patientCategory.archived}"> 
+          <h:link outcome="/admin/entities/patient/patient/editPatient.xhtml" rendered="#{s:hasPermission(_patient, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="patientId" value="#{_patient.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('patientAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_patient.archived}" action="#{patientAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_patient.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_patient.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_patient.archived}" action="#{patientAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_patient.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_patient.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_patient.archived}" action="#{patientAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_patient.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

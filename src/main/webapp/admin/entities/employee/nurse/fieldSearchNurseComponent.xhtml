@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editUserName')}"/>  
+      <br/>  
+      <h:inputText id="appUser_userName" value="#{nurseList.nurse.appUser.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editEnabled')}"/>  
+      <br/>  
+      <h:selectOneMenu id="appUser_enabled" value="#{nurseList.nurse.appUser.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editFacility')}"/>  
+      <br/>  
+      <p:selectOneMenu id="facilityId" converter="#{facilityList.converter}" value="#{ nurseList.nurse.facility}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{facilityList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDepartment')}"/>  
+      <br/>  
+      <p:selectOneMenu id="departmentId" converter="#{departmentList.converter}" value="#{ nurseList.nurse.department}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{departmentList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editFirstName')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{nurseList.nurse.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editLastName')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{nurseList.nurse.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDateOfBirth')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <p:calendar value="#{nurseList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <p:calendar value="#{nurseList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editGender')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{nurseList.nurse.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editPrimaryPhone')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{nurseList.nurse.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editSecondaryPhone')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{nurseList.nurse.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editEmail')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{nurseList.nurse.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editTitle')}"/>  
+      <br/>  
+      <h:selectOneMenu id="title" value="#{nurseList.nurse.title}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="Mr" itemLabel="Mr"/>  
+        <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>  
+        <f:selectItem itemValue="Ms" itemLabel="Ms"/>  
+        <f:selectItem itemValue="Dr" itemLabel="Dr"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.nurse_nurseSpecialty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editNurseSpecialty')}"/>  
+      <br/>  
+      <p:selectOneMenu id="nurseSpecialtyId" converter="#{nurseSpecialtyList.converter}" value="#{ nurseList.nurse.nurseSpecialty}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{nurseSpecialtyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{nurseList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{nurseList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

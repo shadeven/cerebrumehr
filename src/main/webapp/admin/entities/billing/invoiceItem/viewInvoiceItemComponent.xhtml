@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewInvoiceItemPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.InvoiceItem}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"/>  
+      <h:outputText value="#{invoiceItem.units}" escape="false"/>  
+      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewAppliedPrice')}"/>  
+      <h:outputText value="#{invoiceItem.appliedPrice}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"/>  
+      <h:outputText value="#{invoiceItem.total}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/>  
+      <h:panelGroup> 
+        <h:link id="serviceinvoiceItem_service" escape="false" value="#{invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+          <f:param name="serviceId" value="#{invoiceItem.service.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="serviceinvoiceItem_service" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
+              <ui:param name="service" value="#{invoiceItem.service}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="service"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewInvoice')}"/>  
+      <h:panelGroup> 
+        <h:link id="invoiceinvoiceItem_invoice" escape="false" value="#{invoiceItem.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+          <f:param name="invoiceId" value="#{invoiceItem.invoice.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="invoiceinvoiceItem_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{invoiceItem.invoice}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="invoiceInvoiceItems"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

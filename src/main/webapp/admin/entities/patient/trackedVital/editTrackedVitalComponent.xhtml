@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editTrackedVitalComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.TrackedVital}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="minValDecorate" rendered="#{ ! excludeMinVal == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinVal')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="minVal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinVal')}" label="#{msg.trackedVital_minVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.minVal}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="maxValDecorate" rendered="#{ ! excludeMaxVal == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxVal')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="maxVal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxVal')}" label="#{msg.trackedVital_maxVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.maxVal}"></h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

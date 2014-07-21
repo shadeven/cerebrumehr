@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New Immunization" action="#{patientAction.addImmunizations}" reRender="immunizations, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editImmunizations')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="immunizations" var="_immunization" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editImmunizations')}" value="#{patientAction.listImmunizations}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_vaccineIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeVaccine == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_vaccineId" label="#{msg.immunization_vaccine}" value="#{_immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false"> 
+          <s:selectItems value="#{vaccineList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.immunization_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_dateDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:calendar escape="false" direction="auto" id="#{prefix}_date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{_immunization.date}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:calendar> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New Immunization" action="#{patientAction.addImmunizations}" reRender="immunizations, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editImmunizations')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deleteImmunizations(rowIndex)}" reRender="immunizations"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

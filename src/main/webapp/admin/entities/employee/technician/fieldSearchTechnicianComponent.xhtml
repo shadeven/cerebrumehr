@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editUserName')}"/>  
+      <br/>  
+      <h:inputText id="appUser_userName" value="#{technicianList.technician.appUser.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editEnabled')}"/>  
+      <br/>  
+      <h:selectOneMenu id="appUser_enabled" value="#{technicianList.technician.appUser.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}"/>  
+      <br/>  
+      <p:selectOneMenu id="facilityId" converter="#{facilityList.converter}" value="#{ technicianList.technician.facility}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{facilityList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/>  
+      <br/>  
+      <p:selectOneMenu id="departmentId" converter="#{departmentList.converter}" value="#{ technicianList.technician.department}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{departmentList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFirstName')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{technicianList.technician.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editLastName')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{technicianList.technician.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDateOfBirth')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <p:calendar value="#{technicianList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <p:calendar value="#{technicianList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editGender')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{technicianList.technician.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editPrimaryPhone')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{technicianList.technician.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editSecondaryPhone')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{technicianList.technician.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editEmail')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{technicianList.technician.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editTitle')}"/>  
+      <br/>  
+      <h:selectOneMenu id="title" value="#{technicianList.technician.title}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="Mr" itemLabel="Mr"/>  
+        <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>  
+        <f:selectItem itemValue="Ms" itemLabel="Ms"/>  
+        <f:selectItem itemValue="Dr" itemLabel="Dr"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{technicianList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{technicianList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

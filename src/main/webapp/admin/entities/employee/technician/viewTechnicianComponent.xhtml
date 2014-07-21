@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewTechnicianPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Technician}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmployeeNumber')}"/>  
+      <h:outputText value="#{technician.employeeNumber}" escape="false"/>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFirstName')}"/>  
+      <h:outputText value="#{technician.firstName}" escape="false"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewLastName')}"/>  
+      <h:outputText value="#{technician.lastName}" escape="false"/>  
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDateOfBirth')}"/>  
+      <h:outputText value="#{technician.dateOfBirth}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewGender')}"/>  
+      <h:outputText value="#{technician.gender}" escape="false"/>  
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewAge')}"/>  
+      <h:outputText value="#{technician.age}" escape="false"/>  
+      <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewTitle')}"/>  
+      <h:outputText value="#{technician.title}" escape="false"/>  
+      <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFacility')}"/>  
+      <h:panelGroup> 
+        <h:link id="facilityemployee_facility" escape="false" value="#{technician.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{technician.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+              <ui:param name="facility" value="#{technician.facility}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="facility"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDepartment')}"/>  
+      <h:panelGroup> 
+        <h:link id="departmentemployee_department" escape="false" value="#{technician.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{technician.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+              <ui:param name="department" value="#{technician.department}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="departmentEmployees"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.AppUser}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewUserName')}"/>  
+      <h:outputText value="#{technician.appUser.userName}" escape="false"/>  
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEnabled')}"/>  
+      <h:outputText value="#{technician.appUser.enabled? msg.yes : msg.no }"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewPrimaryPhone')}"/>  
+      <h:outputText value="#{technician.contactDetails.primaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewSecondaryPhone')}"/>  
+      <h:outputText value="#{technician.contactDetails.secondaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmail')}"/>  
+      <h:outputText value="#{technician.contactDetails.email}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDocumentComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{documentAction.load(documentId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDocument eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Document}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editName')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editName')}" label="#{msg.document_name}" required="true" disabled="false" value="#{documentAction.document.name}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="fileDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editFile')}"/>
+          </ui:define>  
+          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editFile')}"> 
+            <h:outputText value="Current File:"/>  
+            <s:link value="#{documentAction.document.file.name}" id="file_file" action="#{documentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
+            </s:link>  
+            <p:fileUpload fileUploadListener="#{documentAction.fileUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+              <s:conversationPropagation type="join"/>  
+              <p:ajax event="onuploadcomplete" reRender="file_file"/> 
+            </p:fileUpload> 
+          </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="notesDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editNotes')}"/>
+          </ui:define>  
+          <p:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editNotes')}" label="#{msg.document_notes}" required="false" disabled="false" value="#{documentAction.document.notes}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </p:editor> 
+        </s:decorate>  
+        <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editPatient')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="patient" label="#{msg.document_patient}" value="#{documentAction.document.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editPatient')}" disabled="false"> 
+            <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <p:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

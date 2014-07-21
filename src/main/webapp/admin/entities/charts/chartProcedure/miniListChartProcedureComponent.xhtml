@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_chartProcedure" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="chartProcedure.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/charts/chartProcedure/chartProcedureActionChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}" propagation="none"> 
+        <h:outputText value="#{_chartProcedure.id}"/>  
+        <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.chartProcedure_patient}" sortBy="chartProcedure.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientchartProcedure_patient" escape="false" value="#{_chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_chartProcedure.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientchartProcedure_patient"> 
+          <span>#{_chartProcedure.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.chartProcedure_chartItem}" sortBy="chartProcedure.chartItem" rendered="#{ ! excludeChartItem == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')) }"> 
+      <h:panelGroup> 
+        <h:link id="chartItemchartProcedure_chartItem" escape="false" value="#{_chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
+          <f:param name="chartItemId" value="#{_chartProcedure.chartItem.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chartItemchartProcedure_chartItem" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
+              <ui:param name="chartItem" value="#{_chartProcedure.chartItem}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chartItem"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.chartProcedure_dueDate}" sortBy="chartProcedure.dueDate" rendered="#{ ! excludeDueDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDueDate')) }"> 
+      <h:outputText value="#{_chartProcedure.dueDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.chartProcedure_datePerformed}" sortBy="chartProcedure.datePerformed" rendered="#{ ! excludeDatePerformed == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDatePerformed')) }"> 
+      <h:outputText value="#{_chartProcedure.datePerformed}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.chartProcedure_remarks}" sortBy="chartProcedure.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}remarksAbbr" value="#{_chartProcedure.remarksAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

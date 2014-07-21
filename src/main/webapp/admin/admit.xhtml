@@ -1,0 +1,159 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:form id="admitForm">
+		
+			<h:panelGroup id="editAdmissionComponentPanel">
+				<s:validateAll>
+					<h:panelGrid columns="1"
+						onload="#{admissionAction.load(admissionId )  }" />
+					<c:if test="${numColumns == null }">
+						<c:set var="numColumns" value="2" />
+					</c:if>
+					<h:panelGrid columns="${numColumns}" styleClass="editInfo"
+						columnClasses="leftCol, rightCol"
+						rendered="#{ hidePanelAdmission eq null}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.Admission}" />
+						</f:facet>
+						<s:decorate id="notesDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.admission_notes}  "
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}" />
+							</ui:define>
+							<p:editor useSeamText="true" id="notes#{entityId}"
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}"
+								label="#{msg.admission_notes}" required="false" disabled="false"
+								value="#{admissionAction.admission.admissionNote}">
+								
+							</p:editor>
+						</s:decorate>
+						<s:decorate id="patientDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.admission_patient}  "
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}" />
+							</ui:define>
+							<h:panelGroup>
+								
+									<h:inputText
+										value="#{admissionAction.admission.patient.displayName}"
+										label="#{msg.admission_patient}" id="patient" required="true" />
+									
+								
+							</h:panelGroup>
+
+						</s:decorate>
+
+						<s:decorate id="wardDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.room_ward}  "
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" />
+							</ui:define>
+							<h:selectOneMenu id="ward" label="#{msg.room_ward}"
+								value="#{admissionAction.ward}" required="true"
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"
+								disabled="false">
+								<s:selectItems value="#{admissionAction.wardList}" var="itemIter"
+									label="#{itemIter.displayName}"
+									noSelectionLabel="Please Select..." />
+								
+								<p:ajax update="roombeds, admitForm">
+									<s:conversationId />
+								</p:ajax>
+
+								<s:convertEntity />
+							</h:selectOneMenu>
+						</s:decorate>
+
+						<s:decorate id="roomTypeDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.room_roomType}  "
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" />
+							</ui:define>
+							<h:selectOneMenu id="roomType" label="#{msg.room_roomType}"
+								value="#{admissionAction.roomType}"
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"
+								disabled="false">
+								<s:selectItems value="#{roomTypeList}" var="itemIter"
+									label="#{itemIter.displayName}"
+									noSelectionLabel="Please Select..." />
+								
+								<p:ajax update="roombeds, admitForm" listener="#{admissionAction.updateSelectedBed}"
+									>
+									<s:conversationId />
+								</p:ajax>
+								<s:convertEntity />
+							</h:selectOneMenu>
+						</s:decorate>
+
+
+						
+					</h:panelGrid>
+					<br />
+
+				</s:validateAll>
+			</h:panelGroup>
+
+			<p:panel id="roombeds">
+				<h:selectOneRadio>
+					<p:panel switchType="client" label="Preferred Rooms"
+						opened="true">
+
+						<h:panelGroup>
+								<b> <h:outputText value="Found #{admissionAction.preferredBedsCount} Beds" /> </b> <br/>
+
+								<h:selectOneMenu label="#{msg.bedStay_bed}" id="pref"
+									value="#{admissionAction.preferredBed}" required="false"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+									disabled="false">
+									<s:selectItems value="#{admissionAction.prefferedBeds}" var="itemIter"
+										label="#{itemIter.displayName}"
+										noSelectionLabel="Please Select..." />
+
+									<s:convertEntity />
+								</h:selectOneMenu>
+								<hr />
+
+						</h:panelGroup>
+					</p:panel>
+					<br/>
+					<p:panel switchType="client" label="Non Preferred"
+						opened="true">
+						<h:outputText value="Found #{admissionAction.nonPreferredBedsCount} Beds" /> <br/>
+						<h:panelGroup>
+								<h:selectOneMenu label="#{msg.bedStay_bed}" id="nonpref"
+									value="#{admissionAction.nonPreferredBed}"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+									disabled="false">
+									<s:selectItems value="#{admissionAction.nonPreferredBedsList}" var="itemIter"
+										label="#{itemIter.displayName}"
+										noSelectionLabel="Please Select..." />
+
+									<s:convertEntity />
+								</h:selectOneMenu>
+								<hr/>
+
+						</h:panelGroup>
+
+					</p:panel>
+				</h:selectOneRadio>
+			</p:panel>
+			<div class="buttonBox">
+				<h:commandButton value="Save" 
+					action="#{admissionAction.save}">
+					<s:conversationId />
+				</h:commandButton> 
+				
+				<h:outputText value=" " /> <h:commandButton value="Cancel"
+					immediate="true" action="#{admissionAction.cancel}"></h:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

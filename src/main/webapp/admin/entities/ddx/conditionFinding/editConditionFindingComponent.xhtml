@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editConditionFindingComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ConditionFinding}"/> 
+      </f:facet>  
+      <s:decorate id="falsePositiveDecorate" rendered="#{ ! excludeFalsePositive == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}"/>
+        </ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"></h:selectBooleanCheckbox> 
+      </s:decorate>  
+      <s:decorate id="diseaseIdDecorate" rendered="#{ ! excludeDisease == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="diseaseId" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false" converter="#{diseaseList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{diseaseList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

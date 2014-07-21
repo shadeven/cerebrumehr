@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AdmissionModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Admission Search Results (#{empty records ? 0 : (admissionList.paginated ? admissionList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/admission/admission/modalDlgAdmissionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="admissionForm"> 
+      <p:dataTable var="_admission" value="#{records}" id="admissionList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{admissionAction.admission}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editAdmissionPanel')}" oncomplete="PF('editAdmissionDialog').show()" listener="#{admissionAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="admission.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/admission/admission/admissionActionAdmission.xhtml" rendered="#{s:hasPermission(_admission, 'view')}" propagation="none"> 
+            <h:outputText value="#{_admission.id}"/>  
+            <f:param name="admissionId" value="#{_admission.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/admission/bedStay/miniListBedStayComponent.xhtml"> 
+            <ui:param name="records" value="#{_admission.listBedStays}"/>  
+            <ui:param name="excludeAdmission" value="true"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.admission_patient}" sortBy="admission.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewPatient')) }"> 
+          <h:panelGroup> 
+            <h:link id="patientadmission_patient" escape="false" value="#{_admission.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_admission.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="patientadmission_patient"> 
+              <span>#{_admission.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_admissionNote}" sortBy="admission.admissionNote" rendered="#{ ! excludeAdmissionNote == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewAdmissionNote')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}admissionNoteAbbr" value="#{_admission.admissionNoteAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_dischargeDate}" sortBy="admission.dischargeDate" rendered="#{ ! excludeDischargeDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')) }"> 
+          <h:outputText value="#{_admission.dischargeDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_dischargeNote}" sortBy="admission.dischargeNote" rendered="#{ ! excludeDischargeNote == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeNote')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}dischargeNoteAbbr" value="#{_admission.dischargeNoteAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_dischargeCode}" sortBy="admission.dischargeCode" rendered="#{ ! excludeDischargeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeCode')) }"> 
+          <h:outputText value="#{_admission.dischargeCode}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_currentBed}" sortBy="admission.currentBed" rendered="#{ ! excludeCurrentBed == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewCurrentBed')) }"> 
+          <h:outputText value="#{_admission.currentBed}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_isCurrent}" sortBy="admission.isCurrent" rendered="#{ ! excludeIsCurrent == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewIsCurrent')) }"> 
+          <h:outputText value="#{_admission.isCurrent? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.admission_invoice}" sortBy="admission.invoice" rendered="#{ ! excludeInvoice == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewInvoice')) }"> 
+          <h:panelGroup> 
+            <h:link id="invoiceadmission_invoice" escape="false" value="#{_admission.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+              <f:param name="invoiceId" value="#{_admission.invoice.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="invoiceadmission_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+                  <ui:param name="invoice" value="#{_admission.invoice}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="invoice"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="admission.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_admission.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_admission', 'view') and !_admissionCategory.archived}"> 
+          <h:link outcome="/admin/entities/admission/admission/viewAdmission.xhtml" rendered="#{s:hasPermission(_admission, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="admissionId" value="#{_admission.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_admission', 'edit') and !_admissionCategory.archived}"> 
+          <h:link outcome="/admin/entities/admission/admission/editAdmission.xhtml" rendered="#{s:hasPermission(_admission, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="admissionId" value="#{_admission.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('admissionAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_admission.archived}" action="#{admissionAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_admission.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_admission.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_admission.archived}" action="#{admissionAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_admission.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_admission.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_admission.archived}" action="#{admissionAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_admission.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

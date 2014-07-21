@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_encounter" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="encounter.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/encounter/encounter/encounterActionEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'view')}" propagation="none"> 
+        <h:outputText value="#{_encounter.id}"/>  
+        <f:param name="encounterId" value="#{_encounter.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/encounter/prescribedTest/miniListPrescribedTestComponent.xhtml"> 
+        <ui:param name="records" value="#{_encounter.listPrescribedTests}"/>  
+        <ui:param name="excludeEncounter" value="true"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.encounter_patientNote}" sortBy="encounter.patientNote" rendered="#{ ! excludePatientNote == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatientNote')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}patientNoteAbbr" value="#{_encounter.patientNoteAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.vitals_SysBP}" sortBy="encounter.vitals.sysBP" rendered="#{ ! excludeSysBP == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewSysBP')) }"> 
+      <h:outputText value="#{_encounter.vitals.sysBP}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.vitals_DiasBP}" sortBy="encounter.vitals.diasBP" rendered="#{ ! excludeDiasBP == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewDiasBP')) }"> 
+      <h:outputText value="#{_encounter.vitals.diasBP}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.vitals_Temperature}" sortBy="encounter.vitals.temperature" rendered="#{ ! excludeTemperature == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTemperature')) }"> 
+      <h:outputText value="#{_encounter.vitals.temperature}"> 
+        <f:convertNumber pattern="000.00"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.vitals_Pulse}" sortBy="encounter.vitals.pulse" rendered="#{ ! excludePulse == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPulse')) }"> 
+      <h:outputText value="#{_encounter.vitals.pulse}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.vitals_RespirationRate}" sortBy="encounter.vitals.respirationRate" rendered="#{ ! excludeRespirationRate == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewRespirationRate')) }"> 
+      <h:outputText value="#{_encounter.vitals.respirationRate}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.encounter_prescription}" sortBy="encounter.prescription" rendered="#{ ! excludePrescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescription')) }"> 
+      <h:panelGroup> 
+        <h:link id="prescriptionencounter_prescription" escape="false" value="#{_encounter.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+          <f:param name="prescriptionId" value="#{_encounter.prescription.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="prescriptionencounter_prescription" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
+              <ui:param name="prescription" value="#{_encounter.prescription}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="prescription"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.encounter_patient}" sortBy="encounter.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientencounter_patient" escape="false" value="#{_encounter.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_encounter.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientencounter_patient"> 
+          <span>#{_encounter.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.encounter_creator}" sortBy="encounter.creator" rendered="#{ ! excludeCreator == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')) }"> 
+      <h:panelGroup> 
+        <h:link id="creatorencounter_creator" escape="false" value="#{_encounter.creator.displayName}" outcome="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="employeeId" value="#{_encounter.creator.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="creatorencounter_creator" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+              <ui:param name="employee" value="#{_encounter.creator}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="creator"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.encounter_tests}" sortBy="encounter.tests" rendered="#{ ! excludeTests == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTests')) }"> 
+      <h:outputText value="#{_encounter.tests}" escape="false"/> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

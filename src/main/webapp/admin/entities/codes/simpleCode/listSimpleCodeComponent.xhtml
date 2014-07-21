@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="SimpleCodeModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="SimpleCode Search Results (#{empty records ? 0 : (simpleCodeList.paginated ? simpleCodeList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/codes/simpleCode/modalDlgSimpleCodeComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="simpleCodeForm"> 
+      <p:dataTable var="_simpleCode" value="#{records}" id="simpleCodeList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{simpleCodeAction.simpleCode}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editSimpleCodePanel')}" oncomplete="PF('editSimpleCodeDialog').show()" listener="#{simpleCodeAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="simpleCode.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/codes/simpleCode/simpleCodeActionSimpleCode.xhtml" rendered="#{s:hasPermission(_simpleCode, 'view')}" propagation="none"> 
+            <h:outputText value="#{_simpleCode.id}"/>  
+            <f:param name="simpleCodeId" value="#{_simpleCode.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.simpleCode_name}" sortBy="simpleCode.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('simpleCode', 'viewName')) }"> 
+          <h:outputText value="#{_simpleCode.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="simpleCode.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_simpleCode.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_simpleCode', 'view') and !_simpleCodeCategory.archived}"> 
+          <h:link outcome="/admin/entities/codes/simpleCode/viewSimpleCode.xhtml" rendered="#{s:hasPermission(_simpleCode, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="simpleCodeId" value="#{_simpleCode.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_simpleCode', 'edit') and !_simpleCodeCategory.archived}"> 
+          <h:link outcome="/admin/entities/codes/simpleCode/editSimpleCode.xhtml" rendered="#{s:hasPermission(_simpleCode, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="simpleCodeId" value="#{_simpleCode.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('simpleCodeAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_simpleCode.archived}" action="#{simpleCodeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_simpleCode.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_simpleCode.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_simpleCode.archived}" action="#{simpleCodeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_simpleCode.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_simpleCode.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_simpleCode.archived}" action="#{simpleCodeAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_simpleCode.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

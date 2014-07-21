@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editFrequencyComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Frequency}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}" label="#{msg.frequency_name}" required="true" disabled="false" value="#{frequencyAction.frequency.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="qtyPerDayDecorate" rendered="#{ ! excludeQtyPerDay == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"></h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{roomTypeList.roomType.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{roomTypeList.roomType.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/>  
+      <br/>  
+      <h:inputText id="rate_begin" value="#{roomTypeList.rateRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="rate_end" value="#{roomTypeList.rateRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.roomType_numberOfBeds}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}"/>  
+      <br/>  
+      <h:inputText id="numberOfBeds_begin" value="#{roomTypeList.numberOfBedsRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="numberOfBeds_end" value="#{roomTypeList.numberOfBedsRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{roomTypeList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{roomTypeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

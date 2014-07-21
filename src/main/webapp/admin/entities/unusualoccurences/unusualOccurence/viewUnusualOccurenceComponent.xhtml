@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewUnusualOccurencePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.UnusualOccurence}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')}"/>  
+      <h:outputText value="#{unusualOccurence.category}" escape="false"/>  
+      <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')}"/>  
+      <h:outputText value="#{unusualOccurence.severity}" escape="false"/>  
+      <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}"/>  
+      <h:outputText value="#{unusualOccurence.description}" escape="false"/>  
+      <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')}"/>  
+      <h:panelGroup> 
+        <h:link id="occurenceTypeunusualOccurence_occurenceType" escape="false" value="#{unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+          <f:param name="occurenceTypeId" value="#{unusualOccurence.occurenceType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="occurenceTypeunusualOccurence_occurenceType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/unusualoccurences/occurenceType/viewOccurenceTypeComponent.xhtml"> 
+              <ui:param name="occurenceType" value="#{unusualOccurence.occurenceType}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="occurenceType"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')}"/>  
+      <h:panelGroup> 
+        <h:link id="patientunusualOccurence_patient" escape="false" value="#{unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{unusualOccurence.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientunusualOccurence_patient"> 
+          <span>#{unusualOccurence.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

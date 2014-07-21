@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAbstractCodeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{abstractCodeAction.load(abstractCodeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAbstractCode eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AbstractCode}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('abstractCode', 'editName')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('abstractCode', 'editName')}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{abstractCodeAction.abstractCode.name}"> 
+            <p:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('abstractCode', 'editDescription')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('abstractCode', 'editDescription')}" label="#{msg.abstractCode_description}" required="true" disabled="false" value="#{abstractCodeAction.abstractCode.description}"> 
+            <p:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

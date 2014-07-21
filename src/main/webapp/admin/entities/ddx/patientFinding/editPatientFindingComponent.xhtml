@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPatientFindingComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PatientFinding}"/> 
+      </f:facet>  
+      <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
+        </ui:define>  
+        <h:panelGroup> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{patientFindingAction.patientFinding.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+            <p:column> 
+              <h:outputText value="#{record.name}"/> 
+            </p:column> 
+          </p:autoComplete> 
+        </h:panelGroup> 
+      </s:decorate>  
+      <s:decorate id="patientDiffDxIdDecorate" rendered="#{ ! excludePatientDiffDx == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="patientDiffDxId" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}" disabled="false" converter="#{patientDiffDxList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{patientDiffDxList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

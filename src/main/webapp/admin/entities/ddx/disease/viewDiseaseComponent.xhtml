@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewDiseasePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Disease}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewGender')}"/>  
+      <h:outputText value="#{disease.gender}" escape="false"/>  
+      <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}"/>  
+      <h:outputText value="#{disease.name}" escape="false"/>  
+      <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')}"/>  
+      <h:panelGroup> 
+        <h:link id="relatedDiseasedisease_relatedDisease" escape="false" value="#{disease.relatedDisease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+          <f:param name="diseaseId" value="#{disease.relatedDisease.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="relatedDiseasedisease_relatedDisease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+              <ui:param name="disease" value="#{disease.relatedDisease}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="relatedDiseaseDifferentialDiagnoses"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewConditionCategory')}"/>  
+      <h:panelGroup> 
+        <h:link id="conditionCategorydisease_conditionCategory" escape="false" value="#{disease.conditionCategory.displayName}" outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
+          <f:param name="conditionCategoryId" value="#{disease.conditionCategory.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="conditionCategorydisease_conditionCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
+              <ui:param name="conditionCategory" value="#{disease.conditionCategory}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="conditionCategory"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

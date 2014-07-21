@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <s:div rendered="#{abstractCodeList.textToSearch != null}">Found #{abstractCodeList.entityList.size} results for search term: 
+    <b>${abstractCodeList.textToSearch}</b> 
+  </s:div>  
+  <br/>  
+  <br/>  
+  <h:form> 
+    <h:inputText name="searchText" size="70" value="#{abstractCodeList.textToSearch}" required="true"/>  
+    <h:commandButton value="Search" action="#{abstractCodeList.textSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <p:tabPanel switchType="client"> 
+      <p:tab label="Search Results"> 
+        <ui:repeat var="_var" value="#{abstractCodeList.entityList}"> 
+          <s:link value="${_var.displayName}" action="#{abstractCodeAction.viewAbstractCode}"> 
+            <f:param name="currentEntityId" value="${_var.id}"/>  
+            <s:conversationPropagation type="join"/> 
+          </s:link>  
+          <br/>. 
+          <h:outputText value="${_var.higlightedFragment}" escape="false"/>  
+          <hr/> 
+        </ui:repeat> 
+      </p:tab>  
+      <p:tab label="Tabular"> 
+        <ui:include src="listAbstractCodeComponent.xhtml"> 
+          <ui:param name="records" value="#{abstractCodeList.entityList}"/> 
+        </ui:include> 
+      </p:tab> 
+    </p:tabPanel> 
+  </h:form> 
+</ui:composition>

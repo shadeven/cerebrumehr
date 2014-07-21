@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewHistoryComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{historyAction.load(historyId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelHistory eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.History}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewMedicalHistory')}"/>  
+        <h:outputText escape="false" id="#{prefix}_medicalHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewMedicalHistory')}" value="#{historyAction.history.medicalHistory}"></h:outputText>  
+        <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewSocialHistory')}"/>  
+        <h:outputText escape="false" id="#{prefix}_socialHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewSocialHistory')}" value="#{historyAction.history.socialHistory}"></h:outputText>  
+        <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewFamilyHistory')}"/>  
+        <h:outputText escape="false" id="#{prefix}_familyHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewFamilyHistory')}" value="#{historyAction.history.familyHistory}"></h:outputText>  
+        <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewMedications')}"/>  
+        <h:outputText escape="false" id="#{prefix}_medications#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewMedications')}" value="#{historyAction.history.medications}"></h:outputText>  
+        <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewAllergies')}"/>  
+        <h:outputText escape="false" id="#{prefix}_allergies#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewAllergies')}" value="#{historyAction.history.allergies}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

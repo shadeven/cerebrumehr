@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_prescription" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="prescription.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/prescription/prescription/prescriptionActionPrescription.xhtml" rendered="#{s:hasPermission(_prescription, 'view')}" propagation="none"> 
+        <h:outputText value="#{_prescription.id}"/>  
+        <f:param name="prescriptionId" value="#{_prescription.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/prescription/prescriptionItem/miniListPrescriptionItemComponent.xhtml"> 
+        <ui:param name="records" value="#{_prescription.listPrescriptionItems}"/>  
+        <ui:param name="excludePrescription" value="true"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.prescription_patient}" sortBy="prescription.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientprescription_patient" escape="false" value="#{_prescription.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_prescription.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientprescription_patient"> 
+          <span>#{_prescription.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.prescription_directivesForPatient}" sortBy="prescription.directivesForPatient" rendered="#{ ! excludeDirectivesForPatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}directivesForPatientAbbr" value="#{_prescription.directivesForPatientAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.prescription_active}" sortBy="prescription.active" rendered="#{ ! excludeActive == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')) }"> 
+      <h:outputText value="#{_prescription.active? msg.yes : msg.no }"/> 
+    </p:column>  
+    <p:column headerText="#{msg.prescription_drugs}" sortBy="prescription.drugs" rendered="#{ ! excludeDrugs == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')) }"> 
+      <h:outputText value="#{_prescription.drugs}" escape="false"/> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

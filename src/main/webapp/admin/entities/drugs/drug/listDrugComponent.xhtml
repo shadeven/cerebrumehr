@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DrugModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Drug Search Results (#{empty records ? 0 : (drugList.paginated ? drugList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/drugs/drug/modalDlgDrugComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="drugForm"> 
+      <p:dataTable var="_drug" value="#{records}" id="drugList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{drugAction.drug}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editDrugPanel')}" oncomplete="PF('editDrugDialog').show()" listener="#{drugAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="drug.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/drugs/drug/drugActionDrug.xhtml" rendered="#{s:hasPermission(_drug, 'view')}" propagation="none"> 
+            <h:outputText value="#{_drug.id}"/>  
+            <f:param name="drugId" value="#{_drug.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/drugs/drugInteraction/miniListDrugInteractionComponent.xhtml"> 
+            <ui:param name="records" value="#{_drug.listDrugInteractions}"/>  
+            <ui:param name="excludeDrug" value="true"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.drug_name}" sortBy="drug.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewName')) }"> 
+          <h:outputText value="#{_drug.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_absorption}" sortBy="drug.absorption" rendered="#{ ! excludeAbsorption == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAbsorption')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}absorptionAbbr" value="#{_drug.absorptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_biotransformation}" sortBy="drug.biotransformation" rendered="#{ ! excludeBiotransformation == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewBiotransformation')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}biotransformationAbbr" value="#{_drug.biotransformationAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_atcCodes}" sortBy="drug.atcCodes" rendered="#{ ! excludeAtcCodes == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAtcCodes')) }"> 
+          <h:outputText value="#{_drug.atcCodes}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_contraIndication}" sortBy="drug.contraIndication" rendered="#{ ! excludeContraIndication == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewContraIndication')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}contraIndicationAbbr" value="#{_drug.contraIndicationAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_description}" sortBy="drug.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDescription')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}descriptionAbbr" value="#{_drug.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_dosageForm}" sortBy="drug.dosageForm" rendered="#{ ! excludeDosageForm == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDosageForm')) }"> 
+          <h:outputText value="#{_drug.dosageForm}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_foodInteractions}" sortBy="drug.foodInteractions" rendered="#{ ! excludeFoodInteractions == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewFoodInteractions')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}foodInteractionsAbbr" value="#{_drug.foodInteractionsAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_halfLife}" sortBy="drug.halfLife" rendered="#{ ! excludeHalfLife == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLife')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}halfLifeAbbr" value="#{_drug.halfLifeAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_halfLifeNumberOfHours}" sortBy="drug.halfLifeNumberOfHours" rendered="#{ ! excludeHalfLifeNumberOfHours == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLifeNumberOfHours')) }"> 
+          <h:outputText value="#{_drug.halfLifeNumberOfHours}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_indication}" sortBy="drug.indication" rendered="#{ ! excludeIndication == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}indicationAbbr" value="#{_drug.indicationAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_mechanismOfAction}" sortBy="drug.mechanismOfAction" rendered="#{ ! excludeMechanismOfAction == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewMechanismOfAction')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}mechanismOfActionAbbr" value="#{_drug.mechanismOfActionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_patientInfo}" sortBy="drug.patientInfo" rendered="#{ ! excludePatientInfo == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPatientInfo')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}patientInfoAbbr" value="#{_drug.patientInfoAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_pharmacology}" sortBy="drug.pharmacology" rendered="#{ ! excludePharmacology == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPharmacology')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}pharmacologyAbbr" value="#{_drug.pharmacologyAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_toxicity}" sortBy="drug.toxicity" rendered="#{ ! excludeToxicity == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewToxicity')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}toxicityAbbr" value="#{_drug.toxicityAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_routeOfElimination}" sortBy="drug.routeOfElimination" rendered="#{ ! excludeRouteOfElimination == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewRouteOfElimination')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}routeOfEliminationAbbr" value="#{_drug.routeOfEliminationAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_volumeOfDistribution}" sortBy="drug.volumeOfDistribution" rendered="#{ ! excludeVolumeOfDistribution == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewVolumeOfDistribution')) }"> 
+          <h:outputText value="#{_drug.volumeOfDistribution}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_drugBankId}" sortBy="drug.drugBankId" rendered="#{ ! excludeDrugBankId == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugBankId')) }"> 
+          <h:outputText value="#{_drug.drugBankId}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.drug_categories}" sortBy="drug.categories" rendered="#{ ! excludeCategories == true and ( skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewCategories')) }"> 
+          <h:outputText value="#{_drug.categories}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="drug.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_drug.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_drug', 'view') and !_drugCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/drug/viewDrug.xhtml" rendered="#{s:hasPermission(_drug, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="drugId" value="#{_drug.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_drug', 'edit') and !_drugCategory.archived}"> 
+          <h:link outcome="/admin/entities/drugs/drug/editDrug.xhtml" rendered="#{s:hasPermission(_drug, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="drugId" value="#{_drug.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('drugAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_drug.archived}" action="#{drugAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_drug.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_drug.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_drug.archived}" action="#{drugAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_drug.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_drug.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_drug.archived}" action="#{drugAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_drug.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

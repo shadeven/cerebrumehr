@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedicalHistory')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_medicalHistory" value="#{historyAction.history.medicalHistory}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_medicalHistory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedicalHistory')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editSocialHistory')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_socialHistory" value="#{historyAction.history.socialHistory}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_socialHistory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editSocialHistory')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editFamilyHistory')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_familyHistory" value="#{historyAction.history.familyHistory}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_familyHistory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editFamilyHistory')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedications')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_medications" value="#{historyAction.history.medications}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_medications" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editMedications')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editAllergies')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_allergies" value="#{historyAction.history.allergies}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_allergies" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editAllergies')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

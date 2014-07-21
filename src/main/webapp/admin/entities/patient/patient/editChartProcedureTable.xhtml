@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New ChartProcedure" action="#{patientAction.addChartProcedures}" reRender="chartProcedures, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChartProcedures')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="chartProcedures" var="_chartProcedure" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChartProcedures')}" value="#{patientAction.listChartProcedures}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_chartItemIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeChartItem == true}"> 
+        <ui:define name="label"></ui:define>  
+        <h:selectOneMenu id="#{prefix}_chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{_chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false"> 
+          <s:selectItems value="#{chartItemList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <p:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_dueDateDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:calendar escape="false" direction="auto" id="#{prefix}_dueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{_chartProcedure.dueDate}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:calendar> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_datePerformedDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:calendar escape="false" direction="auto" id="#{prefix}_datePerformed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{_chartProcedure.datePerformed}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:calendar> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:editor escape="false" useSeamText="true" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{_chartProcedure.remarks}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:editor> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New ChartProcedure" action="#{patientAction.addChartProcedures}" reRender="chartProcedures, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartProcedures')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deleteChartProcedures(rowIndex)}" reRender="chartProcedures"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<h:panelGroup id="editAppointmentComponentPanel">
+		<s:validateAll>
+			<h:panelGrid columns="1"
+				onload="#{appointmentAction.load(appointmentId )  }" />
+			<c:if test="${numColumns == null }">
+				<c:set var="numColumns" value="2" />
+			</c:if>
+			<h:panelGrid columns="${numColumns}" styleClass="editInfo"
+				columnClasses="leftCol, rightCol"
+				rendered="#{ hidePanelAppointment eq null}">
+				<f:facet name="header">
+					<h:outputText value="#{msg.Appointment}" />
+				</f:facet>
+				<s:decorate id="startDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.appointment_start}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'startEdit')}" />
+					</ui:define>
+					<p:calendar direction="auto" id="start#{entityId}"
+						datePattern="dd-MMM-yyyy HH:mm" enableManualInput="true"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'startEdit')}"
+						label="#{msg.appointment_start}" required="true" disabled="false"
+						value="#{appointmentAction.appointment.start}">
+						<p:ajaxValidator event="onsubmit" />
+					</p:calendar>
+				</s:decorate>
+				<s:decorate id="endDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.appointment_end}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'endEdit')}" />
+					</ui:define>
+					<p:calendar direction="auto" id="end#{entityId}"
+						datePattern="dd-MMM-yyyy HH:mm" enableManualInput="true"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'endEdit')}"
+						label="#{msg.appointment_end}" required="false" disabled="true"
+						value="#{appointmentAction.appointment.end}">
+						<p:ajaxValidator event="onsubmit" />
+					</p:calendar>
+				</s:decorate>
+				<s:decorate id="remarksDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.appointment_remarks}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksEdit')}" />
+					</ui:define>
+					<p:editor useSeamText="true" id="remarks#{entityId}"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksEdit')}"
+						label="#{msg.appointment_remarks}" required="false"
+						disabled="false" value="#{appointmentAction.appointment.remarks}">
+						<p:ajaxValidator event="onsubmit" />
+					</p:editor>
+				</s:decorate>
+				<s:decorate id="physicianDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.appointment_physician}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'physicianEdit')}" />
+					</ui:define>
+					<h:selectOneMenu id="physician"
+						label="#{msg.appointment_physician}"
+						value="#{appointmentAction.appointment.physician}" required="true"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'physicianEdit')}"
+						disabled="false">
+						<s:selectItems value="#{physicianList}" var="itemIter"
+							label="#{itemIter.displayName}"
+							noSelectionLabel="Please Select..." />
+						<p:ajaxValidator event="onsubmit" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+				<s:decorate id="patientDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.appointment_patient}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'patientEdit')}" />
+					</ui:define>
+					<h:selectOneMenu id="patient" label="#{msg.appointment_patient}"
+						value="#{appointmentAction.appointment.patient}" required="true"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'patientEdit')}"
+						disabled="false">
+						<s:selectItems value="#{patientList}" var="itemIter"
+							label="#{itemIter.displayName}"
+							noSelectionLabel="Please Select..." />
+						<p:ajaxValidator event="onsubmit" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+			</h:panelGrid>
+			<br />
+			<br />
+		</s:validateAll>
+	</h:panelGroup>
+</ui:composition>

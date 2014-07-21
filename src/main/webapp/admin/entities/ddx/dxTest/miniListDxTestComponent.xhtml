@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_dxTest" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="dxTest.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/ddx/dxTest/dxTestActionDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}" propagation="none"> 
+        <h:outputText value="#{_dxTest.id}"/>  
+        <f:param name="dxTestId" value="#{_dxTest.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.dxTest_name}" sortBy="dxTest.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewName')) }"> 
+      <h:outputText value="#{_dxTest.name}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.dxTest_description}" sortBy="dxTest.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

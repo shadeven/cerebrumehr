@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="${panelId == null ? 'viewVitalValuePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.VitalValue}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/>  
+      <h:outputText value="#{vitalValue.value}"> 
+        <f:convertNumber pattern="000.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"/>  
+      <h:outputText value="#{vitalValue.remarks}" escape="false"/>  
+      <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"/>  
+      <h:panelGroup> 
+        <h:link id="trackedVitalvitalValue_trackedVital" escape="false" value="#{vitalValue.trackedVital.displayName}" outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
+          <f:param name="trackedVitalId" value="#{vitalValue.trackedVital.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="trackedVitalvitalValue_trackedVital" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/trackedVital/viewTrackedVitalComponent.xhtml"> 
+              <ui:param name="trackedVital" value="#{vitalValue.trackedVital}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="trackedVital"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')}"/>  
+      <h:panelGroup> 
+        <h:link id="patientvitalValue_patient" escape="false" value="#{vitalValue.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{vitalValue.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientvitalValue_patient"> 
+          <span>#{vitalValue.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

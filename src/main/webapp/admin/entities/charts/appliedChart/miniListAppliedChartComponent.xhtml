@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_appliedChart" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="appliedChart.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/charts/appliedChart/appliedChartActionAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'view')}" propagation="none"> 
+        <h:outputText value="#{_appliedChart.id}"/>  
+        <f:param name="appliedChartId" value="#{_appliedChart.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.appliedChart_patient}" sortBy="appliedChart.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientappliedChart_patient" escape="false" value="#{_appliedChart.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_appliedChart.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientappliedChart_patient"> 
+          <span>#{_appliedChart.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.appliedChart_chart}" sortBy="appliedChart.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewChart')) }"> 
+      <h:panelGroup> 
+        <h:link id="chartappliedChart_chart" escape="false" value="#{_appliedChart.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+          <f:param name="chartId" value="#{_appliedChart.chart.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chartappliedChart_chart" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
+              <ui:param name="chart" value="#{_appliedChart.chart}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chart"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

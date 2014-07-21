@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <a:commandButton value="New PatientDocument" action="#{patientAction.addPatientDocuments}" reRender="patientDocuments, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatientDocuments')}"> 
+    <s:conversationId/> 
+  </a:commandButton>  
+  <p:dataTable id="patientDocuments" var="_patientDocument" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatientDocuments')}" value="#{patientAction.listPatientDocuments}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}" label="#{msg.patientDocument_name}" required="true" disabled="false" value="#{_patientDocument.name}"> 
+          <p:ajaxValidator event="onsubmit"/>  
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_fileDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"> 
+          <h:outputText value="Current File:"/>  
+          <s:link value="#{patientDocumentAction.patientDocument.file.name}" id="file_file" action="#{patientDocumentAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{patientDocumentAction.instance.id}"/> 
+          </s:link>  
+          <p:fileUpload fileUploadListener="#{patientDocumentAction.fileUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+            <s:conversationPropagation type="join"/>  
+            <p:ajax event="onuploadcomplete" reRender="file_file"/> 
+          </p:fileUpload> 
+        </h:panelGroup> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_notesDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <p:editor escape="false" useSeamText="true" id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{_patientDocument.notes}"> 
+          <p:ajaxValidator event="onsubmit"/> 
+        </p:editor> 
+      </s:decorate> 
+    </h:column>  
+    <h:column> 
+      <a:commandButton value="New PatientDocument" action="#{patientAction.addPatientDocuments}" reRender="patientDocuments, editPatientComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatientDocuments')}"> 
+        <s:conversationId/> 
+      </a:commandButton> 
+    </h:column>  
+    <h:column> 
+      <h:commandButton value="Delete" immediate="true" action="#{patientAction.deletePatientDocuments(rowIndex)}" reRender="patientDocuments"> 
+        <s:conversationId/> 
+      </h:commandButton> 
+    </h:column> 
+  </p:dataTable> 
+</ui:composition>

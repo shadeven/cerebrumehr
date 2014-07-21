@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="FacilityModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Facility Search Results (#{empty records ? 0 : (facilityList.paginated ? facilityList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/facility/facility/modalDlgFacilityComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="facilityForm"> 
+      <p:dataTable var="_facility" value="#{records}" id="facilityList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{facilityAction.facility}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editFacilityPanel')}" oncomplete="PF('editFacilityDialog').show()" listener="#{facilityAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="facility.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/facility/facility/facilityActionFacility.xhtml" rendered="#{s:hasPermission(_facility, 'view')}" propagation="none"> 
+            <h:outputText value="#{_facility.id}"/>  
+            <f:param name="facilityId" value="#{_facility.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/facility/ward/miniListWardComponent.xhtml"> 
+            <ui:param name="records" value="#{_facility.listWards}"/>  
+            <ui:param name="excludeFacility" value="true"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.facility_name}" sortBy="facility.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewName')) }"> 
+          <h:outputText value="#{_facility.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.facility_isResidential}" sortBy="facility.isResidential" rendered="#{ ! excludeIsResidential == true and ( skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewIsResidential')) }"> 
+          <h:outputText value="#{_facility.isResidential? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="facility.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_facility.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_facility', 'view') and !_facilityCategory.archived}"> 
+          <h:link outcome="/admin/entities/facility/facility/viewFacility.xhtml" rendered="#{s:hasPermission(_facility, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="facilityId" value="#{_facility.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_facility', 'edit') and !_facilityCategory.archived}"> 
+          <h:link outcome="/admin/entities/facility/facility/editFacility.xhtml" rendered="#{s:hasPermission(_facility, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="facilityId" value="#{_facility.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('facilityAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_facility.archived}" action="#{facilityAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_facility.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_facility.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_facility.archived}" action="#{facilityAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_facility.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_facility.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_facility.archived}" action="#{facilityAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_facility.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDrugComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Drug}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editName')}" label="#{msg.drug_name}" required="true" disabled="false" value="#{drugAction.drug.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="absorptionDecorate" rendered="#{ ! excludeAbsorption == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAbsorption')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="absorption#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAbsorption')}" label="#{msg.drug_absorption}" required="false" disabled="false" value="#{drugAction.drug.absorption}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="biotransformationDecorate" rendered="#{ ! excludeBiotransformation == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editBiotransformation')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="biotransformation#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editBiotransformation')}" label="#{msg.drug_biotransformation}" required="false" disabled="false" value="#{drugAction.drug.biotransformation}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="atcCodesDecorate" rendered="#{ ! excludeAtcCodes == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAtcCodes')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="atcCodes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAtcCodes')}" label="#{msg.drug_atcCodes}" required="false" disabled="false" value="#{drugAction.drug.atcCodes}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="contraIndicationDecorate" rendered="#{ ! excludeContraIndication == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editContraIndication')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="contraIndication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editContraIndication')}" label="#{msg.drug_contraIndication}" required="false" disabled="false" value="#{drugAction.drug.contraIndication}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDescription')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDescription')}" label="#{msg.drug_description}" required="false" disabled="false" value="#{drugAction.drug.description}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="dosageFormDecorate" rendered="#{ ! excludeDosageForm == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDosageForm')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="dosageForm#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDosageForm')}" label="#{msg.drug_dosageForm}" required="false" disabled="false" value="#{drugAction.drug.dosageForm}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="foodInteractionsDecorate" rendered="#{ ! excludeFoodInteractions == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editFoodInteractions')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="foodInteractions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editFoodInteractions')}" label="#{msg.drug_foodInteractions}" required="false" disabled="false" value="#{drugAction.drug.foodInteractions}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="halfLifeDecorate" rendered="#{ ! excludeHalfLife == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLife')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="halfLife#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLife')}" label="#{msg.drug_halfLife}" required="false" disabled="false" value="#{drugAction.drug.halfLife}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="halfLifeNumberOfHoursDecorate" rendered="#{ ! excludeHalfLifeNumberOfHours == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLifeNumberOfHours')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="halfLifeNumberOfHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLifeNumberOfHours')}" label="#{msg.drug_halfLifeNumberOfHours}" required="false" disabled="false" value="#{drugAction.drug.halfLifeNumberOfHours}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="indicationDecorate" rendered="#{ ! excludeIndication == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editIndication')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="indication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editIndication')}" label="#{msg.drug_indication}" required="false" disabled="false" value="#{drugAction.drug.indication}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="mechanismOfActionDecorate" rendered="#{ ! excludeMechanismOfAction == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editMechanismOfAction')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="mechanismOfAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editMechanismOfAction')}" label="#{msg.drug_mechanismOfAction}" required="false" disabled="false" value="#{drugAction.drug.mechanismOfAction}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="patientInfoDecorate" rendered="#{ ! excludePatientInfo == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPatientInfo')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="patientInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPatientInfo')}" label="#{msg.drug_patientInfo}" required="false" disabled="false" value="#{drugAction.drug.patientInfo}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="pharmacologyDecorate" rendered="#{ ! excludePharmacology == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPharmacology')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="pharmacology#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPharmacology')}" label="#{msg.drug_pharmacology}" required="false" disabled="false" value="#{drugAction.drug.pharmacology}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="toxicityDecorate" rendered="#{ ! excludeToxicity == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editToxicity')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="toxicity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editToxicity')}" label="#{msg.drug_toxicity}" required="false" disabled="false" value="#{drugAction.drug.toxicity}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="routeOfEliminationDecorate" rendered="#{ ! excludeRouteOfElimination == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editRouteOfElimination')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="routeOfElimination#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editRouteOfElimination')}" label="#{msg.drug_routeOfElimination}" required="false" disabled="false" value="#{drugAction.drug.routeOfElimination}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="volumeOfDistributionDecorate" rendered="#{ ! excludeVolumeOfDistribution == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editVolumeOfDistribution')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="volumeOfDistribution#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editVolumeOfDistribution')}" label="#{msg.drug_volumeOfDistribution}" required="false" disabled="false" value="#{drugAction.drug.volumeOfDistribution}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="drugBankIdDecorate" rendered="#{ ! excludeDrugBankId == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugBankId')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugBankId')}" label="#{msg.drug_drugBankId}" required="false" disabled="false" value="#{drugAction.drug.drugBankId}"></h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeDrugInteractions == true}"> 
+      <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions, :#{p:component('editDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}" value="#{drugAction.listDrugInteractions}" rowIndexVar="rowIndex"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>
+          </f:facet>  
+          <s:decorate id="interactingDrugIdDecorate" rendered="#{ ! excludeInteractingDrug == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:selectOneMenu id="interactingDrugId" label="#{msg.drugInteraction_interactingDrug}" value="#{_drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}" disabled="false" converter="#{drugList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/>
+          </f:facet>  
+          <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}" label="#{msg.drugInteraction_description}" required="false" disabled="false" value="#{_drugInteraction.description}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/>
+          </f:facet>  
+          <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}" value="#{_drugInteraction.severity}" required="false" label="#{msg.drugInteraction_severity}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/>  
+              <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
+              <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions, :#{p:component('editDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrugInteractions')}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="Delete" immediate="true" action="#{drugAction.deleteDrugInteractions(rowIndex)}" update="drugInteractions" process="@this"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_patientNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_patientNote" value="#{encounterAction.encounter.patientNote}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_patientNote" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_SysBP" value="#{encounterAction.encounter.vitals.sysBP}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_vitals_SysBP" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_DiasBP" value="#{encounterAction.encounter.vitals.diasBP}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_vitals_DiasBP" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_Temperature" value="#{encounterAction.encounter.vitals.temperature}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_vitals_Temperature" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_Pulse" value="#{encounterAction.encounter.vitals.pulse}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_vitals_Pulse" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_RespirationRate" value="#{encounterAction.encounter.vitals.respirationRate}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_vitals_RespirationRate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_prescriptionId" value="#{encounterAction.encounter.prescription}"> 
+          <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_prescriptionId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{encounterAction.encounter.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_creatorId" value="#{encounterAction.encounter.creator}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_creatorId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_tests}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTests')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_tests" value="#{encounterAction.encounter.tests}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_tests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTests')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_allergy" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="allergy.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/patient/allergy/allergyActionAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}" propagation="none"> 
+        <h:outputText value="#{_allergy.id}"/>  
+        <f:param name="allergyId" value="#{_allergy.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.allergy_patient}" sortBy="allergy.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')) }"> 
+      <h:panelGroup> 
+        <h:link id="patientallergy_patient" escape="false" value="#{_allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_allergy.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="patientallergy_patient"> 
+          <span>#{_allergy.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.allergy_severity}" sortBy="allergy.severity" rendered="#{ ! excludeSeverity == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')) }"> 
+      <h:outputText value="#{_allergy.severity}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.allergy_drug}" sortBy="allergy.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewDrug')) }"> 
+      <h:panelGroup> 
+        <h:link id="drugallergy_drug" escape="false" value="#{_allergy.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{_allergy.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="drugallergy_drug"> 
+          <span>#{_allergy.drug.popupInfo}</span> 
+        </p:tooltip> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  Encounter  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.encounter.Encounter" name="Encounter"> 
+    <table name="encounter"></table> 
+  </entity>  
+  <!--  PrescribedTest  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.encounter.PrescribedTest" name="PrescribedTest"> 
+    <table name="prescribedtest"></table> 
+  </entity>  
+  <!--  Differential  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.encounter.Differential" name="Differential"> 
+    <table name="differential"></table> 
+  </entity>  
+  <!--  Reason  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.encounter.Reason" name="Reason"> 
+    <table name="reason"></table> 
+  </entity>  
+  <!--  Invoice  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.billing.Invoice" name="Invoice"> 
+    <table name="invoice"></table> 
+  </entity>  
+  <!--  Service  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.billing.Service" name="Service"> 
+    <table name="service"></table> 
+  </entity>  
+  <!--  InvoiceItem  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.billing.InvoiceItem" name="InvoiceItem"> 
+    <table name="invoiceitem"></table> 
+  </entity>  
+  <!--  UnusualOccurence  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.unusualoccurences.UnusualOccurence" name="UnusualOccurence"> 
+    <table name="unusualoccurence"></table> 
+  </entity>  
+  <!--  OccurenceType  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.unusualoccurences.OccurenceType" name="OccurenceType"> 
+    <table name="occurencetype"></table>  
+    <named-query name="occurenceType.findByUnqName"> 
+      <query> <![CDATA[
+			select u from OccurenceType u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Patient  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.Patient" name="Patient"> 
+    <table name="patient"></table> 
+  </entity>  
+  <!--  PatientDocument  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.PatientDocument" name="PatientDocument"> 
+    <table name="patientdocument"></table> 
+  </entity>  
+  <!--  Allergy  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.Allergy" name="Allergy"> 
+    <table name="allergy"></table> 
+  </entity>  
+  <!--  Immunization  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.Immunization" name="Immunization"> 
+    <table name="immunization"></table> 
+  </entity>  
+  <!--  Vaccine  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.Vaccine" name="Vaccine"> 
+    <table name="vaccine"></table>  
+    <named-query name="vaccine.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Vaccine u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  TrackedVital  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.TrackedVital" name="TrackedVital"> 
+    <table name="trackedvital"></table>  
+    <named-query name="trackedVital.findByUnqName"> 
+      <query> <![CDATA[
+			select u from TrackedVital u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  VitalValue  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.VitalValue" name="VitalValue"> 
+    <table name="vitalvalue"></table> 
+  </entity>  
+  <!--  Facility  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.Facility" name="Facility"> 
+    <table name="facility"></table> 
+  </entity>  
+  <!--  Room  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.Room" name="Room"> 
+    <table name="room"></table> 
+  </entity>  
+  <!--  Bed  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.Bed" name="Bed"> 
+    <table name="bed"></table>  
+    <named-query name="getAvailableBeds"> 
+      <query> <![CDATA[
+			select b from Bed b where b.patient is null
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Ward  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.Ward" name="Ward"> 
+    <table name="ward"></table>  
+    <named-query name="ward.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Ward u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  RoomType  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.RoomType" name="RoomType"> 
+    <table name="roomtype"></table> 
+  </entity>  
+  <!--  Finding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.Finding" name="Finding"> 
+    <table name="finding"></table>  
+    <named-query name="finding.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Finding u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  PhysicalFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.PhysicalFinding" name="PhysicalFinding"> 
+    <table name="physicalfinding"></table> 
+  </entity>  
+  <!--  LabFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.LabFinding" name="LabFinding"> 
+    <table name="labfinding"></table> 
+  </entity>  
+  <!--  Disease  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.Disease" name="Disease"> 
+    <table name="disease"></table>  
+    <named-query name="disease.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Disease u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  ConditionFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.ConditionFinding" name="ConditionFinding"> 
+    <table name="conditionfinding"></table> 
+  </entity>  
+  <!--  ConditionCategory  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.ConditionCategory" name="ConditionCategory"> 
+    <table name="conditioncategory"></table>  
+    <named-query name="conditionCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from ConditionCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  DifferentialDx  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.DifferentialDx" name="DifferentialDx"> 
+    <table name="differentialdx"></table> 
+  </entity>  
+  <!--  DxCategory  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.DxCategory" name="DxCategory"> 
+    <table name="dxcategory"></table>  
+    <named-query name="dxCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from DxCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  PatientFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.PatientFinding" name="PatientFinding"> 
+    <table name="patientfinding"></table> 
+  </entity>  
+  <!--  PatientDiffDx  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.PatientDiffDx" name="PatientDiffDx"> 
+    <table name="patientdiffdx"></table> 
+  </entity>  
+  <!--  DxTest  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.DxTest" name="DxTest"> 
+    <table name="dxtest"></table> 
+  </entity>  
+  <!--  ChronicCondition  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.ChronicCondition" name="ChronicCondition"> 
+    <table name="chroniccondition"></table> 
+  </entity>  
+  <!--  PrescriptionTemplate  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.PrescriptionTemplate" name="PrescriptionTemplate"> 
+    <table name="prescriptiontemplate"></table>  
+    <named-query name="prescriptionTemplate.findByUnqName"> 
+      <query> <![CDATA[
+			select u from PrescriptionTemplate u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Prescription  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.Prescription" name="Prescription"> 
+    <table name="prescription"></table> 
+  </entity>  
+  <!--  PrescriptionItem  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.PrescriptionItem" name="PrescriptionItem"> 
+    <table name="prescriptionitem"></table> 
+  </entity>  
+  <!--  PrescriptionItemTemplate  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.PrescriptionItemTemplate" name="PrescriptionItemTemplate"> 
+    <table name="prescriptionitemtemplate"></table> 
+  </entity>  
+  <!--  Frequency  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.Frequency" name="Frequency"> 
+    <table name="frequency"></table>  
+    <named-query name="frequency.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Frequency u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Appointment  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.appointment.Appointment" name="Appointment"> 
+    <table name="appointment"></table> 
+  </entity>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Employee" name="Employee"> 
+    <table name="employee"></table> 
+  </entity>  
+  <!--  Physician  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Physician" name="Physician"> 
+    <table name="physician"></table> 
+  </entity>  
+  <!--  Nurse  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Nurse" name="Nurse"> 
+    <table name="nurse"></table> 
+  </entity>  
+  <!--  Technician  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Technician" name="Technician"> 
+    <table name="technician"></table> 
+  </entity>  
+  <!--  Clerk  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Clerk" name="Clerk"> 
+    <table name="clerk"></table> 
+  </entity>  
+  <!--  Specialization  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Specialization" name="Specialization"> 
+    <table name="specialization"></table>  
+    <named-query name="specialization.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Specialization u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  NurseSpecialty  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.NurseSpecialty" name="NurseSpecialty"> 
+    <table name="nursespecialty"></table>  
+    <named-query name="nurseSpecialty.findByUnqName"> 
+      <query> <![CDATA[
+			select u from NurseSpecialty u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Department" name="Department"> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AtcDrug  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.drugs.AtcDrug" name="AtcDrug"> 
+    <table name="atcdrug"></table> 
+  </entity>  
+  <!--  Drug  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.drugs.Drug" name="Drug"> 
+    <table name="drug"></table>  
+    <named-query name="drug.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Drug u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  DrugInteraction  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.drugs.DrugInteraction" name="DrugInteraction"> 
+    <table name="druginteraction"></table> 
+  </entity>  
+  <!--  DrugCategory  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.drugs.DrugCategory" name="DrugCategory"> 
+    <table name="drugcategory"></table>  
+    <named-query name="drugCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from DrugCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AppUser  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.users.AppUser" name="AppUser"> 
+    <table name="appuser"></table>  
+    <named-query name="appUser.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from AppUser u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AppRole  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.users.AppRole" name="AppRole"> 
+    <table name="approle"></table>  
+    <named-query name="appRole.findByUnqName"> 
+      <query> <![CDATA[
+			select u from AppRole u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Code  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.codes.Code" name="Code"> 
+    <table name="code"></table> 
+  </entity>  
+  <!--  Chapter  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.codes.Chapter" name="Chapter"> 
+    <table name="chapter"></table> 
+  </entity>  
+  <!--  Section  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.codes.Section" name="Section"> 
+    <table name="section"></table> 
+  </entity>  
+  <!--  SimpleCode  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.codes.SimpleCode" name="SimpleCode"> 
+    <table name="simplecode"></table> 
+  </entity>  
+  <!--  AppliedChart  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.charts.AppliedChart" name="AppliedChart"> 
+    <table name="appliedchart"></table> 
+  </entity>  
+  <!--  Chart  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.charts.Chart" name="Chart"> 
+    <table name="chart"></table>  
+    <named-query name="chart.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Chart u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  ChartItem  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.charts.ChartItem" name="ChartItem"> 
+    <table name="chartitem"></table>  
+    <named-query name="chartItem.findByUnqName"> 
+      <query> <![CDATA[
+			select u from ChartItem u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  ChartProcedure  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.charts.ChartProcedure" name="ChartProcedure"> 
+    <table name="chartprocedure"></table> 
+  </entity>  
+  <!--  Settings  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.Settings" name="Settings"> 
+    <table name="settings"></table> 
+  </entity>  
+  <!--  Setting  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.Setting" name="Setting"> 
+    <table name="setting"></table> 
+  </entity>  
+  <!--  SettingName  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.SettingName" name="SettingName"> 
+    <table name="settingname"></table>  
+    <named-query name="settingName.findByUnqName"> 
+      <query> <![CDATA[
+			select u from SettingName u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  SettingGroup  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.SettingGroup" name="SettingGroup"> 
+    <table name="settinggroup"></table>  
+    <named-query name="settingGroup.findByUnqName"> 
+      <query> <![CDATA[
+			select u from SettingGroup u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Admission  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.admission.Admission" name="Admission"> 
+    <table name="admission"></table> 
+  </entity>  
+  <!--  BedStay  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.admission.BedStay" name="BedStay"> 
+    <table name="bedstay"></table> 
+  </entity> 
+</entity-mappings>

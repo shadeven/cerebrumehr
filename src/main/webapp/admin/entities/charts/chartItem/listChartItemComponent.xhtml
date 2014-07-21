@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ChartItemModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="ChartItem Search Results (#{empty records ? 0 : (chartItemList.paginated ? chartItemList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/charts/chartItem/modalDlgChartItemComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="chartItemForm"> 
+      <p:dataTable var="_chartItem" value="#{records}" id="chartItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chartItemAction.chartItem}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editChartItemPanel')}" oncomplete="PF('editChartItemDialog').show()" listener="#{chartItemAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="chartItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/charts/chartItem/chartItemActionChartItem.xhtml" rendered="#{s:hasPermission(_chartItem, 'view')}" propagation="none"> 
+            <h:outputText value="#{_chartItem.id}"/>  
+            <f:param name="chartItemId" value="#{_chartItem.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.chartItem_name}" sortBy="chartItem.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')) }"> 
+          <h:outputText value="#{_chartItem.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.chartItem_duration}" sortBy="chartItem.duration" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')) }"> 
+          <h:outputText value="#{_chartItem.duration}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.chartItem_chart}" sortBy="chartItem.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewChart')) }"> 
+          <h:panelGroup> 
+            <h:link id="chartchartItem_chart" escape="false" value="#{_chartItem.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+              <f:param name="chartId" value="#{_chartItem.chart.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="chartchartItem_chart" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
+                  <ui:param name="chart" value="#{_chartItem.chart}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="chartChartItems"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="chartItem.frequencyPeriod" rendered="#{ ! excludeFrequencyPeriod == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')) }"> 
+          <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="chartItem.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_chartItem.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_chartItem', 'view') and !_chartItemCategory.archived}"> 
+          <h:link outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" rendered="#{s:hasPermission(_chartItem, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="chartItemId" value="#{_chartItem.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_chartItem', 'edit') and !_chartItemCategory.archived}"> 
+          <h:link outcome="/admin/entities/charts/chartItem/editChartItem.xhtml" rendered="#{s:hasPermission(_chartItem, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="chartItemId" value="#{_chartItem.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('chartItemAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_chartItem.archived}" action="#{chartItemAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chartItem.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_chartItem.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_chartItem.archived}" action="#{chartItemAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chartItem.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_chartItem.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_chartItem.archived}" action="#{chartItemAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_chartItem.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

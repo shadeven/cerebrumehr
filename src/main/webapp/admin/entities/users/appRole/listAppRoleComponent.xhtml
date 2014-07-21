@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AppRoleModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="AppRole Search Results (#{empty records ? 0 : (appRoleList.paginated ? appRoleList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/users/appRole/modalDlgAppRoleComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="appRoleForm"> 
+      <p:dataTable var="_appRole" value="#{records}" id="appRoleList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appRoleAction.appRole}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editAppRolePanel')}" oncomplete="PF('editAppRoleDialog').show()" listener="#{appRoleAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="appRole.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/users/appRole/appRoleActionAppRole.xhtml" rendered="#{s:hasPermission(_appRole, 'view')}" propagation="none"> 
+            <h:outputText value="#{_appRole.id}"/>  
+            <f:param name="appRoleId" value="#{_appRole.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.appRole_name}" sortBy="appRole.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('appRole', 'viewName')) }"> 
+          <h:outputText value="#{_appRole.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="appRole.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_appRole.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_appRole', 'view') and !_appRoleCategory.archived}"> 
+          <h:link outcome="/admin/entities/users/appRole/viewAppRole.xhtml" rendered="#{s:hasPermission(_appRole, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="appRoleId" value="#{_appRole.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_appRole', 'edit') and !_appRoleCategory.archived}"> 
+          <h:link outcome="/admin/entities/users/appRole/editAppRole.xhtml" rendered="#{s:hasPermission(_appRole, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="appRoleId" value="#{_appRole.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('appRoleAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_appRole.archived}" action="#{appRoleAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_appRole.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_appRole.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_appRole.archived}" action="#{appRoleAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_appRole.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_appRole.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_appRole.archived}" action="#{appRoleAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_appRole.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{chartProcedureAction.chartProcedure.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_chartItemId" value="#{chartProcedureAction.chartProcedure.chartItem}"> 
+          <s:selectItems value="#{chartItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <p:message styleClass="error errors" for="#{prefix}_chartItemId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>  
+        <br/>  
+        <p:calendar id="#{prefix}_dueDate" value="#{chartProcedureAction.chartProcedure.dueDate}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_dueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>  
+        <br/>  
+        <p:calendar id="#{prefix}_datePerformed" value="#{chartProcedureAction.chartProcedure.datePerformed}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_datePerformed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_remarks" value="#{chartProcedureAction.chartProcedure.remarks}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

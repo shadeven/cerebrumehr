@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_name" value="#{drugAction.drug.name}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAbsorption')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_absorption" value="#{drugAction.drug.absorption}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_absorption" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAbsorption')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editBiotransformation')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_biotransformation" value="#{drugAction.drug.biotransformation}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_biotransformation" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editBiotransformation')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAtcCodes')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_atcCodes" value="#{drugAction.drug.atcCodes}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_atcCodes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editAtcCodes')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editContraIndication')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_contraIndication" value="#{drugAction.drug.contraIndication}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_contraIndication" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editContraIndication')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDescription')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_description" value="#{drugAction.drug.description}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDescription')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDosageForm')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_dosageForm" value="#{drugAction.drug.dosageForm}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_dosageForm" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDosageForm')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editFoodInteractions')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_foodInteractions" value="#{drugAction.drug.foodInteractions}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_foodInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editFoodInteractions')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLife')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_halfLife" value="#{drugAction.drug.halfLife}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_halfLife" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLife')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLifeNumberOfHours')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_halfLifeNumberOfHours" value="#{drugAction.drug.halfLifeNumberOfHours}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_halfLifeNumberOfHours" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLifeNumberOfHours')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editIndication')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_indication" value="#{drugAction.drug.indication}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_indication" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editIndication')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editMechanismOfAction')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_mechanismOfAction" value="#{drugAction.drug.mechanismOfAction}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_mechanismOfAction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editMechanismOfAction')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPatientInfo')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_patientInfo" value="#{drugAction.drug.patientInfo}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_patientInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPatientInfo')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPharmacology')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_pharmacology" value="#{drugAction.drug.pharmacology}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_pharmacology" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editPharmacology')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editToxicity')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_toxicity" value="#{drugAction.drug.toxicity}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_toxicity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editToxicity')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editRouteOfElimination')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_routeOfElimination" value="#{drugAction.drug.routeOfElimination}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_routeOfElimination" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editRouteOfElimination')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editVolumeOfDistribution')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_volumeOfDistribution" value="#{drugAction.drug.volumeOfDistribution}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_volumeOfDistribution" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editVolumeOfDistribution')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugBankId')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_drugBankId" value="#{drugAction.drug.drugBankId}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_drugBankId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugBankId')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drug_categories}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editCategories')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_categories" value="#{drugAction.drug.categories}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_categories" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editCategories')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

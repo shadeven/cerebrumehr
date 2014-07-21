@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPrescriptionItemComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescriptionItem}"/> 
+      </f:facet>  
+      <s:decorate id="qtyDecorate" rendered="#{ ! excludeQty == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}" label="#{msg.prescriptionItem_qty}" required="true" disabled="false" value="#{prescriptionItemAction.prescriptionItem.qty}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="strengthDecorate" rendered="#{ ! excludeStrength == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editStrength')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="strength#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editStrength')}" label="#{msg.prescriptionItem_strength}" required="true" disabled="false" value="#{prescriptionItemAction.prescriptionItem.strength}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="routeDecorate" rendered="#{ ! excludeRoute == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}"/>
+        </ui:define>  
+        <h:selectOneMenu id="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}" value="#{prescriptionItemAction.prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
+          <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
+          <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+          <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
+          <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}" label="#{msg.prescriptionItem_duration}" required="true" disabled="false" value="#{prescriptionItemAction.prescriptionItem.duration}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}" label="#{msg.prescriptionItem_remarks}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.remarks}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="brandNameDecorate" rendered="#{ ! excludeBrandName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editBrandName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="brandName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editBrandName')}" label="#{msg.prescriptionItem_brandName}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.brandName}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>
+        </ui:define>  
+        <h:panelGroup> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{drugList.autocomplete}" value="#{prescriptionItemAction.prescriptionItem.drug}" converter="#{drugList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+            <p:column> 
+              <h:outputText value="#{record.name}"/> 
+            </p:column> 
+          </p:autoComplete> 
+        </h:panelGroup> 
+      </s:decorate>  
+      <s:decorate id="prescriptionIdDecorate" rendered="#{ ! excludePrescription == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="prescriptionId" label="#{msg.prescriptionItem_prescription}" value="#{prescriptionItemAction.prescriptionItem.prescription}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}" disabled="false" converter="#{prescriptionList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{prescriptionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="frequencyIdDecorate" rendered="#{ ! excludeFrequency == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="frequencyId" label="#{msg.prescriptionItem_frequency}" value="#{prescriptionItemAction.prescriptionItem.frequency}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}" disabled="false" converter="#{frequencyList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{frequencyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

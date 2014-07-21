@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ClerkModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Clerk Search Results (#{empty records ? 0 : (clerkList.paginated ? clerkList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/employee/clerk/modalDlgClerkComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="clerkForm"> 
+      <p:dataTable var="_clerk" value="#{records}" id="clerkList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{clerkAction.clerk}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editClerkPanel')}" oncomplete="PF('editClerkDialog').show()" listener="#{clerkAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="clerk.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/employee/clerk/clerkActionClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}" propagation="none"> 
+            <h:outputText value="#{_clerk.id}"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="clerk.employeeNumber" rendered="#{ ! excludeEmployeeNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewEmployeeNumber')) }"> 
+          <h:outputText value="#{_clerk.employeeNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_userName}" sortBy="clerk.appUser.userName" rendered="#{ ! excludeUserName == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewUserName')) }"> 
+          <h:outputText value="#{_clerk.appUser.userName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="clerk.appUser.enabled" rendered="#{ ! excludeEnabled == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewEnabled')) }"> 
+          <h:outputText value="#{_clerk.appUser.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_facility}" sortBy="clerk.facility" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewFacility')) }"> 
+          <h:panelGroup> 
+            <h:link id="facilityemployee_facility" escape="false" value="#{_clerk.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+              <f:param name="facilityId" value="#{_clerk.facility.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+                  <ui:param name="facility" value="#{_clerk.facility}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="facility"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_department}" sortBy="clerk.department" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewDepartment')) }"> 
+          <h:panelGroup> 
+            <h:link id="departmentemployee_department" escape="false" value="#{_clerk.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+              <f:param name="departmentId" value="#{_clerk.department.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+                  <ui:param name="department" value="#{_clerk.department}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="departmentEmployees"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="clerk.firstName" rendered="#{ ! excludeFirstName == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewFirstName')) }"> 
+          <h:outputText value="#{_clerk.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="clerk.lastName" rendered="#{ ! excludeLastName == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewLastName')) }"> 
+          <h:outputText value="#{_clerk.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="clerk.dateOfBirth" rendered="#{ ! excludeDateOfBirth == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewDateOfBirth')) }"> 
+          <h:outputText value="#{_clerk.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="clerk.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewGender')) }"> 
+          <h:outputText value="#{_clerk.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="clerk.contactDetails.primaryPhone" rendered="#{ ! excludePrimaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewPrimaryPhone')) }"> 
+          <h:outputText value="#{_clerk.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="clerk.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewSecondaryPhone')) }"> 
+          <h:outputText value="#{_clerk.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="clerk.contactDetails.email" rendered="#{ ! excludeEmail == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewEmail')) }"> 
+          <h:outputText value="#{_clerk.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="clerk.age" rendered="#{ ! excludeAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewAge')) }"> 
+          <h:outputText value="#{_clerk.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="clerk.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewTitle')) }"> 
+          <h:outputText value="#{_clerk.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="clerk.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_clerk.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_clerk', 'view') and !_clerkCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/clerk/viewClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_clerk', 'edit') and !_clerkCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/clerk/editClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('clerkAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_clerk.archived}" action="#{clerkAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_clerk.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_clerk.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_clerk.archived}" action="#{clerkAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_clerk.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_clerk.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_clerk.archived}" action="#{clerkAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_clerk.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

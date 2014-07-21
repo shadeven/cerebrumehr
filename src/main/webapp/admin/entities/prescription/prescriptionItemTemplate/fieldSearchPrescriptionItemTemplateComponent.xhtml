@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}"/>  
+      <br/>  
+      <p:selectOneMenu id="drugId" converter="#{drugList.converter}" value="#{ prescriptionItemTemplateList.prescriptionItemTemplate.drug}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}"/>  
+      <br/>  
+      <h:inputText id="qty_begin" value="#{prescriptionItemTemplateList.qtyRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="qty_end" value="#{prescriptionItemTemplateList.qtyRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequency')}"/>  
+      <br/>  
+      <p:selectOneMenu id="frequencyId" converter="#{frequencyList.converter}" value="#{ prescriptionItemTemplateList.prescriptionItemTemplate.frequency}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{frequencyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}"/>  
+      <br/>  
+      <h:inputText id="strength" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.strength}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}"/>  
+      <br/>  
+      <h:selectOneMenu id="route" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.route}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="PO" itemLabel="Po"/>  
+        <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+        <f:selectItem itemValue="IM" itemLabel="Im"/>  
+        <f:selectItem itemValue="SC" itemLabel="Sc"/>  
+        <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/>  
+      <br/>  
+      <h:inputText id="duration_begin" value="#{prescriptionItemTemplateList.durationRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="duration_end" value="#{prescriptionItemTemplateList.durationRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}"/>  
+      <br/>  
+      <h:inputText id="remarks" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}"/>  
+      <br/>  
+      <h:inputText id="brandName" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.brandName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}"/>  
+      <br/>  
+      <p:selectOneMenu id="prescriptionTemplateId" converter="#{prescriptionTemplateList.converter}" value="#{ prescriptionItemTemplateList.prescriptionItemTemplate.prescriptionTemplate}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{prescriptionTemplateList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{prescriptionItemTemplateList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{prescriptionItemTemplateList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

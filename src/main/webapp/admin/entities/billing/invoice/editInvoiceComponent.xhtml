@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editInvoiceComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Invoice}"/> 
+      </f:facet>  
+      <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}" label="#{msg.invoice_notes}" required="false" disabled="false" value="#{invoiceAction.invoice.notes}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="paidAmountDecorate" rendered="#{ ! excludePaidAmount == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoice_paidAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPaidAmount')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="paidAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPaidAmount')}" label="#{msg.invoice_paidAmount}" required="false" disabled="false" value="#{invoiceAction.invoice.paidAmount}"> 
+          <f:converter converterId="javax.faces.BigDecimal"/> 
+        </h:inputText> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="patientId" label="#{msg.invoice_patient}" value="#{invoiceAction.invoice.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
+      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" value="#{invoiceAction.listInvoiceItems}" rowIndexVar="rowIndex"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
+          </f:facet>  
+          <s:decorate id="serviceIdDecorate" rendered="#{ ! excludeService == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false" converter="#{serviceList.converter}"> 
+              <p:ajax listener="#{invoiceItemAction.onChangeService(_invoiceItem)}" update=":#{p:component('invoiceItems')}"> 
+                <s:conversationPropagation type="join"/> 
+              </p:ajax>  
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{serviceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>
+          </f:facet>  
+          <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{_invoiceItem.units}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
+          </f:facet>  
+          <s:decorate id="appliedPriceDecorate" rendered="#{ ! excludeAppliedPrice == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}" label="#{msg.invoiceItem_appliedPrice}" required="true" disabled="false" value="#{_invoiceItem.appliedPrice}"> 
+              <f:converter converterId="javax.faces.BigDecimal"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="Delete" immediate="true" action="#{invoiceAction.deleteInvoiceItems(rowIndex)}" update="invoiceItems" process="@this"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

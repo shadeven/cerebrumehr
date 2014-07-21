@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <h:commandButton value="Full Text Search" action="textSearch"> 
+        <s:conversationPropagation type="join"/> 
+      </h:commandButton> 
+    </h:form>  
+    <c:set var="modalId" value="DocumentModalPanel-Document"/>  
+    <ui:include src="searchDocument.xhtml"/>  
+    <br/>  
+    <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/patient/document/editDocument.xhtml" propagation="none"> 
+        <f:param name="documentId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{documentAction.setDocumentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{documentList.exportToCsv}"/> 
+    </a:form>  
+    <ui:include src="listDocumentComponent.xhtml"> 
+      <ui:param name="records" value="#{documentList.resultList}"/> 
+    </ui:include>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/patient/document/editDocument.xhtml" propagation="none"> 
+        <f:param name="documentId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{documentAction.setDocumentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{documentList.exportToCsv}"/> 
+    </a:form>  
+    <ui:include src="/admin/entities/patient/document/modalDlgDocumentComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
+  </ui:define> 
+</ui:composition>

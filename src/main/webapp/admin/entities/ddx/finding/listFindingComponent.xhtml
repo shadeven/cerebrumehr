@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="FindingModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Finding Search Results (#{empty records ? 0 : (findingList.paginated ? findingList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/finding/modalDlgFindingComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="findingForm"> 
+      <p:dataTable var="_finding" value="#{records}" id="findingList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{findingAction.finding}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editFindingPanel')}" oncomplete="PF('editFindingDialog').show()" listener="#{findingAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="finding.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/ddx/finding/findingActionFinding.xhtml" rendered="#{s:hasPermission(_finding, 'view')}" propagation="none"> 
+            <h:outputText value="#{_finding.id}"/>  
+            <f:param name="findingId" value="#{_finding.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/ddx/differentialDx/miniListDifferentialDxComponent.xhtml"> 
+            <ui:param name="records" value="#{_finding.listDifferentialDxs}"/>  
+            <ui:param name="excludeFinding" value="true"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.finding_name}" sortBy="finding.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')) }"> 
+          <h:outputText value="#{_finding.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="finding.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_finding.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_finding', 'view') and !_findingCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/finding/viewFinding.xhtml" rendered="#{s:hasPermission(_finding, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="findingId" value="#{_finding.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_finding', 'edit') and !_findingCategory.archived}"> 
+          <h:link outcome="/admin/entities/ddx/finding/editFinding.xhtml" rendered="#{s:hasPermission(_finding, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="findingId" value="#{_finding.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('findingAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_finding.archived}" action="#{findingAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_finding.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_finding.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_finding.archived}" action="#{findingAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_finding.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_finding.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_finding.archived}" action="#{findingAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_finding.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<p:dialog header="Edit #{msg.appointment} "
+		widgetVar="editAppointmentDialog" resizable="true">
+		<c:set var="opId" value="outputPanel-${modalId}" />
+		<h:panelGrid id="editAppointmentPanel" columns="2" cellpadding="4">
+			<p:messages autoUpdate="true" />
+			<s:div rendered="#{appointmentAction.goodToRender}">
+				<ui:include
+					src="/admin/entities/appointment/appointment/editAppointmentComponent.xhtml">
+					<ui:param name="numColumns" value="1" />
+				</ui:include>
+
+				<p:commandButton action="#{appointmentAction.save(false)}"
+					styleClass="button"
+					update=":#{p:component('editAppointmentPanel')}  :#{p:component('appointmentForm')}"
+					value="Save"
+					oncomplete="handleDialogSubmit(xhr, status, args, editAppointmentDialog)"
+					rendered="#{s:hasPermission('appointment', 'edit')}" />
+				<p:commandButton action="#{appointmentAction.cancelAppointment}" rendered="#{!appointmentAction.isNew()}"
+					styleClass="button" value="Cancel Appointment"
+					update=":#{p:component('editAppointmentPanel')}  :#{p:component('appointmentForm')}"
+					oncomplete="handleDialogSubmit(xhr, status, args, editAppointmentDialog)" >
+					<s:conversationId />
+				</p:commandButton>
+
+			</s:div>
+
+			<s:div rendered="#{!appointmentAction.goodToRender}">
+				<h3>Pleas select a patient and a physician !</h3>
+			</s:div>
+
+		</h:panelGrid>
+
+	</p:dialog>
+</ui:composition>

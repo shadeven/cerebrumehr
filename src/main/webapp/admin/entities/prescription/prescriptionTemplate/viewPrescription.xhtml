@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_prescription_Template_Prescription) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabPanel switchType="ajax"> 
+        <p:tab label="Prescription"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"/> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('prescription', 'edit', prescriptionAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{prescriptionAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab label="Patient" rendered="#{prescriptionAction.instance.patient != null}"> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="patientId" value="#{prescriptionAction.instance.patient.id}"/> 
+          </ui:include> 
+        </p:tab> 
+      </p:tabPanel>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabPanel switchType="client"></p:tabPanel>  
+    <br/>  
+    <p:tabPanel switchType="client"> 
+      <p:tab label="Notes"> 
+        <wc:comments backingAction="#{prescriptionAction}"/> 
+      </p:tab> 
+    </p:tabPanel> 
+  </ui:define> 
+</ui:composition>

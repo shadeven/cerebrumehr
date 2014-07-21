@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCodeComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Code}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editName')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editName')}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{codeAction.code.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{codeAction.code.description}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="includesDecorate" rendered="#{ ! excludeIncludes == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}" label="#{msg.code_includes}" required="false" disabled="false" value="#{codeAction.code.includes}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="notIncludedHereDecorate" rendered="#{ ! excludeNotIncludedHere == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{codeAction.code.notIncludedHere}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="codeFirstDecorate" rendered="#{ ! excludeCodeFirst == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{codeAction.code.codeFirst}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="notCodedHereDecorate" rendered="#{ ! excludeNotCodedHere == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{codeAction.code.notCodedHere}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="codeAlsoDecorate" rendered="#{ ! excludeCodeAlso == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="sectionIdDecorate" rendered="#{ ! excludeSection == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="sectionId" label="#{msg.code_section}" value="#{codeAction.code.section}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}" disabled="false" converter="#{sectionList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{sectionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

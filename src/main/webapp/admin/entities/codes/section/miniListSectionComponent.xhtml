@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_section" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="section.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/codes/section/sectionActionSection.xhtml" rendered="#{s:hasPermission(_section, 'view')}" propagation="none"> 
+        <h:outputText value="#{_section.id}"/>  
+        <f:param name="sectionId" value="#{_section.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/codes/code/miniListCodeComponent.xhtml"> 
+        <ui:param name="records" value="#{_section.listCodes}"/>  
+        <ui:param name="excludeSection" value="true"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.abstractCode_name}" sortBy="section.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('section', 'viewName')) }"> 
+      <h:outputText value="#{_section.name}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.abstractCode_description}" sortBy="section.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('section', 'viewDescription')) }"> 
+      <h:panelGroup> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{_section.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.section_chapter}" sortBy="section.chapter" rendered="#{ ! excludeChapter == true and ( skipPermissionCheck == 'true' || s:hasPermission('section', 'viewChapter')) }"> 
+      <h:panelGroup> 
+        <h:link id="chaptersection_chapter" escape="false" value="#{_section.chapter.displayName}" outcome="/admin/entities/codes/chapter/viewChapter.xhtml" propagation="none"> 
+          <f:param name="chapterId" value="#{_section.chapter.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chaptersection_chapter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/codes/chapter/viewChapterComponent.xhtml"> 
+              <ui:param name="chapter" value="#{_section.chapter}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chapterSections"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

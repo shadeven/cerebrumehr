@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_name" value="#{roomTypeAction.roomType.name}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/>  
+        <br/>  
+        <p:editor id="#{prefix}_description" value="#{roomTypeAction.roomType.description}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_rate" value="#{roomTypeAction.roomType.rate}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_rate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.roomType_numberOfBeds}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_numberOfBeds" value="#{roomTypeAction.roomType.numberOfBeds}"/>  
+        <p:message styleClass="error errors" for="#{prefix}_numberOfBeds" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewDocumentComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{documentAction.load(documentId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDocument eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Document}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewName')}" value="#{documentAction.document.name}"></h:outputText>  
+        <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewFile')}"/>  
+        <c:choose> 
+          <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{documentAction.document.file.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{documentAction.document.file.name}" action="#{documentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewNotes')}"/>  
+        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewNotes')}" value="#{documentAction.document.notes}"></h:outputText>  
+        <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewPatient')}"/>  
+        <s:link value="#{documentAction.document.patient.displayName}" action="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{documentAction.document.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:toolTip> 
+            <span>#{documentAction.document.patient.popupInfo}</span> 
+          </p:toolTip> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

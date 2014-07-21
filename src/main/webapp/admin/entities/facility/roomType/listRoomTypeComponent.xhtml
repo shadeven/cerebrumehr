@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="RoomTypeModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="RoomType Search Results (#{empty records ? 0 : (roomTypeList.paginated ? roomTypeList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/facility/roomType/modalDlgRoomTypeComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="roomTypeForm"> 
+      <p:dataTable var="_roomType" value="#{records}" id="roomTypeList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{roomTypeAction.roomType}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editRoomTypePanel')}" oncomplete="PF('editRoomTypeDialog').show()" listener="#{roomTypeAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="roomType.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/facility/roomType/roomTypeActionRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'view')}" propagation="none"> 
+            <h:outputText value="#{_roomType.id}"/>  
+            <f:param name="roomTypeId" value="#{_roomType.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.roomType_name}" sortBy="roomType.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')) }"> 
+          <h:outputText value="#{_roomType.name}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.roomType_description}" sortBy="roomType.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')) }"> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.roomType_rate}" sortBy="roomType.rate" rendered="#{ ! excludeRate == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')) }"> 
+          <h:outputText value="#{_roomType.rate}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.roomType_numberOfBeds}" sortBy="roomType.numberOfBeds" rendered="#{ ! excludeNumberOfBeds == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfBeds')) }"> 
+          <h:outputText value="#{_roomType.numberOfBeds}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="roomType.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_roomType.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_roomType', 'view') and !_roomTypeCategory.archived}"> 
+          <h:link outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="roomTypeId" value="#{_roomType.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_roomType', 'edit') and !_roomTypeCategory.archived}"> 
+          <h:link outcome="/admin/entities/facility/roomType/editRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="roomTypeId" value="#{_roomType.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('roomTypeAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_roomType.archived}" action="#{roomTypeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_roomType.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_roomType.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_roomType.archived}" action="#{roomTypeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_roomType.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_roomType.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_roomType.archived}" action="#{roomTypeAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_roomType.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

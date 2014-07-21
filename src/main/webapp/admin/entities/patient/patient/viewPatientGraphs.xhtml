@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+	
+
+		<p:panel>
+			<h4> Blood Pressure </h4>
+			<p:lineChart value="#{patientAction.bloodPressureValues}" var="bp"
+				xfield="#{bp.date}">
+				<p:chartSeries label="Systolic" value="#{bp.systolic}" />
+				<p:chartSeries label="Diastolic" value="#{bp.diastolic}" />
+			</p:lineChart>
+
+
+			<ui:repeat var="tval" value="#{patientAction.trackedVals}">
+				<h4> #{tval.get(0).trackedVital.name}</h4>
+				<p:lineChart value="#{tval}" var="vitalvalues"  
+					xfield="#{vitalvalues.dateCreated}"  titleX="22">
+					<p:chartSeries label="#{vitalvalues.trackedVital.name}" value="#{vitalvalues.value}"   >
+						
+					</p:chartSeries>
+				</p:lineChart>
+			</ui:repeat>
+		</p:panel>
+
+
+	</ui:define>
+</ui:composition>

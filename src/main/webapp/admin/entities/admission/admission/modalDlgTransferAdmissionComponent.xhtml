@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:set var="opId" value="outputPanel-${modalId}"/>  
+  <p:dialog id="${modalId}" resizable="true" header="#{msg.Transfer}" widgetVar="transferAdmissionDialog"> 
+    <p:messages autoUpdate="true"/>  
+    <h:form> 
+      <!--PROTECTED REGION ID(MDL_RGN_VIEW_TransferAdmission) ENABLED START-->  
+      <ui:include src="editAdmissionComponentCustom.xhtml"/>  
+      <!--PROTECTED REGION END-->  
+      <h:commandButton action="#{admissionAction.transfer}" styleClass="button" value="Save"> 
+        <f:param name="conversationPropagation" value="end"/> 
+      </h:commandButton>  
+      <h:commandButton immediate="true" value="Hide" styleClass="button"/>  
+      <h:outputText value=" "/>  
+      <h:commandButton immediate="true" type="reset" value="Cancel" styleClass="button"> 
+        <f:param name="conversationPropagation" value="end"/> 
+      </h:commandButton> 
+    </h:form> 
+  </p:dialog> 
+</ui:composition>

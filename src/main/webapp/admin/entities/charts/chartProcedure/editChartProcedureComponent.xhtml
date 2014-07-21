@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editChartProcedureComponentPanel"> 
+    <h:panelGrid columns="1"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ChartProcedure}"/> 
+      </f:facet>  
+      <s:decorate id="dueDateDecorate" rendered="#{ ! excludeDueDate == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="dueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.dueDate}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="datePerformedDecorate" rendered="#{ ! excludeDatePerformed == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="datePerformed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.datePerformed}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="patientId" label="#{msg.chartProcedure_patient}" value="#{chartProcedureAction.chartProcedure.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="chartItemIdDecorate" rendered="#{ ! excludeChartItem == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{chartProcedureAction.chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false" converter="#{chartItemList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{chartItemList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_chart" value="#{records}"> 
+    <p:column headerText="#{msg.id}" sortBy="chart.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/charts/chart/chartActionChart.xhtml" rendered="#{s:hasPermission(_chart, 'view')}" propagation="none"> 
+        <h:outputText value="#{_chart.id}"/>  
+        <f:param name="chartId" value="#{_chart.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/charts/chartItem/miniListChartItemComponent.xhtml"> 
+        <ui:param name="records" value="#{_chart.listChartItems}"/>  
+        <ui:param name="excludeChart" value="true"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.chart_name}" sortBy="chart.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')) }"> 
+      <h:outputText value="#{_chart.name}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.chart_chronicCondition}" sortBy="chart.chronicCondition" rendered="#{ ! excludeChronicCondition == true and ( skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChronicCondition')) }"> 
+      <h:panelGroup> 
+        <h:link id="chronicConditionchart_chronicCondition" escape="false" value="#{_chart.chronicCondition.displayName}" outcome="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml" propagation="none"> 
+          <f:param name="chronicConditionId" value="#{_chart.chronicCondition.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chronicConditionchart_chronicCondition" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/chronicCondition/viewChronicConditionComponent.xhtml"> 
+              <ui:param name="chronicCondition" value="#{_chart.chronicCondition}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chronicConditionCharts"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

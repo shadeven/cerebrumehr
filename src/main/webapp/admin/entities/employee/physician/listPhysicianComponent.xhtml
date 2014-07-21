@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PhysicianModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Physician Search Results (#{empty records ? 0 : (physicianList.paginated ? physicianList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/employee/physician/modalDlgPhysicianComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <h:form id="physicianForm"> 
+      <p:dataTable var="_physician" value="#{records}" id="physicianList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{physicianAction.physician}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editPhysicianPanel')}" oncomplete="PF('editPhysicianDialog').show()" listener="#{physicianAction.onRowSelect}"/>  
+        <p:column headerText="#{msg.id}" sortBy="physician.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/employee/physician/physicianActionPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'view')}" propagation="none"> 
+            <h:outputText value="#{_physician.id}"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="physician.employeeNumber" rendered="#{ ! excludeEmployeeNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewEmployeeNumber')) }"> 
+          <h:outputText value="#{_physician.employeeNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_userName}" sortBy="physician.appUser.userName" rendered="#{ ! excludeUserName == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewUserName')) }"> 
+          <h:outputText value="#{_physician.appUser.userName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="physician.appUser.enabled" rendered="#{ ! excludeEnabled == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewEnabled')) }"> 
+          <h:outputText value="#{_physician.appUser.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_facility}" sortBy="physician.facility" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewFacility')) }"> 
+          <h:panelGroup> 
+            <h:link id="facilityemployee_facility" escape="false" value="#{_physician.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+              <f:param name="facilityId" value="#{_physician.facility.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+                  <ui:param name="facility" value="#{_physician.facility}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="facility"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_department}" sortBy="physician.department" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewDepartment')) }"> 
+          <h:panelGroup> 
+            <h:link id="departmentemployee_department" escape="false" value="#{_physician.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+              <f:param name="departmentId" value="#{_physician.department.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+                  <ui:param name="department" value="#{_physician.department}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="departmentEmployees"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="physician.firstName" rendered="#{ ! excludeFirstName == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewFirstName')) }"> 
+          <h:outputText value="#{_physician.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="physician.lastName" rendered="#{ ! excludeLastName == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewLastName')) }"> 
+          <h:outputText value="#{_physician.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="physician.dateOfBirth" rendered="#{ ! excludeDateOfBirth == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewDateOfBirth')) }"> 
+          <h:outputText value="#{_physician.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="physician.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewGender')) }"> 
+          <h:outputText value="#{_physician.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="physician.contactDetails.primaryPhone" rendered="#{ ! excludePrimaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewPrimaryPhone')) }"> 
+          <h:outputText value="#{_physician.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="physician.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewSecondaryPhone')) }"> 
+          <h:outputText value="#{_physician.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="physician.contactDetails.email" rendered="#{ ! excludeEmail == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewEmail')) }"> 
+          <h:outputText value="#{_physician.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="physician.age" rendered="#{ ! excludeAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewAge')) }"> 
+          <h:outputText value="#{_physician.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="physician.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewTitle')) }"> 
+          <h:outputText value="#{_physician.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.physician_specialization}" sortBy="physician.specialization" rendered="#{ ! excludeSpecialization == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewSpecialization')) }"> 
+          <h:panelGroup> 
+            <h:link id="specializationphysician_specialization" escape="false" value="#{_physician.specialization.displayName}" outcome="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
+              <f:param name="specializationId" value="#{_physician.specialization.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="specializationphysician_specialization" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/employee/specialization/viewSpecializationComponent.xhtml"> 
+                  <ui:param name="specialization" value="#{_physician.specialization}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="specialization"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.dateCreated}" sortBy="physician.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_physician.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_physician', 'view') and !_physicianCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/physician/viewPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'view')}"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_physician', 'edit') and !_physicianCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/physician/editPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'edit')}"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/>  
+            <s:conversationPropagation type="none"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('physicianAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_physician.archived}" action="#{physicianAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_physician.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_physician.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_physician.archived}" action="#{physicianAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_physician.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_physician.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_physician.archived}" action="#{physicianAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_physician.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>
