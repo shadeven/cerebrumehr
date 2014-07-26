@@ -6,11 +6,11 @@
 
 	<groupId>org.docs.richfaces</groupId>
 	<artifactId>cerebrumehr</artifactId>
-	<name>Primefaces 4  seam 2.3  Application</name>
+	<name>Electronic Hospital Record powered by Witchcraft MDA</name>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<url>http://jboss.org/richfaces</url>
+	<url>https://bitbucket.org/Shadeven/cerebrumehr</url>
 
 	<repositories>
 		<!--
