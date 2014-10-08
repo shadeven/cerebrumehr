@@ -10,12 +10,12 @@
     </p:column>  
     <p:column headerText="#{msg.appointment_start}" sortBy="appointment.start" rendered="#{ ! excludeStart == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewStart')) }"> 
       <h:outputText value="#{_appointment.start}"> 
-        <s:convertDateTime type="date" dateStyle="medium"/> 
+        <s:convertDateTime type="both" dateStyle="default"/> 
       </h:outputText> 
     </p:column>  
     <p:column headerText="#{msg.appointment_end}" sortBy="appointment.end" rendered="#{ ! excludeEnd == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewEnd')) }"> 
       <h:outputText value="#{_appointment.end}"> 
-        <s:convertDateTime type="date" dateStyle="medium"/> 
+        <s:convertDateTime type="both" dateStyle="default"/> 
       </h:outputText> 
     </p:column>  
     <p:column headerText="#{msg.appointment_physician}" sortBy="appointment.physician" rendered="#{ ! excludePhysician == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPhysician')) }"> 

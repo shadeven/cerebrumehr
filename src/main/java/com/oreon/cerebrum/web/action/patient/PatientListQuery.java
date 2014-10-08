@@ -81,6 +81,8 @@ public class PatientListQuery extends PatientListQueryBase
 	       
 	 
 	 private List<Patient> updateResults(String qry) {
+		 
+		 	qry = qry.trim();
 	       
 	       javax.persistence.Query query = null;  
 	       if (qry == null || "".equals(qry))

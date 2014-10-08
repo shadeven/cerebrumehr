@@ -55,6 +55,9 @@
         <p:column headerText="#{msg.ward_gender}" sortBy="ward.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')) }"> 
           <h:outputText value="#{_ward.gender}" escape="false"/> 
         </p:column>  
+        <p:column headerText="#{msg.ward_maxAge}" sortBy="ward.maxAge" rendered="#{ ! excludeMaxAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewMaxAge')) }"> 
+          <h:outputText value="#{_ward.maxAge}" escape="false"/> 
+        </p:column>  
         <p:column headerText="#{msg.dateCreated}" sortBy="ward.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_ward.dateCreated}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 

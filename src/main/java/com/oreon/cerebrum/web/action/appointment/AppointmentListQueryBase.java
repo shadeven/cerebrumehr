@@ -1,11 +1,36 @@
 package com.oreon.cerebrum.web.action.appointment;
 
+import com.oreon.cerebrum.appointment.Appointment;
+
+import org.witchcraft.seam.action.BaseAction;
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.jboss.seam.annotations.Observer;
-import org.witchcraft.base.entity.Range;
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.framework.EntityQuery;
+
 import org.witchcraft.seam.action.BaseQuery;
+
+import org.witchcraft.base.entity.Range;
+
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
+import org.jboss.seam.annotations.Observer;
+
+import java.math.BigDecimal;
+import javax.faces.model.DataModel;
+
+import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.cerebrum.appointment.Appointment;
 
@@ -58,24 +83,6 @@ public abstract class AppointmentListQueryBase
 		return RESTRICTIONS;
 	}
 
-	private Range<Date> startRange = new Range<Date>();
-
-	public Range<Date> getStartRange() {
-		return startRange;
-	}
-	public void setStart(Range<Date> startRange) {
-		this.startRange = startRange;
-	}
-
-	private Range<Date> endRange = new Range<Date>();
-
-	public Range<Date> getEndRange() {
-		return endRange;
-	}
-	public void setEnd(Range<Date> endRange) {
-		this.endRange = endRange;
-	}
-
 	private Range<Integer> unitsRange = new Range<Integer>();
 
 	public Range<Integer> getUnitsRange() {
@@ -90,11 +97,9 @@ public abstract class AppointmentListQueryBase
 
 			"appointment.archived = #{appointmentList.appointment.archived}",
 
-			"appointment.start >= #{appointmentList.startRange.begin}",
-			"appointment.start <= #{appointmentList.startRange.end}",
+			"appointment.start = #{appointmentList.appointment.start}",
 
-			"appointment.end >= #{appointmentList.endRange.begin}",
-			"appointment.end <= #{appointmentList.endRange.end}",
+			"appointment.end = #{appointmentList.appointment.end}",
 
 			"appointment.physician.id = #{appointmentList.appointment.physician.id}",
 

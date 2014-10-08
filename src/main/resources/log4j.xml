@@ -14,7 +14,7 @@
 	
 
 	<category name="org.jboss">
-		<priority value="INFO" />
+		<priority value="WARN" />
 	</category>
 
 	<category name="com.oreon.cerebrum">
@@ -36,7 +36,7 @@
 	</category>
 
 	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="logs/pl4.log" />
+		<param name="File" value="logs/cerebrum.log" />
 		<param name="MaxFileSize" value="10MB" />
 		<param name="MaxBackupIndex" value="100" />
 		<layout class="org.apache.log4j.PatternLayout">

@@ -4,7 +4,7 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/patient/admission/editAdmissionComponentCustom.xhtml"> 
+        <ui:include src="/admin/entities/admission/admission/editAdmissionComponentCustom.xhtml"> 
           <ui:param name="admission" value="#{admissionAction.instance}"/> 
           <ui:param name="excludeDischargeCode" value="#{admissionAction.isNew()}" />
           <ui:param name="excludeDischargeNote" value="#{admissionAction.isNew()}" />

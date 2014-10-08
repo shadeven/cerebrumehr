@@ -284,6 +284,8 @@ public class MetaData {
 
 	"gender.name", "java.lang.String",
 
+	"maxAge", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.facility.RoomType",
@@ -484,9 +486,9 @@ public class MetaData {
 
 	{"com.oreon.cerebrum.appointment.Appointment",
 
-	"start", "java.util.Date",
+	"start", "Date",
 
-	"end", "java.util.Date",
+	"end", "Date",
 
 	"physician.displayName", "java.lang.String",
 

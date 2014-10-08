@@ -24,12 +24,12 @@
 					styleClass="button"
 					update=":#{p:component('editAppointmentPanel')}  :#{p:component('appointmentForm')}"
 					value="Save"
-					oncomplete="handleDialogSubmit(xhr, status, args, editAppointmentDialog)"
+					oncomplete="handleDialogSubmit(xhr, status, args, PF('editAppointmentDialog'))"
 					rendered="#{s:hasPermission('appointment', 'edit')}" />
 				<p:commandButton action="#{appointmentAction.cancelAppointment}" rendered="#{!appointmentAction.isNew()}"
 					styleClass="button" value="Cancel Appointment"
 					update=":#{p:component('editAppointmentPanel')}  :#{p:component('appointmentForm')}"
-					oncomplete="handleDialogSubmit(xhr, status, args, editAppointmentDialog)" >
+					oncomplete="handleDialogSubmit(xhr, status, args, PF('editAppointmentDialog'))" >
 					<s:conversationId />
 				</p:commandButton>
 

@@ -1,0 +1,23 @@
+Dialog boxes on transfer discharge are not working
+DDx database needs to be included.
+Dialog on appointments not working. 
+Simple codes are broken. 
+Reports. 
+Calculating invoice on discharge
+Pediatric wards
+Createa a datetime type to show datetime e.g for appointments
+
+
+
+
+
+
+
+
+
+
+
+
+LP
+Rooms / wards etc not loading properly
+

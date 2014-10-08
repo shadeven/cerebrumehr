@@ -305,7 +305,7 @@ public class AdmissionAction extends AdmissionActionBase implements
 		// System.out.println(instance.getPatient().getGender());
 		String qry = "Select e from Ward e where e.gender = ?  or e.gender is null ";
 		if(patientAction.getInstance() != null && patientAction.getInstance().getId() != null){
-			instance.setPatient(patientAction.getInstance());
+			getInstance().setPatient(patientAction.getInstance());
 		}
 		return executeQuery(qry, instance.getPatient().getGender());
 	}

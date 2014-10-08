@@ -26,6 +26,12 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
+      <s:decorate id="maxAgeDecorate" rendered="#{ ! excludeMaxAge == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.ward_maxAge}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="maxAge#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}" label="#{msg.ward_maxAge}" required="false" disabled="false" value="#{wardAction.ward.maxAge}"></h:inputText> 
+      </s:decorate>  
       <s:decorate id="facilityIdDecorate" rendered="#{ ! excludeFacility == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/>

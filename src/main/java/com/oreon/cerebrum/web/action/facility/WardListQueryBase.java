@@ -1,13 +1,36 @@
 package com.oreon.cerebrum.web.action.facility;
 
+import com.oreon.cerebrum.facility.Ward;
+
+import org.witchcraft.seam.action.BaseAction;
+
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.framework.EntityQuery;
+
+import org.witchcraft.seam.action.BaseQuery;
+
+import org.witchcraft.base.entity.Range;
+
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
 import java.util.Map;
 
 import org.jboss.seam.annotations.Observer;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
-import org.witchcraft.seam.action.BaseQuery;
-import org.witchcraft.seam.action.EntityLazyDataModel;
+
+import java.math.BigDecimal;
+import javax.faces.model.DataModel;
+
+import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.cerebrum.facility.Ward;
 
@@ -58,6 +81,15 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Integer> maxAgeRange = new Range<Integer>();
+
+	public Range<Integer> getMaxAgeRange() {
+		return maxAgeRange;
+	}
+	public void setMaxAge(Range<Integer> maxAgeRange) {
+		this.maxAgeRange = maxAgeRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"ward.id = #{wardList.ward.id}",
 
@@ -68,6 +100,9 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 			"lower(ward.name) like concat(lower(#{wardList.ward.name}),'%')",
 
 			"ward.gender = #{wardList.ward.gender}",
+
+			"ward.maxAge >= #{wardList.maxAgeRange.begin}",
+			"ward.maxAge <= #{wardList.maxAgeRange.end}",
 
 			"ward.dateCreated <= #{wardList.dateCreatedRange.end}",
 			"ward.dateCreated >= #{wardList.dateCreatedRange.begin}",};

@@ -8,20 +8,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/>  
       <br/>  
-      <h:outputText value="From"/>  
-      <br/>  
-      <p:calendar value="#{appointmentList.startRange.begin}"/> To
-      <br/>  
-      <p:calendar value="#{appointmentList.startRange.end}"/> 
+      <h:inputText id="start" value="#{appointmentList.appointment.start}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editEnd')}"/>  
       <br/>  
-      <h:outputText value="From"/>  
-      <br/>  
-      <p:calendar value="#{appointmentList.endRange.begin}"/> To
-      <br/>  
-      <p:calendar value="#{appointmentList.endRange.end}"/> 
+      <h:inputText id="end" value="#{appointmentList.appointment.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"/>  

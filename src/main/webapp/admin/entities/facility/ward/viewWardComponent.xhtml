@@ -14,6 +14,8 @@
       <h:outputText value="#{ward.name}" escape="false"/>  
       <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/>  
       <h:outputText value="#{ward.gender}" escape="false"/>  
+      <h:outputText value="#{msg.ward_maxAge}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewMaxAge')}"/>  
+      <h:outputText value="#{ward.maxAge}" escape="false"/>  
       <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"/>  
       <h:panelGroup> 
         <h:link id="facilityward_facility" escape="false" value="#{ward.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 

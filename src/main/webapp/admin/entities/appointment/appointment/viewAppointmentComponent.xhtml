@@ -12,11 +12,11 @@
       </f:facet>  
       <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewStart')}"/>  
       <h:outputText value="#{appointment.start}"> 
-        <s:convertDateTime type="date" dateStyle="medium"/> 
+        <s:convertDateTime type="both" dateStyle="default"/> 
       </h:outputText>  
       <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewEnd')}"/>  
       <h:outputText value="#{appointment.end}"> 
-        <s:convertDateTime type="date" dateStyle="medium"/> 
+        <s:convertDateTime type="both" dateStyle="default"/> 
       </h:outputText>  
       <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewRemarks')}"/>  
       <h:outputText value="#{appointment.remarks}" escape="false"/>  

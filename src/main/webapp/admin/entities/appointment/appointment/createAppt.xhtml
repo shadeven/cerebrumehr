@@ -36,7 +36,7 @@
 				<p:ajax event="dateSelect"
 					listener="#{appointmentAction.onDateSelect}"
 					update=":#{p:component('editAppointmentPanel')}"
-					oncomplete="editAppointmentDialog.show()">
+					oncomplete="PF('editAppointmentDialog').show()">
 					<s:conversationId />
 				</p:ajax>
 

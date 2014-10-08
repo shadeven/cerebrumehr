@@ -1982,7 +1982,8 @@
     <param name="id" value="#{wardList.ward.id}"/>  
     <param name="facilityId" value="#{wardList.facilityId}" validateModel="false"/>  
     <param name="name" value="#{wardList.ward.name}" validateModel="false"/>  
-    <param name="gender" value="#{wardList.ward.gender}" validateModel="false"/> 
+    <param name="gender" value="#{wardList.ward.gender}" validateModel="false"/>  
+    <param name="maxAge" value="#{wardList.ward.maxAge}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/facility/roomType/editRoomType.xhtml"> 
     <!-- <description>Edit RoomType: #{roomType.displayName}</description> -->  

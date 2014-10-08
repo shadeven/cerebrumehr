@@ -36,8 +36,8 @@
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"> 
-        <p:commandButton value="transfer" rendered="#{s:hasPermission('admission', 'transfer', admissionAction.instance)  and  admissionAction.transferAllowed }" oncomplete="transferAdmissionDialog.show()"/>  
-        <p:commandButton value="discharge" rendered="#{s:hasPermission('admission', 'discharge', admissionAction.instance)  and  admissionAction.dischargeAllowed }" oncomplete="dischargeAdmissionDialog.show()"/> 
+        <p:commandButton value="transfer" rendered="#{s:hasPermission('admission', 'transfer', admissionAction.instance)  and  admissionAction.transferAllowed }" oncomplete="PF('transferAdmissionDialog').show()"/>  
+        <p:commandButton value="discharge" rendered="#{s:hasPermission('admission', 'discharge', admissionAction.instance)  and  admissionAction.dischargeAllowed }" oncomplete="PF('dischargeAdmissionDialog').show()"/> 
       </div> 
     </h:form>  
     <br/>  

@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="patientForm"> 
       <p:dataTable var="_patient" value="#{records}" id="patientList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{patientAction.patient}"> 
-        <p:ajax event="rowSelect" listener="#{patientAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editPatientPanel')}" oncomplete="PF('editPatientDialog').show()" listener="#{patientAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="patient.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/patient/patient/patientActionPatient.xhtml" rendered="#{s:hasPermission(_patient, 'view')}" propagation="none"> 
             <h:outputText value="#{_patient.id}"/>  

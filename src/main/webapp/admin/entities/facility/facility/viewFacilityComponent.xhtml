@@ -29,6 +29,12 @@
             <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/> 
           </f:facet>  
           <h:outputText value="#{_ward.gender}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.ward_maxAge}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewMaxAge')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_ward.maxAge}" escape="false"/> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

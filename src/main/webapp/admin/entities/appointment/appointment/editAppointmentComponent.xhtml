@@ -14,7 +14,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/>
         </ui:define>  
-        <p:calendar escape="false" navigator="true" id="start#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}" label="#{msg.appointment_start}" required="true" disabled="false" value="#{appointmentAction.appointment.start}"></p:calendar> 
+        <h:inputText escape="false" id="start#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}" label="#{msg.appointment_start}" required="true" disabled="false" value="#{appointmentAction.appointment.start}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 

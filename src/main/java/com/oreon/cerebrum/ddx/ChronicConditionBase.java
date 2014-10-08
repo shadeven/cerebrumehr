@@ -4,20 +4,60 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Transient;
+import com.google.common.base.Objects;
 
+import javax.persistence.*;
+import org.hibernate.validator.*;
+
+import com.google.common.base.Objects;
+
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.Cascade;
+
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
+import org.hibernate.annotations.Filter;
+
+import org.hibernate.validator.constraints.*;
+import javax.validation.constraints.*;
+
+import java.math.BigDecimal;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.jboss.seam.annotations.Name;
+
+import org.witchcraft.model.support.audit.Auditable;
+
+import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
 import org.witchcraft.base.entity.BaseEntity;
+
+import com.oreon.cerebrum.ProjectUtils;
 
 //Impl 
 
@@ -56,6 +96,22 @@ public class ChronicConditionBase extends BaseEntity {
 		return new ArrayList<com.oreon.cerebrum.patient.Patient>(patients);
 	}
 
+	@Transient
+	public String getListPatientsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.Patient> tempList = getListPatients();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.Patient patient : tempList) {
+			++count;
+			result.append(patient.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
 	//JSF Friendly function to get count of collections
 	public int getPatientsCount() {
 		return patients.size();
@@ -76,6 +132,22 @@ public class ChronicConditionBase extends BaseEntity {
 	@Transient
 	public List<com.oreon.cerebrum.charts.Chart> getListCharts() {
 		return new ArrayList<com.oreon.cerebrum.charts.Chart>(charts);
+	}
+
+	@Transient
+	public String getListChartsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.charts.Chart> tempList = getListCharts();
+		int count = 0;
+		for (com.oreon.cerebrum.charts.Chart chart : tempList) {
+			++count;
+			result.append(chart.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections

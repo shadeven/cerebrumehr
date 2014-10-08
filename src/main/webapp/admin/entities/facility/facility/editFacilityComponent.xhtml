@@ -51,6 +51,15 @@
             </h:selectOneMenu> 
           </s:decorate> 
         </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.ward_maxAge}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}"/>
+          </f:facet>  
+          <s:decorate id="maxAgeDecorate" rendered="#{ ! excludeMaxAge == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="maxAge#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}" label="#{msg.ward_maxAge}" required="false" disabled="false" value="#{_ward.maxAge}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
         <p:column> 
           <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
             <s:conversationId/> 

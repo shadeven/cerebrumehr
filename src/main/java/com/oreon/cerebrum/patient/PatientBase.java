@@ -4,26 +4,60 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Transient;
+import com.google.common.base.Objects;
 
+import javax.persistence.*;
+import org.hibernate.validator.*;
+
+import com.google.common.base.Objects;
+
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.Cascade;
+
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
+
+import org.hibernate.annotations.Filter;
+
+import org.hibernate.validator.constraints.*;
+import javax.validation.constraints.*;
+
+import java.math.BigDecimal;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.jboss.seam.annotations.Name;
+
+import org.witchcraft.model.support.audit.Auditable;
+
+import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
 import org.witchcraft.base.entity.BaseEntity;
+
+import com.oreon.cerebrum.ProjectUtils;
 
 //Impl 
 
@@ -59,6 +93,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 		return new ArrayList<com.oreon.cerebrum.admission.Admission>(admissions);
 	}
 
+	@Transient
+	public String getListAdmissionsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.admission.Admission> tempList = getListAdmissions();
+		int count = 0;
+		for (com.oreon.cerebrum.admission.Admission admission : tempList) {
+			++count;
+			result.append(admission.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
 	//JSF Friendly function to get count of collections
 	public int getAdmissionsCount() {
 		return admissions.size();
@@ -81,6 +131,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	public List<com.oreon.cerebrum.prescription.Prescription> getListPrescriptions() {
 		return new ArrayList<com.oreon.cerebrum.prescription.Prescription>(
 				prescriptions);
+	}
+
+	@Transient
+	public String getListPrescriptionsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.prescription.Prescription> tempList = getListPrescriptions();
+		int count = 0;
+		for (com.oreon.cerebrum.prescription.Prescription prescription : tempList) {
+			++count;
+			result.append(prescription.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections
@@ -121,6 +187,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 				unusualOccurences);
 	}
 
+	@Transient
+	public String getListUnusualOccurencesAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> tempList = getListUnusualOccurences();
+		int count = 0;
+		for (com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurence : tempList) {
+			++count;
+			result.append(unusualOccurence.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
 	//JSF Friendly function to get count of collections
 	public int getUnusualOccurencesCount() {
 		return unusualOccurences.size();
@@ -142,6 +224,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	public List<com.oreon.cerebrum.patient.PatientDocument> getListPatientDocuments() {
 		return new ArrayList<com.oreon.cerebrum.patient.PatientDocument>(
 				patientDocuments);
+	}
+
+	@Transient
+	public String getListPatientDocumentsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.PatientDocument> tempList = getListPatientDocuments();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.PatientDocument patientDocument : tempList) {
+			++count;
+			result.append(patientDocument.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections
@@ -166,6 +264,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 		return new ArrayList<com.oreon.cerebrum.patient.Allergy>(allergys);
 	}
 
+	@Transient
+	public String getListAllergysAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.Allergy> tempList = getListAllergys();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.Allergy allergy : tempList) {
+			++count;
+			result.append(allergy.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
 	//JSF Friendly function to get count of collections
 	public int getAllergysCount() {
 		return allergys.size();
@@ -187,6 +301,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	public List<com.oreon.cerebrum.patient.Immunization> getListImmunizations() {
 		return new ArrayList<com.oreon.cerebrum.patient.Immunization>(
 				immunizations);
+	}
+
+	@Transient
+	public String getListImmunizationsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.Immunization> tempList = getListImmunizations();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.Immunization immunization : tempList) {
+			++count;
+			result.append(immunization.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections
@@ -216,6 +346,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	@Transient
 	public List<com.oreon.cerebrum.patient.VitalValue> getListVitalValues() {
 		return new ArrayList<com.oreon.cerebrum.patient.VitalValue>(vitalValues);
+	}
+
+	@Transient
+	public String getListVitalValuesAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.VitalValue> tempList = getListVitalValues();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.VitalValue vitalValue : tempList) {
+			++count;
+			result.append(vitalValue.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections
@@ -256,6 +402,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 		return new ArrayList<com.oreon.cerebrum.encounter.Encounter>(encounters);
 	}
 
+	@Transient
+	public String getListEncountersAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.encounter.Encounter> tempList = getListEncounters();
+		int count = 0;
+		for (com.oreon.cerebrum.encounter.Encounter encounter : tempList) {
+			++count;
+			result.append(encounter.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
 	//JSF Friendly function to get count of collections
 	public int getEncountersCount() {
 		return encounters.size();
@@ -280,6 +442,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 				appliedCharts);
 	}
 
+	@Transient
+	public String getListAppliedChartsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.charts.AppliedChart> tempList = getListAppliedCharts();
+		int count = 0;
+		for (com.oreon.cerebrum.charts.AppliedChart appliedChart : tempList) {
+			++count;
+			result.append(appliedChart.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
 	//JSF Friendly function to get count of collections
 	public int getAppliedChartsCount() {
 		return appliedCharts.size();
@@ -302,6 +480,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	public List<com.oreon.cerebrum.charts.ChartProcedure> getListChartProcedures() {
 		return new ArrayList<com.oreon.cerebrum.charts.ChartProcedure>(
 				chartProcedures);
+	}
+
+	@Transient
+	public String getListChartProceduresAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.charts.ChartProcedure> tempList = getListChartProcedures();
+		int count = 0;
+		for (com.oreon.cerebrum.charts.ChartProcedure chartProcedure : tempList) {
+			++count;
+			result.append(chartProcedure.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections
@@ -329,6 +523,22 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	public List<com.oreon.cerebrum.ddx.ChronicCondition> getListChronicConditions() {
 		return new ArrayList<com.oreon.cerebrum.ddx.ChronicCondition>(
 				chronicConditions);
+	}
+
+	@Transient
+	public String getListChronicConditionsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.ddx.ChronicCondition> tempList = getListChronicConditions();
+		int count = 0;
+		for (com.oreon.cerebrum.ddx.ChronicCondition chronicCondition : tempList) {
+			++count;
+			result.append(chronicCondition.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
 	}
 
 	//JSF Friendly function to get count of collections
