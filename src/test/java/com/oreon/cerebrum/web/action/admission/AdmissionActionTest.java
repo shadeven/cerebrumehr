@@ -32,12 +32,13 @@ public class AdmissionActionTest extends AdmissionActionTestBase{
 		*/
 		
 		
-		Query query = getEntityManagerFactory().createEntityManager().createQuery("select count(p.gender), p.gender from Patient p group by p.gender");
+		Query query = em.createQuery("select count(p.gender), p.gender from Patient p group by p.gender");
 		 
-		List listExpected = query.getResultList();
+		List<Object[]> listExpected = query.getResultList();
 		
-		for (Object object : listExpected) {
-			System.out.println(object);
+		for (Object[] object : listExpected) {
+			
+			System.out.println(object[0] + " " + object[1]);
 		}
 		
 		//return null;
