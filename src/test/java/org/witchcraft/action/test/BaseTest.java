@@ -9,30 +9,35 @@ import org.jboss.seam.mock.JUnitSeamTest;
 import org.jboss.seam.security.Identity;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.BaseAction;
 
 public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
-	private EntityManagerFactory emf;
+	private static EntityManagerFactory emf;
 	
 	@In(create=true)
-	protected EntityManager em;
+	protected static EntityManager em;
 
 	public EntityManagerFactory getEntityManagerFactory() {
 		return emf;
 	}
-
 	
-	public void init() {
+	public void init(){
+		
+	}
+
+	@BeforeClass
+	public  static void initme() {
 		emf = Persistence.createEntityManagerFactory(NOMBRE_PERSISTENCE_UNIT);
-		em = getEntityManagerFactory().createEntityManager();
+		em = emf.createEntityManager();
 		//em.getTransaction().begin();
 		//getAction().setEntityManager(Search.getFullTextEntityManager(em));
 	}
 	
-	@Before
+	//@Before
 	public void beginTx() {
 		try {
 			em.getTransaction().begin();
@@ -42,7 +47,7 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 		super.begin();
 	}
 
-	@After
+	//@After
 	public void endTx() {
 		try {
 			if(em.getTransaction() != null && em.getTransaction().isActive())
