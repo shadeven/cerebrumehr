@@ -1,12 +1,9 @@
 package com.oreon.cerebrum.web.action.reports;
 
-import org.testng.annotations.Test;
+import org.jboss.seam.Component;
+import org.junit.Test;
 import org.witchcraft.action.test.BaseReportsTest;
 import org.witchcraft.jasperreports.BaseReportAction;
-
-import org.jboss.seam.Component;
-
-import com.oreon.cerebrum.web.action.reports.EmployeesByDepartmentAction;
 
 public class EmployeesByDepartmentTest extends BaseReportsTest {
 
