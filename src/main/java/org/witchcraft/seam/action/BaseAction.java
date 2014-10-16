@@ -346,7 +346,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 					String message = pe.getCause().getCause().getMessage();
 					String errorWordsArray[] = message.split(" ");
 					addErrorMessage("There is already an existing " + getClassName() + " with  " + errorWordsArray[errorWordsArray.length -1] + " " + errorWordsArray[2]);
-				
+					return "error";
 			}else{
 				return handlePersistenceException(pe);
 			}
