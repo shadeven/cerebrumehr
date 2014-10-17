@@ -25,7 +25,8 @@
             <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
               <ui:param name="disease" value="#{disease.relatedDisease}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="relatedDiseaseDifferentialDiagnoses"/> 
+              <ui:param name="panelId" value="relatedDiseaseDifferentialDiagnoses"/>  
+              <ui:param name="excludeDifferentialDiagnoses" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -41,7 +42,8 @@
             <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
               <ui:param name="conditionCategory" value="#{disease.conditionCategory}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="conditionCategory"/> 
+              <ui:param name="panelId" value="conditionCategory"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

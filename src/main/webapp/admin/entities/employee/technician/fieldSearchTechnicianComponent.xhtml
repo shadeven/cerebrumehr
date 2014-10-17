@@ -81,6 +81,16 @@
       <h:inputText id="contactDetails_email" value="#{technicianList.technician.contactDetails.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editAge')}"/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{technicianList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{technicianList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editTitle')}"/>  
       <br/>  
       <h:selectOneMenu id="title" value="#{technicianList.technician.title}" required="false"> 

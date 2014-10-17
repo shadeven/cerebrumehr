@@ -41,7 +41,8 @@
             <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
               <ui:param name="chartItem" value="#{chartProcedure.chartItem}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="chartItem"/> 
+              <ui:param name="panelId" value="chartItem"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

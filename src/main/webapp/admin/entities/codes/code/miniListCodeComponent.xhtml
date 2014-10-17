@@ -42,7 +42,8 @@
             <ui:include src="/admin/entities/codes/section/viewSectionComponent.xhtml"> 
               <ui:param name="section" value="#{_code.section}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="sectionCodes"/> 
+              <ui:param name="panelId" value="sectionCodes"/>  
+              <ui:param name="excludeCodes" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

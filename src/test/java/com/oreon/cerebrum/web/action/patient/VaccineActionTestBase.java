@@ -1,8 +1,8 @@
 package com.oreon.cerebrum.web.action.patient;
 
-import org.junit.BeforeClass;
-import org.witchcraft.seam.action.BaseAction;
+import org.junit.Test;
 
+import org.witchcraft.seam.action.BaseAction;
 import com.oreon.cerebrum.patient.Vaccine;
 
 public class VaccineActionTestBase
@@ -10,11 +10,6 @@ public class VaccineActionTestBase
 			org.witchcraft.action.test.BaseTest<Vaccine> {
 
 	VaccineAction vaccineAction = new VaccineAction();
-
-	@BeforeClass
-	public void init() {
-		super.init();
-	}
 
 	@Override
 	public BaseAction<Vaccine> getAction() {

@@ -43,7 +43,8 @@
                 <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
                   <ui:param name="facility" value="#{_physician.facility}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="facility"/> 
+                  <ui:param name="panelId" value="facility"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -60,7 +61,8 @@
                 <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
                   <ui:param name="department" value="#{_physician.department}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="departmentEmployees"/> 
+                  <ui:param name="panelId" value="departmentEmployees"/>  
+                  <ui:param name="excludeEmployees" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -106,7 +108,8 @@
                 <ui:include src="/admin/entities/employee/specialization/viewSpecializationComponent.xhtml"> 
                   <ui:param name="specialization" value="#{_physician.specialization}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="specialization"/> 
+                  <ui:param name="panelId" value="specialization"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

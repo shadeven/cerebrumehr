@@ -44,7 +44,8 @@
                 <ui:include src="/admin/entities/admission/admission/viewAdmissionComponent.xhtml"> 
                   <ui:param name="admission" value="#{_bedStay.admission}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="admissionBedStays"/> 
+                  <ui:param name="panelId" value="admissionBedStays"/>  
+                  <ui:param name="excludeBedStays" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -61,7 +62,8 @@
                 <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
                   <ui:param name="bed" value="#{_bedStay.bed}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="bed"/> 
+                  <ui:param name="panelId" value="bed"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

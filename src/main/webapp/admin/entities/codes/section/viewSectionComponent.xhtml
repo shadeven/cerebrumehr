@@ -25,7 +25,8 @@
             <ui:include src="/admin/entities/codes/chapter/viewChapterComponent.xhtml"> 
               <ui:param name="chapter" value="#{section.chapter}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="chapterSections"/> 
+              <ui:param name="panelId" value="chapterSections"/>  
+              <ui:param name="excludeSections" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

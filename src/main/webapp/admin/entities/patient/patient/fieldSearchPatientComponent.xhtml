@@ -50,6 +50,16 @@
       <h:inputText id="contactDetails_email" value="#{patientList.patient.contactDetails.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAge')}"/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{patientList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{patientList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editTitle')}"/>  
       <br/>  
       <h:selectOneMenu id="title" value="#{patientList.patient.title}" required="false"> 

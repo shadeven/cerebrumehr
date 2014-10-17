@@ -1,9 +1,8 @@
 package com.oreon.cerebrum.web.action.admission;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.witchcraft.seam.action.BaseAction;
 
+import org.witchcraft.seam.action.BaseAction;
 import com.oreon.cerebrum.admission.Admission;
 
 public class AdmissionActionTestBase
@@ -12,14 +11,12 @@ public class AdmissionActionTestBase
 
 	AdmissionAction admissionAction = new AdmissionAction();
 
-	
-
 	@Override
 	public BaseAction<Admission> getAction() {
 		return admissionAction;
 	}
 
-	//@Test
+	@Test
 	public void testTransfer() throws Exception {
 		new ComponentTest() {
 
@@ -33,7 +30,7 @@ public class AdmissionActionTestBase
 		}.run();
 	}
 
-	//@Test
+	@Test
 	public void testDischarge() throws Exception {
 		new ComponentTest() {
 

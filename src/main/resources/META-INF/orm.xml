@@ -36,7 +36,12 @@
   </entity>  
   <!--  OccurenceType  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.unusualoccurences.OccurenceType" name="OccurenceType"> 
-    <table name="occurencetype"></table>  
+    <table name="occurencetype"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="occurenceType.findByUnqName"> 
       <query> <![CDATA[
 			select u from OccurenceType u where u.name = ?1
@@ -61,7 +66,12 @@
   </entity>  
   <!--  Vaccine  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.patient.Vaccine" name="Vaccine"> 
-    <table name="vaccine"></table>  
+    <table name="vaccine"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="vaccine.findByUnqName"> 
       <query> <![CDATA[
 			select u from Vaccine u where u.name = ?1
@@ -70,7 +80,12 @@
   </entity>  
   <!--  TrackedVital  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.patient.TrackedVital" name="TrackedVital"> 
-    <table name="trackedvital"></table>  
+    <table name="trackedvital"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="trackedVital.findByUnqName"> 
       <query> <![CDATA[
 			select u from TrackedVital u where u.name = ?1
@@ -100,7 +115,12 @@
   </entity>  
   <!--  Ward  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.facility.Ward" name="Ward"> 
-    <table name="ward"></table>  
+    <table name="ward"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="ward.findByUnqName"> 
       <query> <![CDATA[
 			select u from Ward u where u.name = ?1
@@ -113,7 +133,12 @@
   </entity>  
   <!--  Finding  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.ddx.Finding" name="Finding"> 
-    <table name="finding"></table>  
+    <table name="finding"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="finding.findByUnqName"> 
       <query> <![CDATA[
 			select u from Finding u where u.name = ?1
@@ -130,7 +155,12 @@
   </entity>  
   <!--  Disease  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.ddx.Disease" name="Disease"> 
-    <table name="disease"></table>  
+    <table name="disease"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="disease.findByUnqName"> 
       <query> <![CDATA[
 			select u from Disease u where u.name = ?1
@@ -143,7 +173,12 @@
   </entity>  
   <!--  ConditionCategory  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.ddx.ConditionCategory" name="ConditionCategory"> 
-    <table name="conditioncategory"></table>  
+    <table name="conditioncategory"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="conditionCategory.findByUnqName"> 
       <query> <![CDATA[
 			select u from ConditionCategory u where u.name = ?1
@@ -156,7 +191,12 @@
   </entity>  
   <!--  DxCategory  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.ddx.DxCategory" name="DxCategory"> 
-    <table name="dxcategory"></table>  
+    <table name="dxcategory"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="dxCategory.findByUnqName"> 
       <query> <![CDATA[
 			select u from DxCategory u where u.name = ?1
@@ -181,7 +221,12 @@
   </entity>  
   <!--  PrescriptionTemplate  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.prescription.PrescriptionTemplate" name="PrescriptionTemplate"> 
-    <table name="prescriptiontemplate"></table>  
+    <table name="prescriptiontemplate"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="prescriptionTemplate.findByUnqName"> 
       <query> <![CDATA[
 			select u from PrescriptionTemplate u where u.name = ?1
@@ -202,7 +247,12 @@
   </entity>  
   <!--  Frequency  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.prescription.Frequency" name="Frequency"> 
-    <table name="frequency"></table>  
+    <table name="frequency"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="frequency.findByUnqName"> 
       <query> <![CDATA[
 			select u from Frequency u where u.name = ?1
@@ -235,7 +285,12 @@
   </entity>  
   <!--  Specialization  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.employee.Specialization" name="Specialization"> 
-    <table name="specialization"></table>  
+    <table name="specialization"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="specialization.findByUnqName"> 
       <query> <![CDATA[
 			select u from Specialization u where u.name = ?1
@@ -244,7 +299,12 @@
   </entity>  
   <!--  NurseSpecialty  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.employee.NurseSpecialty" name="NurseSpecialty"> 
-    <table name="nursespecialty"></table>  
+    <table name="nursespecialty"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="nurseSpecialty.findByUnqName"> 
       <query> <![CDATA[
 			select u from NurseSpecialty u where u.name = ?1
@@ -253,7 +313,12 @@
   </entity>  
   <!--  Department  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.employee.Department" name="Department"> 
-    <table name="department"></table>  
+    <table name="department"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="department.findByUnqName"> 
       <query> <![CDATA[
 			select u from Department u where u.name = ?1
@@ -266,7 +331,12 @@
   </entity>  
   <!--  Drug  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.drugs.Drug" name="Drug"> 
-    <table name="drug"></table>  
+    <table name="drug"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="drug.findByUnqName"> 
       <query> <![CDATA[
 			select u from Drug u where u.name = ?1
@@ -279,7 +349,12 @@
   </entity>  
   <!--  DrugCategory  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.drugs.DrugCategory" name="DrugCategory"> 
-    <table name="drugcategory"></table>  
+    <table name="drugcategory"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="drugCategory.findByUnqName"> 
       <query> <![CDATA[
 			select u from DrugCategory u where u.name = ?1
@@ -326,7 +401,12 @@
   </entity>  
   <!--  Chart  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.charts.Chart" name="Chart"> 
-    <table name="chart"></table>  
+    <table name="chart"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="chart.findByUnqName"> 
       <query> <![CDATA[
 			select u from Chart u where u.name = ?1
@@ -335,7 +415,12 @@
   </entity>  
   <!--  ChartItem  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.charts.ChartItem" name="ChartItem"> 
-    <table name="chartitem"></table>  
+    <table name="chartitem"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="chartItem.findByUnqName"> 
       <query> <![CDATA[
 			select u from ChartItem u where u.name = ?1
@@ -356,7 +441,12 @@
   </entity>  
   <!--  SettingName  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.settings.SettingName" name="SettingName"> 
-    <table name="settingname"></table>  
+    <table name="settingname"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="settingName.findByUnqName"> 
       <query> <![CDATA[
 			select u from SettingName u where u.name = ?1
@@ -365,7 +455,12 @@
   </entity>  
   <!--  SettingGroup  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.settings.SettingGroup" name="SettingGroup"> 
-    <table name="settinggroup"></table>  
+    <table name="settinggroup"> 
+      <unique-constraint> 
+        <column-name>name</column-name>  
+        <column-name>tenant</column-name> 
+      </unique-constraint> 
+    </table>  
     <named-query name="settingGroup.findByUnqName"> 
       <query> <![CDATA[
 			select u from SettingGroup u where u.name = ?1

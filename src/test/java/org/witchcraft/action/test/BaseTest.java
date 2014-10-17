@@ -8,12 +8,13 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.mock.JUnitSeamTest;
 import org.jboss.seam.security.Identity;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.BaseAction;
 
-public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
+public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest {
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private static EntityManagerFactory emf;
@@ -59,9 +60,8 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 	
 	abstract public BaseAction<T> getAction();
 
-	@After
-	public void destroy() {
-	//	em.getTransaction().commit();
+	@AfterClass
+	public static void destroy() {
 		em.close();
 		emf.close();
 	}

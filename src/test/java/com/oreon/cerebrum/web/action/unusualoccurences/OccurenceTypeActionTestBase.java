@@ -1,8 +1,8 @@
 package com.oreon.cerebrum.web.action.unusualoccurences;
 
-import org.junit.BeforeClass;
-import org.witchcraft.seam.action.BaseAction;
+import org.junit.Test;
 
+import org.witchcraft.seam.action.BaseAction;
 import com.oreon.cerebrum.unusualoccurences.OccurenceType;
 
 public class OccurenceTypeActionTestBase
@@ -10,11 +10,6 @@ public class OccurenceTypeActionTestBase
 			org.witchcraft.action.test.BaseTest<OccurenceType> {
 
 	OccurenceTypeAction occurenceTypeAction = new OccurenceTypeAction();
-
-	@BeforeClass
-	public void init() {
-		super.init();
-	}
 
 	@Override
 	public BaseAction<OccurenceType> getAction() {

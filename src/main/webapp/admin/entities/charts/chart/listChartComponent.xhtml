@@ -46,7 +46,8 @@
                 <ui:include src="/admin/entities/ddx/chronicCondition/viewChronicConditionComponent.xhtml"> 
                   <ui:param name="chronicCondition" value="#{_chart.chronicCondition}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="chronicConditionCharts"/> 
+                  <ui:param name="panelId" value="chronicConditionCharts"/>  
+                  <ui:param name="excludeCharts" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

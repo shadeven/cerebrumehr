@@ -1,8 +1,8 @@
 package com.oreon.cerebrum.web.action.employee;
 
-import org.junit.BeforeClass;
-import org.witchcraft.seam.action.BaseAction;
+import org.junit.Test;
 
+import org.witchcraft.seam.action.BaseAction;
 import com.oreon.cerebrum.employee.Department;
 
 public class DepartmentActionTestBase
@@ -10,11 +10,6 @@ public class DepartmentActionTestBase
 			org.witchcraft.action.test.BaseTest<Department> {
 
 	DepartmentAction departmentAction = new DepartmentAction();
-
-	@BeforeClass
-	public void init() {
-		super.init();
-	}
 
 	@Override
 	public BaseAction<Department> getAction() {

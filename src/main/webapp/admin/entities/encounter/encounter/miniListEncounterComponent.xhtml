@@ -50,7 +50,8 @@
             <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
               <ui:param name="prescription" value="#{_encounter.prescription}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="prescription"/> 
+              <ui:param name="panelId" value="prescription"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -78,7 +79,8 @@
             <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
               <ui:param name="employee" value="#{_encounter.creator}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="creator"/> 
+              <ui:param name="panelId" value="creator"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

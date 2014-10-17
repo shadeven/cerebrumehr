@@ -50,7 +50,8 @@
                 <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
                   <ui:param name="frequency" value="#{_prescriptionItemTemplate.frequency}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="frequency"/> 
+                  <ui:param name="panelId" value="frequency"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -82,7 +83,8 @@
                 <ui:include src="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplateComponent.xhtml"> 
                   <ui:param name="prescriptionTemplate" value="#{_prescriptionItemTemplate.prescriptionTemplate}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="prescriptionTemplatePrescriptionItemTemplates"/> 
+                  <ui:param name="panelId" value="prescriptionTemplatePrescriptionItemTemplates"/>  
+                  <ui:param name="excludePrescriptionItemTemplates" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

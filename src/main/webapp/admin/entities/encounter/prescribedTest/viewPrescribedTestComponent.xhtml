@@ -23,7 +23,8 @@
             <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
               <ui:param name="dxTest" value="#{prescribedTest.dxTest}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="dxTest"/> 
+              <ui:param name="panelId" value="dxTest"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -39,7 +40,8 @@
             <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
               <ui:param name="encounter" value="#{prescribedTest.encounter}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="encounterPrescribedTests"/> 
+              <ui:param name="panelId" value="encounterPrescribedTests"/>  
+              <ui:param name="excludePrescribedTests" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
