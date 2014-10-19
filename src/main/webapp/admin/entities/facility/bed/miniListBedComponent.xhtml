@@ -19,7 +19,8 @@
             <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"> 
               <ui:param name="room" value="#{_bed.room}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="roomBeds"/> 
+              <ui:param name="panelId" value="roomBeds"/>  
+              <ui:param name="excludeBeds" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

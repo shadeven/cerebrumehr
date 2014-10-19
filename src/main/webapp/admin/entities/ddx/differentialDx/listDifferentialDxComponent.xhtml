@@ -37,7 +37,8 @@
                 <ui:include src="/admin/entities/ddx/dxCategory/viewDxCategoryComponent.xhtml"> 
                   <ui:param name="dxCategory" value="#{_differentialDx.dxCategory}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="dxCategory"/> 
+                  <ui:param name="panelId" value="dxCategory"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -54,7 +55,8 @@
                 <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
                   <ui:param name="finding" value="#{_differentialDx.finding}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="findingDifferentialDxs"/> 
+                  <ui:param name="panelId" value="findingDifferentialDxs"/>  
+                  <ui:param name="excludeDifferentialDxs" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

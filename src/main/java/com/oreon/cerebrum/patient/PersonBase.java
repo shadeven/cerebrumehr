@@ -116,7 +116,7 @@ public class PersonBase extends BaseEntity {
 	})
 	protected ContactDetails contactDetails = new ContactDetails();
 
-	@Transient
+	@Formula(value = "DATEDIFF( NOW(), dateOfBirth) / 365.25")
 	protected Integer age
 
 	;
@@ -184,13 +184,7 @@ public class PersonBase extends BaseEntity {
 
 	public Integer getAge() {
 
-		try {
-			return DateUtils.calcAge(dateOfBirth);
-		} catch (Exception e) {
-
-			return 0;
-
-		}
+		return age;
 
 	}
 

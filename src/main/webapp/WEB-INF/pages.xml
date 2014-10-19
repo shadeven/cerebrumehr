@@ -1411,6 +1411,7 @@
     <param name="contactDetails_primaryPhone" value="#{patientList.patient.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{patientList.patient.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{patientList.patient.contactDetails.email}" validateModel="false"/>  
+    <param name="age" value="#{patientList.patient.age}" validateModel="false"/>  
     <param name="title" value="#{patientList.patient.title}" validateModel="false"/>  
     <param name="address_streetAddress" value="#{patientList.patient.address.streetAddress}" validateModel="false"/>  
     <param name="address_city" value="#{patientList.patient.address.city}" validateModel="false"/>  
@@ -3109,6 +3110,7 @@
     <param name="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{employeeList.employee.contactDetails.email}" validateModel="false"/>  
+    <param name="age" value="#{employeeList.employee.age}" validateModel="false"/>  
     <param name="title" value="#{employeeList.employee.title}" validateModel="false"/>  
     <param name="appUser_userName" value="#{employeeList.employee.appUser.userName}" validateModel="false"/>  
     <param name="appUser_enabled" value="#{employeeList.employee.appUser.enabled}" validateModel="false"/>  
@@ -3178,6 +3180,7 @@
     <param name="contactDetails_primaryPhone" value="#{physicianList.physician.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{physicianList.physician.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{physicianList.physician.contactDetails.email}" validateModel="false"/>  
+    <param name="age" value="#{physicianList.physician.age}" validateModel="false"/>  
     <param name="title" value="#{physicianList.physician.title}" validateModel="false"/>  
     <param name="specializationId" value="#{physicianList.specializationId}" validateModel="false"/> 
   </page>  
@@ -3244,6 +3247,7 @@
     <param name="contactDetails_primaryPhone" value="#{nurseList.nurse.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{nurseList.nurse.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{nurseList.nurse.contactDetails.email}" validateModel="false"/>  
+    <param name="age" value="#{nurseList.nurse.age}" validateModel="false"/>  
     <param name="title" value="#{nurseList.nurse.title}" validateModel="false"/>  
     <param name="nurseSpecialtyId" value="#{nurseList.nurseSpecialtyId}" validateModel="false"/> 
   </page>  
@@ -3309,6 +3313,7 @@
     <param name="contactDetails_primaryPhone" value="#{technicianList.technician.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{technicianList.technician.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{technicianList.technician.contactDetails.email}" validateModel="false"/>  
+    <param name="age" value="#{technicianList.technician.age}" validateModel="false"/>  
     <param name="title" value="#{technicianList.technician.title}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/employee/clerk/editClerk.xhtml"> 
@@ -3373,6 +3378,7 @@
     <param name="contactDetails_primaryPhone" value="#{clerkList.clerk.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{clerkList.clerk.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{clerkList.clerk.contactDetails.email}" validateModel="false"/>  
+    <param name="age" value="#{clerkList.clerk.age}" validateModel="false"/>  
     <param name="title" value="#{clerkList.clerk.title}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/employee/specialization/editSpecialization.xhtml"> 

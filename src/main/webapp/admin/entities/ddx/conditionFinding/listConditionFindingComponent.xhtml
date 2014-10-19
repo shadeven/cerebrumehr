@@ -34,7 +34,8 @@
                 <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
                   <ui:param name="disease" value="#{_conditionFinding.disease}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="disease"/> 
+                  <ui:param name="panelId" value="disease"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

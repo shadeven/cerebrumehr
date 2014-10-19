@@ -35,7 +35,8 @@
             <ui:include src="/admin/entities/patient/vaccine/viewVaccineComponent.xhtml"> 
               <ui:param name="vaccine" value="#{immunization.vaccine}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="vaccine"/> 
+              <ui:param name="panelId" value="vaccine"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

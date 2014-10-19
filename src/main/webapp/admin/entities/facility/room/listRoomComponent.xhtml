@@ -46,7 +46,8 @@
                 <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
                   <ui:param name="roomType" value="#{_room.roomType}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="roomType"/> 
+                  <ui:param name="panelId" value="roomType"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -63,7 +64,8 @@
                 <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
                   <ui:param name="ward" value="#{_room.ward}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="wardRooms"/> 
+                  <ui:param name="panelId" value="wardRooms"/>  
+                  <ui:param name="excludeRooms" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

@@ -101,6 +101,15 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 		this.dateOfBirthRange = dateOfBirthRange;
 	}
 
+	private Range<Integer> ageRange = new Range<Integer>();
+
+	public Range<Integer> getAgeRange() {
+		return ageRange;
+	}
+	public void setAge(Range<Integer> ageRange) {
+		this.ageRange = ageRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"patient.id = #{patientList.patient.id}",
 
@@ -120,6 +129,9 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 			"lower(patient.contactDetails.secondaryPhone) like concat(lower(#{patientList.patient.contactDetails.secondaryPhone}),'%')",
 
 			"lower(patient.contactDetails.email) like concat(lower(#{patientList.patient.contactDetails.email}),'%')",
+
+			"patient.age >= #{patientList.ageRange.begin}",
+			"patient.age <= #{patientList.ageRange.end}",
 
 			"patient.title = #{patientList.patient.title}",
 

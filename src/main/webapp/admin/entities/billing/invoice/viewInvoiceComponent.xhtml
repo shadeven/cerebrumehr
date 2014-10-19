@@ -48,7 +48,8 @@
                 <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
                   <ui:param name="service" value="#{_invoiceItem.service}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="service"/> 
+                  <ui:param name="panelId" value="service"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

@@ -28,7 +28,8 @@
             <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
               <ui:param name="facility" value="#{_ward.facility}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="facilityWards"/> 
+              <ui:param name="panelId" value="facilityWards"/>  
+              <ui:param name="excludeWards" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

@@ -92,6 +92,15 @@ EmployeeListQueryBase<Technician> {
 		this.dateOfBirthRange = dateOfBirthRange;
 	}
 
+	private Range<Integer> ageRange = new Range<Integer>();
+
+	public Range<Integer> getAgeRange() {
+		return ageRange;
+	}
+	public void setAge(Range<Integer> ageRange) {
+		this.ageRange = ageRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"technician.id = #{technicianList.technician.id}",
 
@@ -119,6 +128,9 @@ EmployeeListQueryBase<Technician> {
 			"lower(technician.contactDetails.secondaryPhone) like concat(lower(#{technicianList.technician.contactDetails.secondaryPhone}),'%')",
 
 			"lower(technician.contactDetails.email) like concat(lower(#{technicianList.technician.contactDetails.email}),'%')",
+
+			"technician.age >= #{technicianList.ageRange.begin}",
+			"technician.age <= #{technicianList.ageRange.end}",
 
 			"technician.title = #{technicianList.technician.title}",
 

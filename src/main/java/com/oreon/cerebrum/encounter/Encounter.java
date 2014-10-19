@@ -7,6 +7,8 @@
 
 package com.oreon.cerebrum.encounter;
 
+import java.text.NumberFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,5 +24,17 @@ import org.hibernate.annotations.Filters;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Encounter extends EncounterBase implements java.io.Serializable {
-	private static final long serialVersionUID = -1171400456L;
+	private static final long serialVersionUID = -1171400456L;  
+	
+	
+	
+	public static void main(String[] args) throws Exception {
+
+		double num = 0.5267;
+
+		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+		defaultFormat.setMinimumFractionDigits(1);
+		System.out.println("Percent format: " + defaultFormat.format(num));
+
+	}
 }

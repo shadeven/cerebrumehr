@@ -60,7 +60,8 @@
                 <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
                   <ui:param name="atcDrug" value="#{_atcDrug.parent}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="parentSubcategories"/> 
+                  <ui:param name="panelId" value="parentSubcategories"/>  
+                  <ui:param name="excludeSubcategories" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

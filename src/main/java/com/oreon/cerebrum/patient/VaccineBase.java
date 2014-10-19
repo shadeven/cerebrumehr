@@ -78,7 +78,7 @@ public class VaccineBase extends BaseEntity {
 
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name

@@ -49,6 +49,22 @@ public class AdmissionAction extends AdmissionActionBase implements
 	ServiceAction serviceAction;
 
 
+	public ServiceAction getServiceAction() {
+		return serviceAction;
+	}
+
+	public void setServiceAction(ServiceAction serviceAction) {
+		this.serviceAction = serviceAction;
+	}
+
+	public BedAction getBedAction() {
+		return bedAction;
+	}
+
+	public void setBedAction(BedAction bedAction) {
+		this.bedAction = bedAction;
+	}
+
 	@In(create = true)
 	BedAction bedAction;
 

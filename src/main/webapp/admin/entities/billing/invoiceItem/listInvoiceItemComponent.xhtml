@@ -37,7 +37,8 @@
                 <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
                   <ui:param name="service" value="#{_invoiceItem.service}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="service"/> 
+                  <ui:param name="panelId" value="service"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
@@ -54,7 +55,8 @@
                 <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
                   <ui:param name="invoice" value="#{_invoiceItem.invoice}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="invoiceInvoiceItems"/> 
+                  <ui:param name="panelId" value="invoiceInvoiceItems"/>  
+                  <ui:param name="excludeInvoiceItems" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

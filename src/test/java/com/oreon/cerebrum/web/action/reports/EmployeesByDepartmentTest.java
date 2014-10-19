@@ -1,6 +1,7 @@
 package com.oreon.cerebrum.web.action.reports;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
+
 import org.witchcraft.action.test.BaseReportsTest;
 import org.witchcraft.jasperreports.BaseReportAction;
 

@@ -78,7 +78,8 @@
                 <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
                   <ui:param name="invoice" value="#{_admission.invoice}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="invoice"/> 
+                  <ui:param name="panelId" value="invoice"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

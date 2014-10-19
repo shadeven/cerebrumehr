@@ -45,7 +45,8 @@
             <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
               <ui:param name="invoice" value="#{admission.invoice}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="invoice"/> 
+              <ui:param name="panelId" value="invoice"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -68,7 +69,8 @@
                 <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
                   <ui:param name="bed" value="#{_bedStay.bed}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="bed"/> 
+                  <ui:param name="panelId" value="bed"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

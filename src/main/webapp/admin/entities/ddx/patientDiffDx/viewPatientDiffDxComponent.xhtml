@@ -40,7 +40,8 @@
                 <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
                   <ui:param name="finding" value="#{_patientFinding.finding}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="finding"/> 
+                  <ui:param name="panelId" value="finding"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

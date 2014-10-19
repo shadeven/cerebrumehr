@@ -44,7 +44,8 @@
                 <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"> 
                   <ui:param name="physician" value="#{_appointment.physician}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="physician"/> 
+                  <ui:param name="panelId" value="physician"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

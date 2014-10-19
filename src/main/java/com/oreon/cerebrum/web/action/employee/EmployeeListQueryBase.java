@@ -92,6 +92,15 @@ public abstract class EmployeeListQueryBase<T extends Employee>
 		this.dateOfBirthRange = dateOfBirthRange;
 	}
 
+	private Range<Integer> ageRange = new Range<Integer>();
+
+	public Range<Integer> getAgeRange() {
+		return ageRange;
+	}
+	public void setAge(Range<Integer> ageRange) {
+		this.ageRange = ageRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"employee.id = #{employeeList.employee.id}",
 
@@ -111,6 +120,9 @@ public abstract class EmployeeListQueryBase<T extends Employee>
 			"lower(employee.contactDetails.secondaryPhone) like concat(lower(#{employeeList.employee.contactDetails.secondaryPhone}),'%')",
 
 			"lower(employee.contactDetails.email) like concat(lower(#{employeeList.employee.contactDetails.email}),'%')",
+
+			"employee.age >= #{employeeList.ageRange.begin}",
+			"employee.age <= #{employeeList.ageRange.end}",
 
 			"employee.title = #{employeeList.employee.title}",
 

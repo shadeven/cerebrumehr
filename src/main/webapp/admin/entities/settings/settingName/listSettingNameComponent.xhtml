@@ -37,7 +37,8 @@
                 <ui:include src="/admin/entities/settings/settingGroup/viewSettingGroupComponent.xhtml"> 
                   <ui:param name="settingGroup" value="#{_settingName.settingGroup}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="settingGroupSettingNames"/> 
+                  <ui:param name="panelId" value="settingGroupSettingNames"/>  
+                  <ui:param name="excludeSettingNames" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 
