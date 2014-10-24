@@ -13,11 +13,8 @@
 	<url>https://bitbucket.org/Shadeven/cerebrumehr</url>
 
 	<repositories>
-		<!--
-			You should seriously consider using a repository manager or declare
-			repositories in your settings.xml. See
-			http://www.sonatype.com/people/2009/02/why-putting-repositories-in-your-poms-is-a-bad-idea/
-		-->
+		<!-- You should seriously consider using a repository manager or declare 
+			repositories in your settings.xml. See http://www.sonatype.com/people/2009/02/why-putting-repositories-in-your-poms-is-a-bad-idea/ -->
 		<repository>
 			<id>jboss-public-repository-group</id>
 			<name>JBoss Public Maven Repository Group</name>
@@ -62,10 +59,8 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<drools.version>5.0.1</drools.version>
-		<!--
-			Setting this property using archetype-metadata.xml requiredPorperty
-			so that generated project uses correct version of richfaces.
-		-->
+		<!-- Setting this property using archetype-metadata.xml requiredPorperty 
+			so that generated project uses correct version of richfaces. -->
 		<org.richfaces.bom.version>4.3.4.Final</org.richfaces.bom.version>
 	</properties>
 
@@ -84,10 +79,7 @@
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>7.6.14.v20131031</version>
-				<!--
-					<configuration> <scanIntervalSeconds>10</scanIntervalSeconds>
-					</configuration>
-				-->
+				<!-- <configuration> <scanIntervalSeconds>10</scanIntervalSeconds> </configuration> -->
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -97,6 +89,18 @@
 						<!-- exclude code absent api -->
 						<classpathDependencyExclude>javax.faces:javax.faces-api</classpathDependencyExclude>
 					</classpathDependencyExcludes>
+				</configuration>
+			</plugin>
+  
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://37.187.117.141:8080/manager/text</url>
+					<server>TomcatServer</server>
+					<path>/cererbrumehr</path>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -122,7 +126,7 @@
 	</dependencyManagement>
 
 	<dependencies>
-	<!-- Test dependencies -->
+		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -152,9 +156,17 @@
 			<version>1.0.0</version>
 			<scope>test</scope>
 		</dependency>
-	
-	
-		<!--  PF  -->
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+
+		<!-- PF -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -170,8 +182,8 @@
 			<artifactId>primefaces-extensions</artifactId>
 			<version>2.0.0</version>
 		</dependency>
-	
-	
+
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -321,7 +333,7 @@
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
@@ -399,13 +411,9 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.8</version>
 		</dependency>
-		<!--
-			<dependency> <groupId>org.jboss.arquillian</groupId>
-			<artifactId>arquillian-bom</artifactId>
-			<version>1.1.2.Final</version> <scope>import</scope> <type>pom</type>
-			</dependency>
-		-->
-		
+		<!-- <dependency> <groupId>org.jboss.arquillian</groupId> <artifactId>arquillian-bom</artifactId> 
+			<version>1.1.2.Final</version> <scope>import</scope> <type>pom</type> </dependency> -->
+
 		<dependency>
 			<groupId>net.sf.supercsv</groupId>
 			<artifactId>super-csv</artifactId>
