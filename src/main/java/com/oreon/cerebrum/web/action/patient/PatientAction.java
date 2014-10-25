@@ -10,8 +10,11 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.jboss.seam.Component;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.primefaces.event.SelectEvent;
+import org.witchcraft.seam.action.UserUtilAction;
 
 import com.oreon.cerebrum.charts.AppliedChart;
 import com.oreon.cerebrum.charts.ChartProcedure;
@@ -26,6 +29,9 @@ public class PatientAction extends PatientActionBase implements
 		java.io.Serializable {
 
 	private ArrayList<BloodPressure> bpList;
+	
+	@In(create=true)
+	private UserUtilAction userUtilAction;
 
 	public PatientAction() {
 		// TODO Auto-generated constructor stub
@@ -37,15 +43,28 @@ public class PatientAction extends PatientActionBase implements
 		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected patient " + patient.getDisplayName(), null);
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		setInstance((Patient) se.getObject());
+		userUtilAction.setCurrentPatient(getInstance());
 	}
 
 	public String getPatientInfo(){
 		
-		if(isNew())
+		if(userUtilAction.getCurrentPatient() == null)
 			return "No Patient Selected";
 		else
-			return instance.getDetailedInfo();
+			return userUtilAction.getCurrentPatient().getDetailedInfo();
 		
+	}
+	
+	
+	@Override
+	public Patient getInstance() {
+		// TODO Auto-generated method stub
+		Patient pt =  super.getInstance();
+		if(pt.isNew()){
+			pt = userUtilAction.getCurrentPatient();
+		}
+		
+		return pt;
 	}
 
 	/**
@@ -110,12 +129,21 @@ public class PatientAction extends PatientActionBase implements
 			initBloodPressureValues();
 		return bpList;
 	}
+	
+	
+	List<List<VitalValue>> listVitals;
 
 	public List<List<VitalValue>> getTrackedVals() {
-		List<List<VitalValue>> listVitals = new ArrayList<List<VitalValue>>();
+		
+		if(listVitals != null)
+			return listVitals;
+		
+		listVitals = new ArrayList<List<VitalValue>>();
 		Map<TrackedVital, List<VitalValue>> mapVitals = new HashMap<TrackedVital, List<VitalValue>>();
+		
+		VitalValueListQuery vitalValueListQuery = (VitalValueListQuery) Component.getInstance("vitalValueList");
 
-		Set<VitalValue> vitals = getInstance().getVitalValues();
+		List<VitalValue> vitals = vitalValueListQuery.getAllVitalValuesByPatient(getInstance());
 		for (VitalValue vitalValue : vitals) {
 			if (!mapVitals.containsKey(vitalValue.getTrackedVital())) {
 				mapVitals.put(vitalValue.getTrackedVital(),

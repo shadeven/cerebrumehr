@@ -84,6 +84,9 @@ public class BaseEntity implements Serializable{
 		return highlightedFragment;
 	}
 
+	public boolean isNew(){
+		return id == null || id.equals(0);
+	}
 	
     
     
