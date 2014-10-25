@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.UserUtilAction;
 import org.witchcraft.exceptions.BusinessException;
+import org.witchcraft.seam.action.UserUtilAction;
 
 import com.oreon.cerebrum.codes.SimpleCode;
 import com.oreon.cerebrum.prescription.Prescription;

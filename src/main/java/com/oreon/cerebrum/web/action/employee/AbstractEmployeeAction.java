@@ -3,8 +3,8 @@ package com.oreon.cerebrum.web.action.employee;
 import java.util.Date;
 
 import org.jboss.seam.annotations.In;
-import org.witchcraft.base.entity.UserUtilAction;
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.UserUtilAction;
 
 import com.oreon.cerebrum.web.action.users.AppRoleAction;
 

@@ -1,148 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_LO0GIFYkEeSHq_COdE4KPQ/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_LO0GIFYkEeSHq_COdE4KPQ/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_LPCxVlYkEeSHq_COdE4KPQ">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_7RCoEFxIEeSoJK3VmsogBg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_7RCoEFxIEeSoJK3VmsogBg/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_7RGSgFxIEeSoJK3VmsogBg">
   <uml:Profile xmi:id="_11_5_be00301_1153310565718_226811_161" name="DSL Customization" metamodelReference="_0metamodelReferenceDSL_Customization">
-    <eAnnotations xmi:id="_LPDZOlYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-      <contents xmi:type="ecore:EPackage" xmi:id="_LPDZO1YkEeSHq_COdE4KPQ" name="DSLCustomization" nsURI="http:///schemas/DSLCustomization/_LO_sUFYkEeSHq_COdE4KPQ/0" nsPrefix="DSLCustomization">
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_LPDZPFYkEeSHq_COdE4KPQ" name="CustomizationGroupNames">
-          <eAnnotations xmi:id="_LPDZPVYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5_be00301_1151668147214_220172_349"/>
-          <eLiterals xmi:id="_LPDZPlYkEeSHq_COdE4KPQ" name="Connection Rules"/>
-          <eLiterals xmi:id="_LPDZP1YkEeSHq_COdE4KPQ" name="Model Initialization" value="1"/>
-          <eLiterals xmi:id="_LPDZQFYkEeSHq_COdE4KPQ" name="Properties" value="2"/>
-          <eLiterals xmi:id="_LPDZQVYkEeSHq_COdE4KPQ" name="OwnedElements" value="3"/>
-          <eLiterals xmi:id="_LPDZQlYkEeSHq_COdE4KPQ" name="General" value="4"/>
-          <eLiterals xmi:id="_LPDZQ1YkEeSHq_COdE4KPQ" name="Naming" value="5"/>
+    <eAnnotations xmi:id="_7RFEUVxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_7RFEUlxIEeSoJK3VmsogBg" name="DSLCustomization" nsURI="http:///schemas/DSLCustomization/_7Qz-kFxIEeSoJK3VmsogBg/0" nsPrefix="DSLCustomization">
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_7RFEU1xIEeSoJK3VmsogBg" name="CustomizationGroupNames">
+          <eAnnotations xmi:id="_7RFEVFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5_be00301_1151668147214_220172_349"/>
+          <eLiterals xmi:id="_7RFEVVxIEeSoJK3VmsogBg" name="Connection Rules"/>
+          <eLiterals xmi:id="_7RFEVlxIEeSoJK3VmsogBg" name="Model Initialization" value="1"/>
+          <eLiterals xmi:id="_7RFEV1xIEeSoJK3VmsogBg" name="Properties" value="2"/>
+          <eLiterals xmi:id="_7RFEWFxIEeSoJK3VmsogBg" name="OwnedElements" value="3"/>
+          <eLiterals xmi:id="_7RFEWVxIEeSoJK3VmsogBg" name="General" value="4"/>
+          <eLiterals xmi:id="_7RFEWlxIEeSoJK3VmsogBg" name="Naming" value="5"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPDZRFYkEeSHq_COdE4KPQ" name="Customization">
-          <eAnnotations xmi:id="_LPDZRVYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5EAPbeta_be00301_1148632817486_155219_3"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPDZRlYkEeSHq_COdE4KPQ" name="typesForTarget" ordered="false" lowerBound="1" upperBound="-1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEW1xIEeSoJK3VmsogBg" name="Customization">
+          <eAnnotations xmi:id="_7RFEXFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5EAPbeta_be00301_1148632817486_155219_3"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEXVxIEeSoJK3VmsogBg" name="typesForTarget" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPDZSFYkEeSHq_COdE4KPQ" name="typesForSource" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEX1xIEeSoJK3VmsogBg" name="typesForSource" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPDZSlYkEeSHq_COdE4KPQ" name="representationText" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEYVxIEeSoJK3VmsogBg" name="representationText" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPDZTFYkEeSHq_COdE4KPQ" name="keyword" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEY1xIEeSoJK3VmsogBg" name="keyword" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPDZTlYkEeSHq_COdE4KPQ" name="allowedRelationships" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEZVxIEeSoJK3VmsogBg" name="allowedRelationships" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPDZUFYkEeSHq_COdE4KPQ" name="disallowedRelationships" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEZ1xIEeSoJK3VmsogBg" name="disallowedRelationships" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPDZUlYkEeSHq_COdE4KPQ" name="hideMetatype" ordered="false" lowerBound="1" defaultValueLiteral="true">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEaVxIEeSoJK3VmsogBg" name="hideMetatype" ordered="false" lowerBound="1" defaultValueLiteral="true">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9wFYkEeSHq_COdE4KPQ" name="customizationTarget" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEa1xIEeSoJK3VmsogBg" name="customizationTarget" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Stereotype"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9wlYkEeSHq_COdE4KPQ" name="applyToSource" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEbVxIEeSoJK3VmsogBg" name="applyToSource" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Stereotype"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9xFYkEeSHq_COdE4KPQ" name="applyToTarget" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEb1xIEeSoJK3VmsogBg" name="applyToTarget" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Stereotype"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9xlYkEeSHq_COdE4KPQ" name="superTypes" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEcVxIEeSoJK3VmsogBg" name="superTypes" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9yFYkEeSHq_COdE4KPQ" name="base_Class" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEc1xIEeSoJK3VmsogBg" name="base_Class" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD9ylYkEeSHq_COdE4KPQ" name="standardExpertConfiguration" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEdVxIEeSoJK3VmsogBg" name="standardExpertConfiguration" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9zFYkEeSHq_COdE4KPQ" name="suggestedOwnedTypes" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEd1xIEeSoJK3VmsogBg" name="suggestedOwnedTypes" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Stereotype"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9zlYkEeSHq_COdE4KPQ" name="hiddenOwnedTypes" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEeVxIEeSoJK3VmsogBg" name="hiddenOwnedTypes" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD90FYkEeSHq_COdE4KPQ" name="suggestedOwnedDiagrams" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEe1xIEeSoJK3VmsogBg" name="suggestedOwnedDiagrams" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD90lYkEeSHq_COdE4KPQ" name="hiddenOwnedDiagrams" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEfVxIEeSoJK3VmsogBg" name="hiddenOwnedDiagrams" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD91FYkEeSHq_COdE4KPQ" name="inShortcutMenu" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEf1xIEeSoJK3VmsogBg" name="inShortcutMenu" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD91lYkEeSHq_COdE4KPQ" name="showPropertiesWhenNotApplied" ordered="false" lowerBound="1" defaultValueLiteral="true">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEgVxIEeSoJK3VmsogBg" name="showPropertiesWhenNotApplied" ordered="false" lowerBound="1" defaultValueLiteral="true">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD92FYkEeSHq_COdE4KPQ" name="quickApplyingFor" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEg1xIEeSoJK3VmsogBg" name="quickApplyingFor" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD92lYkEeSHq_COdE4KPQ" name="usedUMLProperties" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEhVxIEeSoJK3VmsogBg" name="usedUMLProperties" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD93FYkEeSHq_COdE4KPQ" name="possibleOwners" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEh1xIEeSoJK3VmsogBg" name="possibleOwners" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD93lYkEeSHq_COdE4KPQ" name="multiLineTextProperties" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEiVxIEeSoJK3VmsogBg" name="multiLineTextProperties" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPD94FYkEeSHq_COdE4KPQ" name="grouped">
-          <eAnnotations xmi:id="_LPD94VYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5EAPbeta_be00301_1148642764910_998510_268"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD94lYkEeSHq_COdE4KPQ" name="base_Property" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEi1xIEeSoJK3VmsogBg" name="grouped">
+          <eAnnotations xmi:id="_7RFEjFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5EAPbeta_be00301_1148642764910_998510_268"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEjVxIEeSoJK3VmsogBg" name="base_Property" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD95FYkEeSHq_COdE4KPQ" name="group" ordered="false" lowerBound="1" eType="_LPDZPFYkEeSHq_COdE4KPQ" defaultValueLiteral="General"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEj1xIEeSoJK3VmsogBg" name="group" ordered="false" lowerBound="1" eType="_7RFEU1xIEeSoJK3VmsogBg" defaultValueLiteral="General"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPD95lYkEeSHq_COdE4KPQ" name="CustomizationOfCustomization">
-          <eAnnotations xmi:id="_LPD951YkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1159943470859_244302_338"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEkVxIEeSoJK3VmsogBg" name="CustomizationOfCustomization">
+          <eAnnotations xmi:id="_7RFEklxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1159943470859_244302_338"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPD96FYkEeSHq_COdE4KPQ" name="metaProperty">
-          <eAnnotations xmi:id="_LPD96VYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1157552487453_470617_1"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD96lYkEeSHq_COdE4KPQ" name="base_Property" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEk1xIEeSoJK3VmsogBg" name="metaProperty">
+          <eAnnotations xmi:id="_7RFElFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1157552487453_470617_1"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFElVxIEeSoJK3VmsogBg" name="base_Property" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD97FYkEeSHq_COdE4KPQ" name="newName" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEl1xIEeSoJK3VmsogBg" name="newName" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD97lYkEeSHq_COdE4KPQ" name="newTypes" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEmVxIEeSoJK3VmsogBg" name="newTypes" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Type"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD98FYkEeSHq_COdE4KPQ" name="suggestedValues" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEm1xIEeSoJK3VmsogBg" name="suggestedValues" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPD98lYkEeSHq_COdE4KPQ" name="propertyGroup">
-          <eAnnotations xmi:id="_LPD981YkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5_be00301_1151908232109_493412_157"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD99FYkEeSHq_COdE4KPQ" name="base_Property" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEnVxIEeSoJK3VmsogBg" name="propertyGroup">
+          <eAnnotations xmi:id="_7RFEnlxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5_be00301_1151908232109_493412_157"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEn1xIEeSoJK3VmsogBg" name="base_Property" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD99lYkEeSHq_COdE4KPQ" name="properties" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEoVxIEeSoJK3VmsogBg" name="properties" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD9-FYkEeSHq_COdE4KPQ" name="columns" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEo1xIEeSoJK3VmsogBg" name="columns" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD9-lYkEeSHq_COdE4KPQ" name="useAsNode" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEpVxIEeSoJK3VmsogBg" name="useAsNode" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPD9_FYkEeSHq_COdE4KPQ" name="suggestedValues">
-          <eAnnotations xmi:id="_LPD9_VYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1157702293303_868726_752"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD9_lYkEeSHq_COdE4KPQ" name="base_Property" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEp1xIEeSoJK3VmsogBg" name="suggestedValues">
+          <eAnnotations xmi:id="_7RFEqFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1157702293303_868726_752"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFEqVxIEeSoJK3VmsogBg" name="base_Property" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_LPD-AFYkEeSHq_COdE4KPQ" name="suggestedStringValues">
-          <eAnnotations xmi:id="_LPD-AVYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1157702393377_93867_763"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_LPD-AlYkEeSHq_COdE4KPQ" name="base_Property" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_7RFEq1xIEeSoJK3VmsogBg" name="suggestedStringValues">
+          <eAnnotations xmi:id="_7RFErFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_12_0EAPbeta_be00301_1157702393377_93867_763"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_7RFErVxIEeSoJK3VmsogBg" name="base_Property" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_LPD-BFYkEeSHq_COdE4KPQ" name="values" ordered="false" lowerBound="1" upperBound="-1">
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_7RFEr1xIEeSoJK3VmsogBg" name="values" ordered="false" lowerBound="1" upperBound="-1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
       </contents>
     </eAnnotations>
-    <eAnnotations xmi:id="_LPmJQFYkEeSHq_COdE4KPQ" source="MagicDraw">
-      <details xmi:id="_LPmJQVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1153310565718_226811_161"/>
+    <eAnnotations xmi:id="_7RxA0lxIEeSoJK3VmsogBg" source="MagicDraw">
+      <details xmi:id="_7RxA01xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1153310565718_226811_161"/>
     </eAnnotations>
     <packageImport xmi:id="_0metamodelReferenceDSL_Customization">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
@@ -154,669 +154,669 @@
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_11_5_be00301_1151668147214_220172_349" name="CustomizationGroupNames">
-      <eAnnotations xmi:id="_LPmJdFYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPmJdVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668147214_220172_349"/>
+      <eAnnotations xmi:id="_7RxoAlxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RxoA1xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668147214_220172_349"/>
       </eAnnotations>
       <ownedLiteral xmi:id="_11_5_be00301_1151668191517_977444_372" name="Connection Rules">
-        <eAnnotations xmi:id="_LPmJdlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJd1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668191517_977444_372"/>
+        <eAnnotations xmi:id="_7RxoBFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoBVxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668191517_977444_372"/>
         </eAnnotations>
       </ownedLiteral>
       <ownedLiteral xmi:id="_11_5_be00301_1151668205978_536169_376" name="Model Initialization">
-        <eAnnotations xmi:id="_LPmJeFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJeVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668205978_536169_376"/>
+        <eAnnotations xmi:id="_7RxoBlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoB1xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668205978_536169_376"/>
         </eAnnotations>
       </ownedLiteral>
       <ownedLiteral xmi:id="_11_5_be00301_1151668187061_119857_370" name="Properties">
-        <eAnnotations xmi:id="_LPmJelYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJe1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668187061_119857_370"/>
+        <eAnnotations xmi:id="_7RxoCFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoCVxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668187061_119857_370"/>
         </eAnnotations>
       </ownedLiteral>
       <ownedLiteral xmi:id="_12_0EAPbeta_be00301_1157629460825_333054_764" name="OwnedElements">
-        <eAnnotations xmi:id="_LPmJfFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJfVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629460825_333054_764"/>
+        <eAnnotations xmi:id="_7RxoClxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoC1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629460825_333054_764"/>
         </eAnnotations>
       </ownedLiteral>
       <ownedLiteral xmi:id="_11_5_be00301_1151668160833_388370_368" name="General">
-        <eAnnotations xmi:id="_LPmJflYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwUFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668160833_388370_368"/>
+        <eAnnotations xmi:id="_7RxoDFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoDVxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668160833_388370_368"/>
         </eAnnotations>
       </ownedLiteral>
       <ownedLiteral xmi:id="_11_5_be00301_1151668201842_594414_374" name="Naming">
-        <eAnnotations xmi:id="_LPmwUVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwUlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668201842_594414_374"/>
+        <eAnnotations xmi:id="_7RxoDlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoD1xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668201842_594414_374"/>
         </eAnnotations>
       </ownedLiteral>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_11_5EAPbeta_be00301_1148632817486_155219_3" name="Customization">
-      <eAnnotations xmi:id="_LPmwU1YkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPmwVFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148632817486_155219_3"/>
+      <eAnnotations xmi:id="_7RxoEFxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RxoEVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148632817486_155219_3"/>
       </eAnnotations>
       <ownedComment xmi:id="_11_5_be00301_1151931107913_604913_152" body="" annotatedElement="_11_5EAPbeta_be00301_1148632817486_155219_3">
-        <eAnnotations xmi:id="_LPmwVVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwVlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151931107913_604913_152"/>
+        <eAnnotations xmi:id="_7RxoElxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoE1xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151931107913_604913_152"/>
         </eAnnotations>
       </ownedComment>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148632817486_169952_4" name="typesForTarget" visibility="private">
-        <eAnnotations xmi:id="_LPmwV1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwWFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148632817486_169952_4"/>
+        <eAnnotations xmi:id="_7RxoFFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoFVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148632817486_169952_4"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_384706_11" name="" value="*">
-          <eAnnotations xmi:id="_LPmwWVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwWlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_384706_11"/>
+          <eAnnotations xmi:id="_7RxoFlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoF1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_384706_11"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1148632817506_380546_8" name="" value="*">
-          <eAnnotations xmi:id="_LPmwW1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwXFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148632817506_380546_8"/>
+          <eAnnotations xmi:id="_7RxoGFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoGVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148632817506_380546_8"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148632817496_962403_5" name="typesForSource" visibility="private">
-        <eAnnotations xmi:id="_LPmwXVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwXlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148632817496_962403_5"/>
+        <eAnnotations xmi:id="_7RxoGlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoG1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148632817496_962403_5"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_849287_12" name="" value="*">
-          <eAnnotations xmi:id="_LPmwX1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwYFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_849287_12"/>
+          <eAnnotations xmi:id="_7RxoHFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoHVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_849287_12"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1148632817506_86989_10" name="" value="*">
-          <eAnnotations xmi:id="_LPmwYVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwYlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148632817506_86989_10"/>
+          <eAnnotations xmi:id="_7RxoHlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoH1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148632817506_86989_10"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148643469202_389557_309" name="representationText" visibility="private">
-        <eAnnotations xmi:id="_LPmwY1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwZFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148643469202_389557_309"/>
+        <eAnnotations xmi:id="_7RxoIFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoIVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148643469202_389557_309"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148643479768_277559_311" name="keyword" visibility="private">
-        <eAnnotations xmi:id="_LPmwZVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwZlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148643479768_277559_311"/>
+        <eAnnotations xmi:id="_7RxoIlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoI1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148643479768_277559_311"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148648874355_640977_366" name="allowedRelationships" visibility="private">
-        <eAnnotations xmi:id="_LPmwZ1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwaFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148648874355_640977_366"/>
+        <eAnnotations xmi:id="_7RxoJFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoJVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148648874355_640977_366"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_127903_15" name="" value="*">
-          <eAnnotations xmi:id="_LPmwaVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwalYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_127903_15"/>
+          <eAnnotations xmi:id="_7RxoJlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoJ1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_127903_15"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1148648887393_706896_368" name="" value="*">
-          <eAnnotations xmi:id="_LPmwa1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwbFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148648887393_706896_368"/>
+          <eAnnotations xmi:id="_7RxoKFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoKVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148648887393_706896_368"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148648960468_463844_380" name="disallowedRelationships" visibility="private">
-        <eAnnotations xmi:id="_LPmwbVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwblYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148648960468_463844_380"/>
+        <eAnnotations xmi:id="_7RxoKlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoK1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148648960468_463844_380"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_636128_13" name="" value="*">
-          <eAnnotations xmi:id="_LPmwb1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwcFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_636128_13"/>
+          <eAnnotations xmi:id="_7RxoLFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoLVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_636128_13"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1148648960468_825921_382" name="" value="*">
-          <eAnnotations xmi:id="_LPmwcVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwclYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148648960468_825921_382"/>
+          <eAnnotations xmi:id="_7RxoLlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoL1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148648960468_825921_382"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148651295316_167207_450" name="hideMetatype" visibility="private">
-        <eAnnotations xmi:id="_LPmwc1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwdFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148651295316_167207_450"/>
+        <eAnnotations xmi:id="_7RxoMFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoMVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148651295316_167207_450"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_11_5EAPbeta_be00301_1148651372927_677576_453" name="" value="true">
-          <eAnnotations xmi:id="_LPmwdVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwdlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148651372927_677576_453"/>
+          <eAnnotations xmi:id="_7RxoMlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoM1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148651372927_677576_453"/>
           </eAnnotations>
         </defaultValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1149081298590_692729_1" name="customizationTarget" visibility="private">
-        <eAnnotations xmi:id="_LPmwd1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmweFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149081298590_692729_1"/>
+        <eAnnotations xmi:id="_7RxoNFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoNVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149081298590_692729_1"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Stereotype"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_146287_5" name="" value="*">
-          <eAnnotations xmi:id="_LPmweVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwelYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_146287_5"/>
+          <eAnnotations xmi:id="_7RxoNlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoN1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_146287_5"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_8ca0285_1154348286234_434731_1" name="" value="*">
-          <eAnnotations xmi:id="_LPmwe1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwfFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_8ca0285_1154348286234_434731_1"/>
+          <eAnnotations xmi:id="_7RxoOFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoOVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_8ca0285_1154348286234_434731_1"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1149150668519_358579_4" name="applyToSource" visibility="private">
-        <eAnnotations xmi:id="_LPmwfVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwflYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149150668519_358579_4"/>
+        <eAnnotations xmi:id="_7RxoOlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoO1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149150668519_358579_4"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Stereotype"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_502116_16" name="" value="*">
-          <eAnnotations xmi:id="_LPmwf1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwgFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_502116_16"/>
+          <eAnnotations xmi:id="_7RxoPFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoPVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_502116_16"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1149150681448_339793_6" name="" value="*">
-          <eAnnotations xmi:id="_LPmwgVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwglYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149150681448_339793_6"/>
+          <eAnnotations xmi:id="_7RxoPlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoP1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149150681448_339793_6"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1149150874515_400566_1" name="applyToTarget" visibility="private">
-        <eAnnotations xmi:id="_LPmwg1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwhFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149150874515_400566_1"/>
+        <eAnnotations xmi:id="_7RxoQFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoQVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149150874515_400566_1"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Stereotype"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_570546_19" name="" value="*">
-          <eAnnotations xmi:id="_LPmwhVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwhlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_570546_19"/>
+          <eAnnotations xmi:id="_7RxoQlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoQ1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_570546_19"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1149150882527_546519_4" name="" value="*">
-          <eAnnotations xmi:id="_LPmwh1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwiFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149150882527_546519_4"/>
+          <eAnnotations xmi:id="_7RxoRFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoRVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149150882527_546519_4"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1149583681782_925920_123" name="superTypes" visibility="private">
-        <eAnnotations xmi:id="_LPmwiVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwilYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149583681782_925920_123"/>
+        <eAnnotations xmi:id="_7RxoRlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoR1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149583681782_925920_123"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_228143_18" name="" value="*">
-          <eAnnotations xmi:id="_LPmwi1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwjFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_228143_18"/>
+          <eAnnotations xmi:id="_7RxoSFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoSVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_228143_18"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5EAPbeta_be00301_1149583696553_767104_125" name="" value="*">
-          <eAnnotations xmi:id="_LPmwjVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwjlYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149583696553_767104_125"/>
+          <eAnnotations xmi:id="_7RxoSlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoS1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149583696553_767104_125"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1149591436012_518876_131" name="base_Class" visibility="private" association="_11_5EAPbeta_be00301_1149591436012_62817_130">
-        <eAnnotations xmi:id="_LPmwj1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwkFYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_518876_131"/>
+        <eAnnotations xmi:id="_7RxoTFxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoTVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_518876_131"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5_be00301_1151654058455_811186_154" name="standardExpertConfiguration" visibility="private">
-        <eAnnotations xmi:id="_LPmwkVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwklYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151654058455_811186_154"/>
+        <eAnnotations xmi:id="_7RxoTlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxoT1xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151654058455_811186_154"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_340909_9" name="" value="*">
-          <eAnnotations xmi:id="_LPmwk1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwlFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_340909_9"/>
+          <eAnnotations xmi:id="_7RxoUFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyO8FxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_340909_9"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5_be00301_1158065195511_890472_693" name="" value="*">
-          <eAnnotations xmi:id="_LPmwlVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwllYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1158065195511_890472_693"/>
+          <eAnnotations xmi:id="_7RyO8VxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyO8lxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1158065195511_890472_693"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157629526209_524541_765" name="suggestedOwnedTypes" visibility="private">
-        <eAnnotations xmi:id="_LPmwl1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwmFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629526209_524541_765"/>
+        <eAnnotations xmi:id="_7RyO81xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyO9FxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629526209_524541_765"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Stereotype"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_47948_7" name="" value="*">
-          <eAnnotations xmi:id="_LPmwmVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwmlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_47948_7"/>
+          <eAnnotations xmi:id="_7RyO9VxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyO9lxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_47948_7"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157629532408_494265_766" name="" value="*">
-          <eAnnotations xmi:id="_LPmwm1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwnFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629532408_494265_766"/>
+          <eAnnotations xmi:id="_7RyO91xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyO-FxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629532408_494265_766"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157629553648_29567_771" name="hiddenOwnedTypes" visibility="private">
-        <eAnnotations xmi:id="_LPmwnVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwnlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629553648_29567_771"/>
+        <eAnnotations xmi:id="_7RyO-VxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyO-lxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629553648_29567_771"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_618312_20" name="" value="*">
-          <eAnnotations xmi:id="_LPmwn1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwoFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_618312_20"/>
+          <eAnnotations xmi:id="_7RyO-1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyO_FxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_618312_20"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157629584383_393140_772" name="" value="*">
-          <eAnnotations xmi:id="_LPmwoVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwolYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629584383_393140_772"/>
+          <eAnnotations xmi:id="_7RyO_VxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyO_lxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629584383_393140_772"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157629595078_90892_777" name="suggestedOwnedDiagrams" visibility="private">
-        <eAnnotations xmi:id="_LPmwo1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwpFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629595078_90892_777"/>
+        <eAnnotations xmi:id="_7RyO_1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPAFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629595078_90892_777"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_433153_17" name="" value="*">
-          <eAnnotations xmi:id="_LPmwpVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwplYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_433153_17"/>
+          <eAnnotations xmi:id="_7RyPAVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPAlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_433153_17"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157629611552_693071_778" name="" value="*">
-          <eAnnotations xmi:id="_LPmwp1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwqFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629611552_693071_778"/>
+          <eAnnotations xmi:id="_7RyPA1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPBFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629611552_693071_778"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157629630349_894110_783" name="hiddenOwnedDiagrams" visibility="private">
-        <eAnnotations xmi:id="_LPmwqVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwqlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629630349_894110_783"/>
+        <eAnnotations xmi:id="_7RyPBVxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPBlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629630349_894110_783"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_930885_8" name="" value="*">
-          <eAnnotations xmi:id="_LPmwq1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwrFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_930885_8"/>
+          <eAnnotations xmi:id="_7RyPB1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPCFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_930885_8"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157629648194_461748_784" name="" value="*">
-          <eAnnotations xmi:id="_LPmwrVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwrlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157629648194_461748_784"/>
+          <eAnnotations xmi:id="_7RyPCVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPClxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157629648194_461748_784"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157699576587_352744_1" name="inShortcutMenu" visibility="private">
-        <eAnnotations xmi:id="_LPmwr1YkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwsFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157699576587_352744_1"/>
+        <eAnnotations xmi:id="_7RyPC1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPDFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157699576587_352744_1"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409343_937250_2" name="" value="*">
-          <eAnnotations xmi:id="_LPmwsVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwslYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409343_937250_2"/>
+          <eAnnotations xmi:id="_7RyPDVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPDlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409343_937250_2"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157699595434_34145_2" name="" value="*">
-          <eAnnotations xmi:id="_LPmws1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwtFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157699595434_34145_2"/>
+          <eAnnotations xmi:id="_7RyPD1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPEFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157699595434_34145_2"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157700240942_108646_741" name="showPropertiesWhenNotApplied" visibility="private">
-        <eAnnotations xmi:id="_LPmwtVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwtlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157700240942_108646_741"/>
+        <eAnnotations xmi:id="_7RyPEVxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPElxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157700240942_108646_741"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_0EAPbeta_be00301_1162285641272_426086_106" name="" value="true">
-          <eAnnotations xmi:id="_LPmwt1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwuFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1162285641272_426086_106"/>
+          <eAnnotations xmi:id="_7RyPE1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPFFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1162285641272_426086_106"/>
           </eAnnotations>
         </defaultValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157701758544_263592_746" name="quickApplyingFor" visibility="private">
-        <eAnnotations xmi:id="_LPmwuVYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmwulYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157701758544_263592_746"/>
+        <eAnnotations xmi:id="_7RyPFVxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPFlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157701758544_263592_746"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_667347_10" name="" value="*">
-          <eAnnotations xmi:id="_LPmwu1YkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwvFYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_667347_10"/>
+          <eAnnotations xmi:id="_7RyPF1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPGFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_667347_10"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157701771953_523667_747" name="" value="*">
-          <eAnnotations xmi:id="_LPmwvVYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmwvlYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157701771953_523667_747"/>
+          <eAnnotations xmi:id="_7RyPGVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPGlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157701771953_523667_747"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5_be00301_1157725190237_319379_1" name="usedUMLProperties" visibility="private">
-        <eAnnotations xmi:id="_LPnXYFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXYVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1157725190237_319379_1"/>
+        <eAnnotations xmi:id="_7RyPG1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPHFxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1157725190237_319379_1"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_773512_4" name="" value="*">
-          <eAnnotations xmi:id="_LPnXYlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXY1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_773512_4"/>
+          <eAnnotations xmi:id="_7RyPHVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPHlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_773512_4"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_11_5_be00301_1157725206961_732597_2" name="" value="1">
-          <eAnnotations xmi:id="_LPnXZFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXZVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1157725206961_732597_2"/>
+          <eAnnotations xmi:id="_7RyPH1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPIFxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1157725206961_732597_2"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5_be00301_1158647898056_794556_720" name="possibleOwners" visibility="private">
-        <eAnnotations xmi:id="_LPnXZlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXZ1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1158647898056_794556_720"/>
+        <eAnnotations xmi:id="_7RyPIVxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPIlxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1158647898056_794556_720"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_891197_21" name="" value="*">
-          <eAnnotations xmi:id="_LPnXaFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXaVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_891197_21"/>
+          <eAnnotations xmi:id="_7RyPI1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPJFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_891197_21"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5_be00301_1158647910504_792328_721" name="" value="*">
-          <eAnnotations xmi:id="_LPnXalYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXa1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1158647910504_792328_721"/>
+          <eAnnotations xmi:id="_7RyPJVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPJlxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1158647910504_792328_721"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0_be00301_1163666462046_216822_126" name="multiLineTextProperties" visibility="private">
-        <eAnnotations xmi:id="_LPnXbFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXbVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0_be00301_1163666462046_216822_126"/>
+        <eAnnotations xmi:id="_7RyPJ1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPKFxIEeSoJK3VmsogBg" key="md_id" value="_12_0_be00301_1163666462046_216822_126"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0_be00301_1163666514522_727229_128" name="" value="*">
-          <eAnnotations xmi:id="_LPnXblYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXb1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0_be00301_1163666514522_727229_128"/>
+          <eAnnotations xmi:id="_7RyPKVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPKlxIEeSoJK3VmsogBg" key="md_id" value="_12_0_be00301_1163666514522_727229_128"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0_be00301_1163666514522_566562_127" name="" value="*">
-          <eAnnotations xmi:id="_LPnXcFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXcVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0_be00301_1163666514522_566562_127"/>
+          <eAnnotations xmi:id="_7RyPK1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPLFxIEeSoJK3VmsogBg" key="md_id" value="_12_0_be00301_1163666514522_566562_127"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <icon xmi:id="_11_5EAPbeta_be00301_1148632817486_155219_3_12_1_8f90291_1173800873265_616915_100" location="C:\Documents and Settings\saupav\Desktop\Customization\customization-24x24.svg" format="SVG"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_11_5EAPbeta_be00301_1148642764910_998510_268" name="grouped">
-      <eAnnotations xmi:id="_LPnXclYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXc1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642764910_998510_268"/>
+      <eAnnotations xmi:id="_7RyPLVxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RyPLlxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642764910_998510_268"/>
       </eAnnotations>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148642767573_196284_271" name="base_Property" visibility="private" association="_11_5EAPbeta_be00301_1148642767573_534647_270">
-        <eAnnotations xmi:id="_LPnXdFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXdVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_196284_271"/>
+        <eAnnotations xmi:id="_7RyPL1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPMFxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_196284_271"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5EAPbeta_be00301_1148642777358_769958_292" name="group" visibility="private" type="_11_5_be00301_1151668147214_220172_349">
-        <eAnnotations xmi:id="_LPnXdlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXd1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642777358_769958_292"/>
+        <eAnnotations xmi:id="_7RyPMVxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPMlxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642777358_769958_292"/>
         </eAnnotations>
         <defaultValue xmi:type="uml:InstanceValue" xmi:id="_11_5_be00301_1151668729992_158537_409" name="" instance="_11_5_be00301_1151668160833_388370_368">
-          <eAnnotations xmi:id="_LPnXeFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXeVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151668729992_158537_409"/>
+          <eAnnotations xmi:id="_7RyPM1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPNFxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151668729992_158537_409"/>
           </eAnnotations>
         </defaultValue>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_0EAPbeta_be00301_1157552563192_997222_7" name="" memberEnd="_12_0EAPbeta_be00301_1157552563192_854244_8 _12_0EAPbeta_be00301_1157552563192_568121_9">
-      <eAnnotations xmi:id="_LPnXelYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXe1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_997222_7"/>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_0EAPbeta_be00301_1157552563192_997222_7" name="" memberEnd="_12_0EAPbeta_be00301_1157552563192_568121_9 _12_0EAPbeta_be00301_1157552563192_854244_8">
+      <eAnnotations xmi:id="_7RyPNVxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RyPNlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_997222_7"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_0EAPbeta_be00301_1157552563192_568121_9" name="extension_metaproperty" visibility="private" type="_12_0EAPbeta_be00301_1157552487453_470617_1" aggregation="composite" association="_12_0EAPbeta_be00301_1157552563192_997222_7">
-        <eAnnotations xmi:id="_LPnXfFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXfVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_568121_9"/>
+        <eAnnotations xmi:id="_7RyPN1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPOFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_568121_9"/>
         </eAnnotations>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1157552563192_534596_11" name="" value="1">
-          <eAnnotations xmi:id="_LPnXflYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXf1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_534596_11"/>
+          <eAnnotations xmi:id="_7RyPOVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPOlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_534596_11"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_0EAPbeta_be00301_1157552563192_302807_10" name="">
-          <eAnnotations xmi:id="_LPnXgFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXgVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_302807_10"/>
+          <eAnnotations xmi:id="_7RyPO1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPPFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_302807_10"/>
           </eAnnotations>
         </lowerValue>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_0EAPbeta_be00301_1157702352288_380469_758" name="" memberEnd="_12_0EAPbeta_be00301_1157702352288_429407_760 _12_0EAPbeta_be00301_1157702352288_681323_759">
-      <eAnnotations xmi:id="_LPnXglYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXg1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_380469_758"/>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_0EAPbeta_be00301_1157702352288_380469_758" name="" memberEnd="_12_0EAPbeta_be00301_1157702352288_681323_759 _12_0EAPbeta_be00301_1157702352288_429407_760">
+      <eAnnotations xmi:id="_7RyPPVxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RyPPlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_380469_758"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_0EAPbeta_be00301_1157702352288_429407_760" name="extension_suggestedValues" visibility="private" type="_12_0EAPbeta_be00301_1157702293303_868726_752" aggregation="composite" association="_12_0EAPbeta_be00301_1157702352288_380469_758">
-        <eAnnotations xmi:id="_LPnXhFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXhVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_429407_760"/>
+        <eAnnotations xmi:id="_7RyPP1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPQFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_429407_760"/>
         </eAnnotations>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1157702352288_347145_762" name="" value="1">
-          <eAnnotations xmi:id="_LPnXhlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXh1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_347145_762"/>
+          <eAnnotations xmi:id="_7RyPQVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPQlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_347145_762"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_0EAPbeta_be00301_1157702352288_757534_761" name="">
-          <eAnnotations xmi:id="_LPnXiFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXiVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_757534_761"/>
+          <eAnnotations xmi:id="_7RyPQ1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPRFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_757534_761"/>
           </eAnnotations>
         </lowerValue>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_0EAPbeta_be00301_1157702418763_223586_769" name="" memberEnd="_12_0EAPbeta_be00301_1157702418763_262371_771 _12_0EAPbeta_be00301_1157702418763_489660_770">
-      <eAnnotations xmi:id="_LPnXilYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXi1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_223586_769"/>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_0EAPbeta_be00301_1157702418763_223586_769" name="" memberEnd="_12_0EAPbeta_be00301_1157702418763_489660_770 _12_0EAPbeta_be00301_1157702418763_262371_771">
+      <eAnnotations xmi:id="_7RyPRVxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RyPRlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_223586_769"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_0EAPbeta_be00301_1157702418763_262371_771" name="extension_suggestedStringValues" visibility="private" type="_12_0EAPbeta_be00301_1157702393377_93867_763" aggregation="composite" association="_12_0EAPbeta_be00301_1157702418763_223586_769">
-        <eAnnotations xmi:id="_LPnXjFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXjVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_262371_771"/>
+        <eAnnotations xmi:id="_7RyPR1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPSFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_262371_771"/>
         </eAnnotations>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1157702418763_752460_773" name="" value="1">
-          <eAnnotations xmi:id="_LPnXjlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXj1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_752460_773"/>
+          <eAnnotations xmi:id="_7RyPSVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPSlxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_752460_773"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_0EAPbeta_be00301_1157702418763_269419_772" name="">
-          <eAnnotations xmi:id="_LPnXkFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXkVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_269419_772"/>
+          <eAnnotations xmi:id="_7RyPS1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPTFxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_269419_772"/>
           </eAnnotations>
         </lowerValue>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Extension" xmi:id="_11_5_be00301_1151908234482_966809_159" name="" memberEnd="_11_5_be00301_1151908234482_122252_161 _11_5_be00301_1151908234482_224109_160">
-      <eAnnotations xmi:id="_LPnXklYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXk1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908234482_966809_159"/>
+      <eAnnotations xmi:id="_7RyPTVxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RyPTlxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908234482_966809_159"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_11_5_be00301_1151908234482_122252_161" name="extension_" visibility="private" type="_11_5_be00301_1151908232109_493412_157" aggregation="composite" association="_11_5_be00301_1151908234482_966809_159">
-        <eAnnotations xmi:id="_LPnXlFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXlVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908234482_122252_161"/>
+        <eAnnotations xmi:id="_7RyPT1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPUFxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908234482_122252_161"/>
         </eAnnotations>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_11_5_be00301_1151908234482_377432_163" name="" value="1">
-          <eAnnotations xmi:id="_LPnXllYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXl1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908234482_377432_163"/>
+          <eAnnotations xmi:id="_7RyPUVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPUlxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908234482_377432_163"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_11_5_be00301_1151908234482_66258_162" name="">
-          <eAnnotations xmi:id="_LPnXmFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXmVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908234482_66258_162"/>
+          <eAnnotations xmi:id="_7RyPU1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPVFxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908234482_66258_162"/>
           </eAnnotations>
         </lowerValue>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Extension" xmi:id="_11_5EAPbeta_be00301_1148642767573_534647_270" name="" memberEnd="_11_5EAPbeta_be00301_1148642767573_559919_272 _11_5EAPbeta_be00301_1148642767573_196284_271">
-      <eAnnotations xmi:id="_LPnXmlYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXm1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_534647_270"/>
+      <eAnnotations xmi:id="_7RyPVVxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RyPVlxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_534647_270"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_11_5EAPbeta_be00301_1148642767573_559919_272" name="extension_" visibility="private" type="_11_5EAPbeta_be00301_1148642764910_998510_268" aggregation="composite" association="_11_5EAPbeta_be00301_1148642767573_534647_270">
-        <eAnnotations xmi:id="_LPnXnFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXnVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_559919_272"/>
+        <eAnnotations xmi:id="_7RyPV1xIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RyPWFxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_559919_272"/>
         </eAnnotations>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_11_5EAPbeta_be00301_1148642767573_62314_274" name="" value="1">
-          <eAnnotations xmi:id="_LPnXnlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXn1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_62314_274"/>
+          <eAnnotations xmi:id="_7RyPWVxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPWlxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_62314_274"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_11_5EAPbeta_be00301_1148642767573_3428_273" name="">
-          <eAnnotations xmi:id="_LPnXoFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXoVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_3428_273"/>
+          <eAnnotations xmi:id="_7RyPW1xIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RyPXFxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1148642767573_3428_273"/>
           </eAnnotations>
         </lowerValue>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Extension" xmi:id="_11_5EAPbeta_be00301_1149591436012_62817_130" name="" memberEnd="_11_5EAPbeta_be00301_1149591436012_515478_132 _11_5EAPbeta_be00301_1149591436012_518876_131">
-      <eAnnotations xmi:id="_LPnXolYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXo1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_62817_130"/>
+      <eAnnotations xmi:id="_7Ry2AFxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7Ry2AVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_62817_130"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_11_5EAPbeta_be00301_1149591436012_515478_132" name="extension_Customization" visibility="private" type="_11_5EAPbeta_be00301_1148632817486_155219_3" aggregation="composite" association="_11_5EAPbeta_be00301_1149591436012_62817_130">
-        <eAnnotations xmi:id="_LPnXpFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPnXpVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_515478_132"/>
+        <eAnnotations xmi:id="_7Ry2AlxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Ry2A1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_515478_132"/>
         </eAnnotations>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_11_5EAPbeta_be00301_1149591436012_396194_134" name="" value="1">
-          <eAnnotations xmi:id="_LPnXplYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXp1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_396194_134"/>
+          <eAnnotations xmi:id="_7Ry2BFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Ry2BVxIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_396194_134"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_11_5EAPbeta_be00301_1149591436012_516780_133" name="">
-          <eAnnotations xmi:id="_LPnXqFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPnXqVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_516780_133"/>
+          <eAnnotations xmi:id="_7Ry2BlxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Ry2B1xIEeSoJK3VmsogBg" key="md_id" value="_11_5EAPbeta_be00301_1149591436012_516780_133"/>
           </eAnnotations>
         </lowerValue>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_12_0EAPbeta_be00301_1159943470859_244302_338" name="CustomizationOfCustomization">
-      <eAnnotations xmi:id="_LPnXqlYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPnXq1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159943470859_244302_338"/>
+      <eAnnotations xmi:id="_7Ry2CFxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7Ry2CVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159943470859_244302_338"/>
       </eAnnotations>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_12_0EAPbeta_be00301_1157552487453_470617_1" name="metaProperty">
-      <eAnnotations xmi:id="_LPmJQlYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPmJQ1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552487453_470617_1"/>
+      <eAnnotations xmi:id="_7RxA1FxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7RxA1VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552487453_470617_1"/>
       </eAnnotations>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157552563192_854244_8" name="base_Property" visibility="private" association="_12_0EAPbeta_be00301_1157552563192_997222_7">
-        <eAnnotations xmi:id="_LPmJRFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJRVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_854244_8"/>
+        <eAnnotations xmi:id="_7RxA1lxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxA11xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552563192_854244_8"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157552570923_136252_12" name="newName" visibility="private">
-        <eAnnotations xmi:id="_LPmJRlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJR1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552570923_136252_12"/>
+        <eAnnotations xmi:id="_7RxA2FxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxA2VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552570923_136252_12"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157552669154_722784_13" name="newTypes" visibility="private">
-        <eAnnotations xmi:id="_LPmJSFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJSVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552669154_722784_13"/>
+        <eAnnotations xmi:id="_7RxA2lxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxA21xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552669154_722784_13"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_756401_14" name="" value="*">
-          <eAnnotations xmi:id="_LPmJSlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJS1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_756401_14"/>
+          <eAnnotations xmi:id="_7RxA3FxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxA3VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_756401_14"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157552679409_126601_14" name="" value="*">
-          <eAnnotations xmi:id="_LPmJTFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJTVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157552679409_126601_14"/>
+          <eAnnotations xmi:id="_7RxA3lxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxA31xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157552679409_126601_14"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0_be00301_1163688525071_232318_125" name="suggestedValues" visibility="private">
-        <eAnnotations xmi:id="_LPmJTlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJT1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0_be00301_1163688525071_232318_125"/>
+        <eAnnotations xmi:id="_7RxA4FxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7RxA4VxIEeSoJK3VmsogBg" key="md_id" value="_12_0_be00301_1163688525071_232318_125"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0_be00301_1163688551680_963813_127" name="" value="*">
-          <eAnnotations xmi:id="_LPmJUFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJUVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0_be00301_1163688551680_963813_127"/>
+          <eAnnotations xmi:id="_7RxA4lxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxA41xIEeSoJK3VmsogBg" key="md_id" value="_12_0_be00301_1163688551680_963813_127"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0_be00301_1163688551680_37926_126" name="" value="*">
-          <eAnnotations xmi:id="_LPmJUlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJU1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0_be00301_1163688551680_37926_126"/>
+          <eAnnotations xmi:id="_7Rxn4FxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Rxn4VxIEeSoJK3VmsogBg" key="md_id" value="_12_0_be00301_1163688551680_37926_126"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_11_5_be00301_1151908232109_493412_157" name="propertyGroup">
-      <eAnnotations xmi:id="_LPmJVFYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPmJVVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908232109_493412_157"/>
+      <eAnnotations xmi:id="_7Rxn4lxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7Rxn41xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908232109_493412_157"/>
       </eAnnotations>
       <ownedAttribute xmi:id="_11_5_be00301_1151908234482_224109_160" name="base_Property" visibility="private" association="_11_5_be00301_1151908234482_966809_159">
-        <eAnnotations xmi:id="_LPmJVlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJV1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908234482_224109_160"/>
+        <eAnnotations xmi:id="_7Rxn5FxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn5VxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908234482_224109_160"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5_be00301_1151908343499_741165_181" name="properties" visibility="private">
-        <eAnnotations xmi:id="_LPmJWFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJWVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908343499_741165_181"/>
+        <eAnnotations xmi:id="_7Rxn5lxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn51xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908343499_741165_181"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409333_575572_1" name="" value="*">
-          <eAnnotations xmi:id="_LPmJWlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJW1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409333_575572_1"/>
+          <eAnnotations xmi:id="_7Rxn6FxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Rxn6VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409333_575572_1"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_11_5_be00301_1151908366232_385692_183" name="" value="*">
-          <eAnnotations xmi:id="_LPmJXFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJXVYkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908366232_385692_183"/>
+          <eAnnotations xmi:id="_7Rxn6lxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Rxn61xIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908366232_385692_183"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_11_5_be00301_1151908372120_977198_185" name="columns" visibility="public">
-        <eAnnotations xmi:id="_LPmJXlYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJX1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908372120_977198_185"/>
+        <eAnnotations xmi:id="_7Rxn7FxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn7VxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908372120_977198_185"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_405883_6" name="" value="*">
-          <eAnnotations xmi:id="_LPmJYFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJYVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_405883_6"/>
+          <eAnnotations xmi:id="_7Rxn7lxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Rxn71xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_405883_6"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_11_5_be00301_1151908406359_503266_187" name="" value="1">
-          <eAnnotations xmi:id="_LPmJYlYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJY1YkEeSHq_COdE4KPQ" key="md_id" value="_11_5_be00301_1151908406359_503266_187"/>
+          <eAnnotations xmi:id="_7Rxn8FxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Rxn8VxIEeSoJK3VmsogBg" key="md_id" value="_11_5_be00301_1151908406359_503266_187"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157701592996_757940_745" name="useAsNode" visibility="private">
-        <eAnnotations xmi:id="_LPmJZFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJZVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157701592996_757940_745"/>
+        <eAnnotations xmi:id="_7Rxn8lxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn81xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157701592996_757940_745"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_12_0EAPbeta_be00301_1157702293303_868726_752" name="suggestedValues">
-      <eAnnotations xmi:id="_LPmJZlYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPmJZ1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702293303_868726_752"/>
+      <eAnnotations xmi:id="_7Rxn9FxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7Rxn9VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702293303_868726_752"/>
       </eAnnotations>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157702352288_681323_759" name="base_Property" visibility="private" association="_12_0EAPbeta_be00301_1157702352288_380469_758">
-        <eAnnotations xmi:id="_LPmJaFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJaVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_681323_759"/>
+        <eAnnotations xmi:id="_7Rxn9lxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn91xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702352288_681323_759"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_12_0EAPbeta_be00301_1157702393377_93867_763" name="suggestedStringValues">
-      <eAnnotations xmi:id="_LPmJalYkEeSHq_COdE4KPQ" source="MagicDraw">
-        <details xmi:id="_LPmJa1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702393377_93867_763"/>
+      <eAnnotations xmi:id="_7Rxn-FxIEeSoJK3VmsogBg" source="MagicDraw">
+        <details xmi:id="_7Rxn-VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702393377_93867_763"/>
       </eAnnotations>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157702418763_489660_770" name="base_Property" visibility="private" association="_12_0EAPbeta_be00301_1157702418763_223586_769">
-        <eAnnotations xmi:id="_LPmJbFYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJbVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_489660_770"/>
+        <eAnnotations xmi:id="_7Rxn-lxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn-1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702418763_489660_770"/>
         </eAnnotations>
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_0EAPbeta_be00301_1157702425183_92025_774" name="values" visibility="private">
-        <eAnnotations xmi:id="_LPmJblYkEeSHq_COdE4KPQ" source="MagicDraw">
-          <details xmi:id="_LPmJb1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702425183_92025_774"/>
+        <eAnnotations xmi:id="_7Rxn_FxIEeSoJK3VmsogBg" source="MagicDraw">
+          <details xmi:id="_7Rxn_VxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702425183_92025_774"/>
         </eAnnotations>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_0EAPbeta_be00301_1159802409353_698821_3" name="" value="*">
-          <eAnnotations xmi:id="_LPmJcFYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJcVYkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_698821_3"/>
+          <eAnnotations xmi:id="_7Rxn_lxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7Rxn_1xIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1159802409353_698821_3"/>
           </eAnnotations>
         </upperValue>
         <lowerValue xmi:type="uml:LiteralString" xmi:id="_12_0EAPbeta_be00301_1157702436048_241276_775" name="" value="*">
-          <eAnnotations xmi:id="_LPmJclYkEeSHq_COdE4KPQ" source="MagicDraw">
-            <details xmi:id="_LPmJc1YkEeSHq_COdE4KPQ" key="md_id" value="_12_0EAPbeta_be00301_1157702436048_241276_775"/>
+          <eAnnotations xmi:id="_7RxoAFxIEeSoJK3VmsogBg" source="MagicDraw">
+            <details xmi:id="_7RxoAVxIEeSoJK3VmsogBg" key="md_id" value="_12_0EAPbeta_be00301_1157702436048_241276_775"/>
           </eAnnotations>
         </lowerValue>
       </ownedAttribute>
     </packagedElement>
     <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationDSL_Customization">
-      <eAnnotations xmi:id="_LPGaAVYkEeSHq_COdE4KPQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_LPCxVlYkEeSHq_COdE4KPQ"/>
+      <eAnnotations xmi:id="_7RvytFxIEeSoJK3VmsogBg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_7RGSgFxIEeSoJK3VmsogBg"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
     </profileApplication>
   </uml:Profile>
-  <MagicDrawProfile:tagGroup xmi:id="_LPGaAlYkEeSHq_COdE4KPQ" base_Property="_11_5EAPbeta_be00301_1148642777358_769958_292"/>
-  <MagicDrawProfile:InvisibleStereotype xmi:id="_LPHBEFYkEeSHq_COdE4KPQ" base_Element="_11_5_be00301_1151654058455_811186_154"/>
-  <MagicDrawProfile:InvisibleStereotype xmi:id="_LPHBElYkEeSHq_COdE4KPQ" base_Element="_11_5_be00301_1157725190237_319379_1"/>
+  <MagicDrawProfile:tagGroup xmi:id="_7RwZwFxIEeSoJK3VmsogBg" base_Property="_11_5EAPbeta_be00301_1148642777358_769958_292"/>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_7RwZwVxIEeSoJK3VmsogBg" base_Element="_11_5_be00301_1157725190237_319379_1"/>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_7RwZwlxIEeSoJK3VmsogBg" base_Element="_11_5_be00301_1151654058455_811186_154"/>
 </xmi:XMI>
