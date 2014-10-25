@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.jboss.seam.Component;
+import org.witchcraft.seam.action.UserUtilAction;
 
 import com.oreon.cerebrum.users.AppUser;
 

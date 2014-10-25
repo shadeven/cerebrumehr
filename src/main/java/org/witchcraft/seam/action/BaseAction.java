@@ -48,7 +48,6 @@ import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.base.entity.FileAttachment;
-import org.witchcraft.base.entity.UserUtilAction;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;

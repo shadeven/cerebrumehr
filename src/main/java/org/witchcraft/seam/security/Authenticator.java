@@ -17,7 +17,7 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
-import org.witchcraft.base.entity.UserUtilAction;
+import org.witchcraft.seam.action.UserUtilAction;
 
 import com.oreon.cerebrum.users.AppRole;
 import com.oreon.cerebrum.users.AppUser;
