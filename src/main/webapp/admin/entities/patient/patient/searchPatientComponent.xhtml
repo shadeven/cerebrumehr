@@ -4,7 +4,8 @@
   <h:form> 
     <ui:include src="freeTypeSearchPatientComponent.xhtml"/>  
     <br/>  
-    <p:panel header="Advanced Search" toggleable="true" collapsed="true"> 
+    <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px">
+    <p:panel header="Advanced Search" toggleable="true" collapsed="true" > 
       <ui:include src="fieldSearchPatientComponent.xhtml"/>  
       <div class="actionButtons"> 
         <h:commandButton id="search" value="Search" view="/admin/entities/patient/patient/listPatient.xhtml"> 
@@ -13,5 +14,6 @@
         <s:button propagation="none" id="reset" value="Reset" includePageParams="false"/> 
       </div> 
     </p:panel> 
+    </p:overlayPanel>
   </h:form> 
 </ui:composition>

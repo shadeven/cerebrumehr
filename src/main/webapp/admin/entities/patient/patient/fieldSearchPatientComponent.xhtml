@@ -4,7 +4,7 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
-  <h:panelGrid columns="6"> 
+  <h:panelGrid columns="6"  > 
     <h:panelGroup> 
       <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>  
       <br/>  

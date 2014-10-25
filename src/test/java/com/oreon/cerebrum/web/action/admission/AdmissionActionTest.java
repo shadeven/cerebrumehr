@@ -32,7 +32,7 @@ public class AdmissionActionTest extends AdmissionActionTestBase{
 		*/
 		
 		
-		Query query = em.createQuery("select count(p.gender), p.gender from Patient p group by p.gender");
+		Query query = em.createQuery("select p.gender, count(p.id) from Patient p group by p.gender");
 		 
 		List<Object[]> listExpected = query.getResultList();
 		
