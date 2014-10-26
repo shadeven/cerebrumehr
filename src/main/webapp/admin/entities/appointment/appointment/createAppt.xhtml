@@ -31,7 +31,7 @@
 
 			
 			<p:schedule id="schedule" value="#{appointmentAction.eventModel}"  slotMinutes="#{settingsAction.slotLength}"
-				widgetVar="myschedule" view="agendaWeek"  firstHour="#{settingsAction.startHour}" >
+				widgetVar="myschedule" view="agendaWeek"  firstHour="#{settingsAction.startHour}" timeZone="UTC">
 
 				<p:ajax event="dateSelect"
 					listener="#{appointmentAction.onDateSelect}"

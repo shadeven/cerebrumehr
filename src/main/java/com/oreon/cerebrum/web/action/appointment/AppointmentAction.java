@@ -101,7 +101,6 @@ public class AppointmentAction extends AppointmentActionBase implements
 		clearInstance();
 
 		DateTime dtStart = new DateTime((Date) selectEvent.getObject());
-		dtStart = new DateTime(dtStart.minusHours(1));
 		System.out.println(dtStart);
 
 		DateTime dtEnd = dtStart.plusMinutes(30);
